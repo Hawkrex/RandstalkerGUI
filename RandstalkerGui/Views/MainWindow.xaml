@@ -1,0 +1,68 @@
+﻿<Window x:Class="RandstalkerGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:RandstalkerGui.ViewModels"
+        xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls"
+        xmlns:converters="clr-namespace:RandstalkerGui.Converters"
+        mc:Ignorable="d"
+        Closed="OnClose"
+        Title="{DynamicResource Title}" MinWidth="940" MinHeight="850">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <converters:CurrentCultureSelectedConverter x:Key="CurrentCultureSelectedConverter"/>
+        <system:String x:Key="usaLanguage">en-US</system:String>
+        <system:String x:Key="frenchLanguage">fr-FR</system:String>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{DynamicResource MenuItem_File}">
+                <MenuItem Header="{DynamicResource MenuItem_Exit}" Command="{Binding OnClose}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource MenuItem_Options}">
+                <MenuItem Header="{DynamicResource MenuItem_Config}" Command="{Binding Config}"/>
+                <Separator/>
+                <MenuItem Header="{DynamicResource MenuItem_EnUs}" Command="{Binding SwitchLanguage}" CommandParameter="{StaticResource usaLanguage}" IsChecked="{Binding CurrentCulture, Mode=OneWay, Converter={StaticResource CurrentCultureSelectedConverter}, ConverterParameter={StaticResource usaLanguage}}"/>
+                <MenuItem Header="{DynamicResource MenuItem_FrFr}" Command="{Binding SwitchLanguage}" CommandParameter="{StaticResource frenchLanguage}" IsChecked="{Binding CurrentCulture, Mode=OneWay, Converter={StaticResource CurrentCultureSelectedConverter}, ConverterParameter={StaticResource frenchLanguage}}"/>
+            </MenuItem>
+            <MenuItem Header="{DynamicResource MenuItem_Help}">
+                <MenuItem Header="{DynamicResource MenuItem_About}" Command="{Binding About}"/>
+            </MenuItem>
+        </Menu>
+        <TabControl>
+            <TabItem Header="{DynamicResource Homepage}">
+                <uc:HomepageView Margin="5,5,5,5"/>
+            </TabItem>
+            <TabItem Header="{DynamicResource Settings}">
+                <TabControl TabStripPlacement="Left">
+                    <TabItem ToolTip="{DynamicResource PresetTooltip}">
+                        <TabItem.Header>
+                            <Image Width="64" Source="../Resources/Images/GearIcon.png"/>
+                        </TabItem.Header>
+                        <uc:PresetView Margin="5,5,5,5"/>
+                    </TabItem>
+                    <TabItem ToolTip="{DynamicResource PersonalSettingsTooltip}">
+                        <TabItem.Header>
+                            <Image Width="64" Source="../Resources/Images/UserIcon.png"/>
+                        </TabItem.Header>
+                        <uc:PersonalSettingsView Margin="5,5,5,5"/>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="{DynamicResource Plando}">
+                <StackPanel>
+                    <Label>Coming soon !</Label>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="{DynamicResource Wiki}">
+                <StackPanel>
+                    <Label>Coming soon !</Label>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

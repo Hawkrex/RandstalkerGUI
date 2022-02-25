@@ -1,0 +1,151 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="ResourceDictionaryName">Localisation-en-US</system:String>
+
+    <system:String x:Key="Title">Randstalker GUI</system:String>
+
+    <!-- MainWindow : Top menu -->
+    <system:String x:Key="MenuItem_File">_File</system:String>
+    <system:String x:Key="MenuItem_Exit">_Exit</system:String>
+    <system:String x:Key="MenuItem_Options">_Options</system:String>
+    <system:String x:Key="MenuItem_Config">_Config</system:String>
+    <system:String x:Key="MenuItem_EnUs">_En-Us</system:String>
+    <system:String x:Key="MenuItem_FrFr">_Fr-Fr</system:String>
+    <system:String x:Key="MenuItem_Help">_Help</system:String>
+    <system:String x:Key="MenuItem_About">_About</system:String>
+
+    <!-- MainWindow : About Window -->
+    <system:String x:Key="AboutText" xml:space="preserve">Program written by Hawkrex&#10;&#13;Using Dinopony's Randstlaker</system:String>
+    <system:String x:Key="AboutTitle">About</system:String>
+
+    <!-- MainWindow : Main TabControl -->
+    <system:String x:Key="Homepage">Homepage</system:String>
+    <system:String x:Key="Settings">Settings</system:String>
+    <system:String x:Key="Plando">Plando</system:String>
+    <system:String x:Key="Wiki">Wiki</system:String>
+
+    <!-- MainWindow : Settings TabControl -->
+    <system:String x:Key="PresetTooltip">Preset</system:String>
+    <system:String x:Key="PersonalSettingsTooltip">Personal Settings</system:String>
+
+    <!-- UserConfig -->
+    <system:String x:Key="UserConfig">UserConfig</system:String>
+    <system:String x:Key="RandstlakerExePath">Randstalker exe path</system:String>
+    <system:String x:Key="RandstlakerExePathTooltip">Randstalker exe path</system:String>
+    <system:String x:Key="PresetsPath">Presets path</system:String>
+    <system:String x:Key="PresetsPathTooltip">Presets path</system:String>
+    <system:String x:Key="PersonalSettingsPath">Personal settings path</system:String>
+    <system:String x:Key="PersonalSettingsPathTooltip">Personal settings path</system:String>
+    <system:String x:Key="InputRomPath">Input rom path</system:String>
+    <system:String x:Key="InputRomPathTooltip">Input rom path</system:String>
+    <system:String x:Key="OutputRomPath">Output rom path</system:String>
+    <system:String x:Key="OutputRomPathTooltip">Output rom path</system:String>
+    <system:String x:Key="SaveUserConfig">Save UserConfig</system:String>
+
+    <!-- Homepage -->
+    <system:String x:Key="GenerateRom">Generate ROM</system:String>
+
+    <!-- Preset -->
+    <system:String x:Key="StartingGroupBox">Starting</system:String>
+    <system:String x:Key="LogicGroupBox">Logic</system:String>
+    <system:String x:Key="FixesGroupBox">Fixes</system:String>
+    <system:String x:Key="AdjustmentsGroupBox">Adjustments</system:String>
+    <system:String x:Key="HintsGroupBox">Hints</system:String>
+    
+    <system:String x:Key="ChristmasEvent">Christmas event</system:String>
+    <system:String x:Key="ChristmasEventTooltip">Christmas event</system:String>
+    <system:String x:Key="JewelCount">Jewel count</system:String>
+    <system:String x:Key="JewelCountTooltip">Jewel count</system:String>
+    <system:String x:Key="ArmorUpgrades">Armor upgrades</system:String>
+    <system:String x:Key="ArmorUpgradesTooltip">Armor upgrades</system:String>
+    <system:String x:Key="StartingGold">Starting gold</system:String>
+    <system:String x:Key="StartingGoldTooltip">Starting gold</system:String>
+    <system:String x:Key="AutomaticStartingLife">Automatic starting life</system:String>
+    <system:String x:Key="AutomaticStartingLifeTooltip">Automatic starting life</system:String>
+    <system:String x:Key="StartingLife">Starting life</system:String>
+    <system:String x:Key="StartingLifeTooltip">Starting life</system:String>
+    <system:String x:Key="FixArmletSkip">Fix Armlet Skip</system:String>
+    <system:String x:Key="FixArmletSkipTooltip">Fix Armlet Skip</system:String>
+    <system:String x:Key="RemoveTreeCuttingGlitchDrops">Remove Tree Cutting Glitch drops</system:String>
+    <system:String x:Key="RemoveTreeCuttingGlitchDropsTooltip">Remove Tree Cutting Glitch drops</system:String>
+    <system:String x:Key="ConsumableRecordBook">Consumable Record Book</system:String>
+    <system:String x:Key="ConsumableRecordBookTooltip">Consumable Record Book</system:String>
+    <system:String x:Key="RemoveGumiBoulder">Remove Gumi boulder</system:String>
+    <system:String x:Key="RemoveGumiBoulderTooltip">Remove Gumi boulder</system:String>
+    <system:String x:Key="RemoveTiborRequirement">Remove Tibor requirement</system:String>
+    <system:String x:Key="RemoveTiborRequirementTooltip">Remove Tibor requirement</system:String>
+    <system:String x:Key="AllTreesVisitedAtStart">All trees visited at start</system:String>
+    <system:String x:Key="AllTreesVisitedAtStartTooltip">All trees visited at start</system:String>
+    <system:String x:Key="EnemiesDamageFactor">Enemies damage factor</system:String>
+    <system:String x:Key="EnemiesDamageFactorTooltip">Enemies damage factor</system:String>
+    <system:String x:Key="EnemiesHealthFactor">Enemies health factor</system:String>
+    <system:String x:Key="EnemiesHealthFactorTooltip">Enemies health factor</system:String>
+    <system:String x:Key="EnemiesArmorFactor">Enemies armor factor</system:String>
+    <system:String x:Key="EnemiesArmorFactorTooltip">Enemies armor factor</system:String>
+    <system:String x:Key="EnemiesGoldsFactor">Enemies golds factor</system:String>
+    <system:String x:Key="EnemiesGoldsFactorTooltip">Enemies golds factor</system:String>
+    <system:String x:Key="EnemiesDropChanceFactor">Enemies drop chance factor</system:String>
+    <system:String x:Key="EnemiesDropChanceFactorTooltip">Enemies drop chance factor</system:String>
+    <system:String x:Key="HealthGainedPerLifestock">Health gained per lifestock</system:String>
+    <system:String x:Key="HealthGainedPerLifestockTooltip">Health gained per lifestock</system:String>
+    <system:String x:Key="AllowSpoilerLog">Allow spoiler log</system:String>
+    <system:String x:Key="AllowSpoilerLogTooltip">Allow spoiler log</system:String>
+    <system:String x:Key="ShuffleTrees">Shuffle trees</system:String>
+    <system:String x:Key="ShuffleTreesTooltip">Shuffle trees</system:String>
+    <system:String x:Key="EnemyJumpingInLogic">Enemy Jumping in logic</system:String>
+    <system:String x:Key="EnemyJumpingInLogicTooltip">Enemy Jumping in logic</system:String>
+    <system:String x:Key="DamageBoostingInLogic">Damage Boosting in logic</system:String>
+    <system:String x:Key="DamageBoostingInLogicTooltip">Damage Boosting in logic</system:String>
+    <system:String x:Key="TreeCuttingGlitchInLogic">Tree Cutting Glitch in logic</system:String>
+    <system:String x:Key="TreeCuttingGlitchInLogicTooltip">Tree Cutting Glitch in logic</system:String>
+    <system:String x:Key="RegionRequirement">Region requirement</system:String>
+    <system:String x:Key="RegionRequirementTooltip">Region requirement</system:String>
+    <system:String x:Key="ItemRequirement">Item requirement</system:String>
+    <system:String x:Key="ItemRequirementTooltip">Item requirement</system:String>
+    <system:String x:Key="ItemLocation">Item location</system:String>
+    <system:String x:Key="ItemLocationTooltip">Item location</system:String>
+    <system:String x:Key="DarkRegion">Dark region</system:String>
+    <system:String x:Key="DarkRegionTooltip">Dark region</system:String>
+    <system:String x:Key="Joke">Joke</system:String>
+    <system:String x:Key="JokeTooltip">Joke</system:String>
+
+    <system:String x:Key="SpawnLocations">Spawn locations</system:String>
+    <system:String x:Key="Massan">Massan</system:String>
+    <system:String x:Key="MassanTooltip">Massan</system:String>
+    <system:String x:Key="Gumi">Gumi</system:String>
+    <system:String x:Key="GumiTooltip">Gumi</system:String>
+    <system:String x:Key="Kado">Kado</system:String>
+    <system:String x:Key="KadoTooltip">Kado</system:String>
+    <system:String x:Key="Waterfall">Waterfall</system:String>
+    <system:String x:Key="WaterfallTooltip">Waterfall</system:String>
+    <system:String x:Key="Ryuma">Ryuma</system:String>
+    <system:String x:Key="RyumaTooltip">Ryuma</system:String>
+    <system:String x:Key="Mercator">Mercator</system:String>
+    <system:String x:Key="MercatorTooltip">Mercator</system:String>
+    <system:String x:Key="Verla">Verla</system:String>
+    <system:String x:Key="VerlaTooltip">Verla</system:String>
+    <system:String x:Key="Greenmaze">Greenmaze</system:String>
+    <system:String x:Key="GreenmazeTooltip">Greenmaze</system:String>
+    <system:String x:Key="Destel">Destel</system:String>
+    <system:String x:Key="DestelTooltip">Destel</system:String>
+
+    <system:String x:Key="StartingItems">Starting items</system:String>
+    <system:String x:Key="ItemsDistribution">Items distribution</system:String>
+    <system:String x:Key="Add">Add</system:String>
+    <system:String x:Key="Delete">Delete</system:String>
+
+    <system:String x:Key="SavePreset">Save preset</system:String>
+
+    <!-- Personal Settings -->
+    <system:String x:Key="InGameTracker">In game tracker</system:String>
+    <system:String x:Key="InGameTrackerTooltip">In game tracker</system:String>
+    <system:String x:Key="HudColor">HUD color</system:String>
+    <system:String x:Key="HudColorTooltip">HUD color</system:String>
+    <system:String x:Key="MainNigelColor">Main Nigel color</system:String>
+    <system:String x:Key="MainNigelColorTooltip">Main Nigel color</system:String>
+    <system:String x:Key="SecondaryNigelColor">Secondary Nigel color</system:String>
+    <system:String x:Key="SecondaryNigelColorTooltip">Secondary Nigel color</system:String>
+
+    <system:String x:Key="SavePersonalSettings">Save personal settings</system:String>
+</ResourceDictionary>

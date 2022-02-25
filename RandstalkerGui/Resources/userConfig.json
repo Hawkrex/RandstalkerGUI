@@ -1,0 +1,7 @@
+{
+  "randstlakerExePath": "./Randstalker/",
+  "presetsPath": "./Randstalker/",
+  "personalSettingsPath": "./Randstalker/",
+  "inputRomPath": "./Randstalker/",
+  "outputRomPath": "./Randstalker/seeds/"
+}

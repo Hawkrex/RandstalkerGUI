@@ -1,0 +1,47 @@
+﻿<Window x:Class="RandstalkerGui.Views.Popups.UserConfigPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RandstalkerGui.ViewModels.Popups"
+        mc:Ignorable="d"
+        Title="{DynamicResource UserConfig}" Height="300" Width="800">
+    <Window.DataContext>
+        <local:UserConfigPopupViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="StackPanel" x:Key="ParameterPanel">
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical">
+        <StackPanel Style="{StaticResource ParameterPanel}">
+            <Label Content="{DynamicResource RandstlakerExePath}" ToolTip="{DynamicResource RandstlakerExePathTooltip}"/>
+            <TextBox Text="{Binding RandstlakerExePath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectRandstlakerExePath}"/>
+        </StackPanel>
+        <StackPanel Style="{StaticResource ParameterPanel}">
+            <Label Content="{DynamicResource PresetsPath}" ToolTip="{DynamicResource PresetsPathTooltip}"/>
+            <TextBox Text="{Binding PresetsPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectPresetsPath}"/>
+        </StackPanel>
+        <StackPanel Style="{StaticResource ParameterPanel}">
+            <Label Content="{DynamicResource PersonalSettingsPath}" ToolTip="{DynamicResource PersonalSettingsPathTooltip}"/>
+            <TextBox Text="{Binding PersonalSettingsPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectPersonalSettingsPath}"/>
+        </StackPanel>
+        <StackPanel Style="{StaticResource ParameterPanel}">
+            <Label Content="{DynamicResource InputRomPath}" ToolTip="{DynamicResource InputRomPathTooltip}"/>
+            <TextBox Text="{Binding InputRomPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectInputRomPath}"/>
+        </StackPanel>
+        <StackPanel Style="{StaticResource ParameterPanel}">
+            <Label Content="{DynamicResource OutputRomPath}" ToolTip="{DynamicResource OutputRomPathTooltip}"/>
+            <TextBox Text="{Binding OutputRomPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectOutputRomPath}"/>
+        </StackPanel>
+        <Button Content="{DynamicResource SaveUserConfig}" Command="{Binding SaveUserConfig}"
+                Margin="5,5,5,5" Height="50" />
+    </StackPanel>
+</Window>
