@@ -16,7 +16,7 @@
     <system:String x:Key="MenuItem_About">_About</system:String>
 
     <!-- MainWindow : About Window -->
-    <system:String x:Key="AboutText" xml:space="preserve">Program written by Hawkrex&#10;&#13;Using Dinopony's Randstlaker</system:String>
+    <system:String x:Key="AboutText" xml:space="preserve">Program written by Hawkrex&#10;&#13;Using Dinopony's Randstalker</system:String>
     <system:String x:Key="AboutTitle">About</system:String>
 
     <!-- MainWindow : Main TabControl -->
@@ -138,6 +138,8 @@
     <system:String x:Key="SavePreset">Save preset</system:String>
 
     <!-- Personal Settings -->
+    <system:String x:Key="RemoveMusic">Remove music</system:String>
+    <system:String x:Key="RemoveMusicTooltip">Remove music</system:String>
     <system:String x:Key="InGameTracker">In game tracker</system:String>
     <system:String x:Key="InGameTrackerTooltip">In game tracker</system:String>
     <system:String x:Key="HudColor">HUD color</system:String>

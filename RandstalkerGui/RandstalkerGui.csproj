@@ -246,8 +246,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>; Move all assemblies and related files to lib folder
-ROBOCOPY "$(TargetDir) " "$(TargetDir)lib\ " /XF *.exe *.config *.manifest /XD Lib Logs Data Randstalker Resources /E /IS /MOVE
+    <PostBuildEvent>; Move all assemblies and related files to Libs folder
+ROBOCOPY "$(TargetDir) " "$(TargetDir)Libs\ " /XF *.exe *.config *.manifest /XD Libs Logs Data Randstalker Resources /E /IS /MOVE
 if %25errorlevel%25 leq 4 exit 0 else exit %25errorlevel%25</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -13,5 +13,8 @@ namespace RandstalkerGui.Models
 
         [JsonProperty("nigelColor")]
         public List<string> NigelColor { get; set; }
+
+        [JsonProperty("removeMusic")]
+        public bool RemoveMusic { get; set; }
     }
 }

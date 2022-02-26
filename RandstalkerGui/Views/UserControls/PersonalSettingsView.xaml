@@ -24,6 +24,10 @@
     <StackPanel>
         <StackPanel>
             <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding RemoveMusic}" />
+                <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
                 <CheckBox IsChecked="{Binding InGameTracker}" />
                 <Label Content="{DynamicResource InGameTracker}" ToolTip="{DynamicResource InGameTrackerTooltip}"/>
             </StackPanel>

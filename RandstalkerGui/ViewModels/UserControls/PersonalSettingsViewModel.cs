@@ -11,6 +11,23 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private PersonalSettings _personalSettings;
 
+        public bool RemoveMusic
+        {
+            get
+            {
+                return _personalSettings.RemoveMusic;
+            }
+            set
+            {
+                if (_personalSettings.RemoveMusic != value)
+                {
+                    Log.Debug($"{nameof(_personalSettings.RemoveMusic)} => <{_personalSettings.RemoveMusic}> will change to <{value}>");
+                    _personalSettings.RemoveMusic = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool InGameTracker
         {
             get
