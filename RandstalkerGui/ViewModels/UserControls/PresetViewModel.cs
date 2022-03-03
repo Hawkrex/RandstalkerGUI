@@ -512,14 +512,17 @@ namespace RandstalkerGui.ViewModels.UserControls
             _preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.ComputePresetInfos();
             _preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.ComputePresetInfos();
 
-            File.WriteAllText(UserConfig.Instance.PresetsPath + "preset.json", JsonConvert.SerializeObject(_preset));
+            File.WriteAllText(UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath, JsonConvert.SerializeObject(_preset));
 
             Log.Debug($"{nameof(SavePresetHandler)}() => Command executed");
         }
 
         public PresetViewModel()
         {
-            _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsPath + "preset.json"));
+            if (File.Exists(UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath))
+                _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath));
+            else
+                _preset = new Preset();
             _itemDefinitions = new ItemDefinitions();
 
             StartingsItemsViewModel = new ItemsCounterViewModel(_preset.GameSettings.StartingItems, _itemDefinitions);

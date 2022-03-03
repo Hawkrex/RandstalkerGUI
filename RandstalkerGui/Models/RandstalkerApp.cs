@@ -13,7 +13,7 @@ namespace RandstalkerGui.Models
             _start = new ProcessStartInfo();
 
             // Enter the executable to run, including the complete path          
-            _start.FileName = Path.GetFullPath(UserConfig.Instance.RandstlakerExePath + "randstalker.exe");
+            _start.FileName = Path.GetFullPath(UserConfig.Instance.RandstlakerExeDirectoryPath + "/randstalker.exe");
             // Do you want to show a console window?
             _start.WindowStyle = ProcessWindowStyle.Hidden;
             _start.RedirectStandardOutput = true;
@@ -22,10 +22,10 @@ namespace RandstalkerGui.Models
             _start.UseShellExecute = false;
         }
 
-        public string GenerateSeed(string inputRomPath, string outputRomPath, string preset, string personalSettings, string permalink = "")
+        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetFilePath, string personalSettingsFilePath, string permalink = "")
         {
             // Enter in the command line arguments, everything you would enter after the executable name itself
-            _start.Arguments = $"--inputrom={inputRomPath} --outputrom={outputRomPath} --preset={preset} --personalsettings={personalSettings} --nopause";
+            _start.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomDirectoryPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
             if (!string.IsNullOrEmpty(permalink))
                 _start.Arguments += " --permalink {permalink}";
 

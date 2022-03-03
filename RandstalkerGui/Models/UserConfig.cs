@@ -6,22 +6,49 @@ namespace RandstalkerGui.Models
 {
     public class UserConfig
     {
-        [JsonProperty("randstlakerExePath")]
-        public string RandstlakerExePath { get; set; }
+        [JsonProperty("randstlakerExeDirectoryPath")]
+        public string RandstlakerExeDirectoryPath { get; set; }
 
-        [JsonProperty("presetsPath")]
-        public string PresetsPath { get; set; }
+        [JsonProperty("presetsDirectoryPath")]
+        public string PresetsDirectoryPath { get; set; }
 
-        [JsonProperty("personalSettingsPath")]
-        public string PersonalSettingsPath { get; set; }
+        [JsonProperty("defaultPresetFilePath")]
+        public string DefaultPresetFilePath { get; set; }
 
-        [JsonProperty("inputRomPath")]
-        public string InputRomPath { get; set; }
+        [JsonProperty("personalSettingsDirectoryPath")]
+        public string PersonalSettingsDirectoryPath { get; set; }
 
-        [JsonProperty("outputRomPath")]
-        public string OutputRomPath { get; set; }
+        [JsonProperty("defaultPersonalSettingsFilePath")]
+        public string DefaultPersonalSettingsFilePath { get; set; }
+
+        [JsonProperty("inputRomFilePath")]
+        public string InputRomFilePath { get; set; }
+
+        [JsonProperty("outputRomDirectoryPath")]
+        public string OutputRomDirectoryPath { get; set; }
+
 
         private static readonly Lazy<UserConfig> _instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
         public static UserConfig Instance => _instance.Value;
+
+        public bool ArePathsValid()
+        {
+            if(!File.Exists(RandstlakerExeDirectoryPath + "/randstalker.exe"))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(PresetsDirectoryPath))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(PersonalSettingsDirectoryPath))
+                return false;
+
+            if (!File.Exists(InputRomFilePath))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(OutputRomDirectoryPath))
+                return false;
+
+            return true;
+        }
     }
 }

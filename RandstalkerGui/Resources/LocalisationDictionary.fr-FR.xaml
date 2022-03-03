@@ -31,16 +31,16 @@
 
     <!-- UserConfig -->
     <system:String x:Key="UserConfig">Config utilisateur</system:String>
-    <system:String x:Key="RandstlakerExePath">Chemin de l'exe de Randstalker</system:String>
-    <system:String x:Key="RandstlakerExePathTooltip">Chemin de l'exe de Randstalker</system:String>
-    <system:String x:Key="PresetsPath">Chemin du fichier de préréglages</system:String>
-    <system:String x:Key="PresetsPathTooltip">Chemin du fichier de préréglages</system:String>
-    <system:String x:Key="PersonalSettingsPath">Chemin du fichier de réglages personnels</system:String>
-    <system:String x:Key="PersonalSettingsPathTooltip">Chemin du fichier de réglages personnels</system:String>
-    <system:String x:Key="InputRomPath">Chemin de la rom en entrée</system:String>
-    <system:String x:Key="InputRomPathTooltip">Chemin de la rom en entrée</system:String>
-    <system:String x:Key="OutputRomPath">Chemin de la rom en sortie</system:String>
-    <system:String x:Key="OutputRomPathTooltip">Chemin de la rom en sortie</system:String>
+    <system:String x:Key="RandstlakerExeDirectoryPath">Chemin de l'exe de Randstalker</system:String>
+    <system:String x:Key="RandstlakerExeDirectoryPathTooltip">Chemin de l'exe de Randstalker</system:String>
+    <system:String x:Key="PresetsDirectoryPath">Chemin du fichier de préréglages</system:String>
+    <system:String x:Key="PresetsDirectoryPathTooltip">Chemin du fichier de préréglages</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPath">Chemin du fichier de réglages personnels</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPathTooltip">Chemin du fichier de réglages personnels</system:String>
+    <system:String x:Key="InputRomFilePath">Chemin de la rom en entrée</system:String>
+    <system:String x:Key="InputRomFilePathTooltip">Chemin de la rom en entrée</system:String>
+    <system:String x:Key="OutputRomDirectoryPath">Chemin de la rom en sortie</system:String>
+    <system:String x:Key="OutputRomDirectoryPathTooltip">Chemin de la rom en sortie</system:String>
     <system:String x:Key="SaveUserConfig">Enregistrer le fichier de config utilisateur</system:String>
     
     <!-- Homepage -->

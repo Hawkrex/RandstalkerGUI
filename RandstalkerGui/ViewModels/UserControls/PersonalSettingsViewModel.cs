@@ -101,14 +101,17 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
-            File.WriteAllText(UserConfig.Instance.PersonalSettingsPath + "personal_settings.json", JsonConvert.SerializeObject(_personalSettings));
+            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath, JsonConvert.SerializeObject(_personalSettings));
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
 
         public PersonalSettingsViewModel()
         {
-            _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsPath + "personal_settings.json"));
+            if (File.Exists(UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath))
+                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath));
+            else
+                _personalSettings = new PersonalSettings();
         }
     }
 }

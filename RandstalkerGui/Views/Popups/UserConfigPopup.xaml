@@ -17,29 +17,29 @@
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <Label Content="{DynamicResource RandstlakerExePath}" ToolTip="{DynamicResource RandstlakerExePathTooltip}"/>
-            <TextBox Text="{Binding RandstlakerExePath, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="..." Command="{Binding SelectRandstlakerExePath}"/>
+            <Label Content="{DynamicResource RandstlakerExeDirectoryPath}" ToolTip="{DynamicResource RandstlakerExeDirectoryPathTooltip}"/>
+            <TextBox Text="{Binding RandstlakerExeDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectRandstlakerExeDirectoryPath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <Label Content="{DynamicResource PresetsPath}" ToolTip="{DynamicResource PresetsPathTooltip}"/>
-            <TextBox Text="{Binding PresetsPath, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="..." Command="{Binding SelectPresetsPath}"/>
+            <Label Content="{DynamicResource PresetsDirectoryPath}" ToolTip="{DynamicResource PresetsDirectoryPathTooltip}"/>
+            <TextBox Text="{Binding PresetsDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectPresetsDirectoryPath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <Label Content="{DynamicResource PersonalSettingsPath}" ToolTip="{DynamicResource PersonalSettingsPathTooltip}"/>
-            <TextBox Text="{Binding PersonalSettingsPath, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="..." Command="{Binding SelectPersonalSettingsPath}"/>
+            <Label Content="{DynamicResource PersonalSettingsDirectoryPath}" ToolTip="{DynamicResource PersonalSettingsDirectoryPathTooltip}"/>
+            <TextBox Text="{Binding PersonalSettingsDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectPersonalSettingsDirectoryPath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <Label Content="{DynamicResource InputRomPath}" ToolTip="{DynamicResource InputRomPathTooltip}"/>
-            <TextBox Text="{Binding InputRomPath, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="..." Command="{Binding SelectInputRomPath}"/>
+            <Label Content="{DynamicResource InputRomFilePath}" ToolTip="{DynamicResource InputRomFilePathTooltip}"/>
+            <TextBox Text="{Binding InputRomFilePath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectInputRomFilePath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <Label Content="{DynamicResource OutputRomPath}" ToolTip="{DynamicResource OutputRomPathTooltip}"/>
-            <TextBox Text="{Binding OutputRomPath, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="..." Command="{Binding SelectOutputRomPath}"/>
+            <Label Content="{DynamicResource OutputRomDirectoryPath}" ToolTip="{DynamicResource OutputRomDirectoryPathTooltip}"/>
+            <TextBox Text="{Binding OutputRomDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="..." Command="{Binding SelectOutputRomDirectoryPath}"/>
         </StackPanel>
         <Button Content="{DynamicResource SaveUserConfig}" Command="{Binding SaveUserConfig}"
                 Margin="5,5,5,5" Height="50" />

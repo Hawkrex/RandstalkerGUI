@@ -31,16 +31,16 @@
 
     <!-- UserConfig -->
     <system:String x:Key="UserConfig">UserConfig</system:String>
-    <system:String x:Key="RandstlakerExePath">Randstalker exe path</system:String>
-    <system:String x:Key="RandstlakerExePathTooltip">Randstalker exe path</system:String>
-    <system:String x:Key="PresetsPath">Presets path</system:String>
-    <system:String x:Key="PresetsPathTooltip">Presets path</system:String>
-    <system:String x:Key="PersonalSettingsPath">Personal settings path</system:String>
-    <system:String x:Key="PersonalSettingsPathTooltip">Personal settings path</system:String>
-    <system:String x:Key="InputRomPath">Input rom path</system:String>
-    <system:String x:Key="InputRomPathTooltip">Input rom path</system:String>
-    <system:String x:Key="OutputRomPath">Output rom path</system:String>
-    <system:String x:Key="OutputRomPathTooltip">Output rom path</system:String>
+    <system:String x:Key="RandstlakerExeDirectoryPath">Randstalker exe path</system:String>
+    <system:String x:Key="RandstlakerExeDirectoryPathTooltip">Randstalker exe path</system:String>
+    <system:String x:Key="PresetsDirectoryPath">Presets path</system:String>
+    <system:String x:Key="PresetsDirectoryPathTooltip">Presets path</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPath">Personal settings path</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPathTooltip">Personal settings path</system:String>
+    <system:String x:Key="InputRomFilePath">Input rom path</system:String>
+    <system:String x:Key="InputRomFilePathTooltip">Input rom path</system:String>
+    <system:String x:Key="OutputRomDirectoryPath">Output rom path</system:String>
+    <system:String x:Key="OutputRomDirectoryPathTooltip">Output rom path</system:String>
     <system:String x:Key="SaveUserConfig">Save UserConfig</system:String>
 
     <!-- Homepage -->

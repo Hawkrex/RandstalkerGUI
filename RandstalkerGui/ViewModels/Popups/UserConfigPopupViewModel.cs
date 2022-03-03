@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
@@ -10,159 +11,159 @@ namespace RandstalkerGui.ViewModels.Popups
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public string RandstlakerExePath
+        public string RandstlakerExeDirectoryPath
         {
             get
             {
-                return UserConfig.Instance.RandstlakerExePath;
+                return UserConfig.Instance.RandstlakerExeDirectoryPath;
             }
             set
             {
-                if (UserConfig.Instance.RandstlakerExePath != value)
+                if (UserConfig.Instance.RandstlakerExeDirectoryPath != value)
                 {
-                    Log.Debug($"{nameof(RandstlakerExePath)} => <{UserConfig.Instance.RandstlakerExePath}> will change to <{value}>");
-                    UserConfig.Instance.RandstlakerExePath = value;
+                    Log.Debug($"{nameof(RandstlakerExeDirectoryPath)} => <{UserConfig.Instance.RandstlakerExeDirectoryPath}> will change to <{value}>");
+                    UserConfig.Instance.RandstlakerExeDirectoryPath = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public string PresetsPath
+        public string PresetsDirectoryPath
         {
             get
             {
-                return UserConfig.Instance.PresetsPath;
+                return UserConfig.Instance.PresetsDirectoryPath;
             }
             set
             {
-                if (UserConfig.Instance.PresetsPath != value)
+                if (UserConfig.Instance.PresetsDirectoryPath != value)
                 {
-                    Log.Debug($"{nameof(PresetsPath)} => <{UserConfig.Instance.PresetsPath}> will change to <{value}>");
-                    UserConfig.Instance.PresetsPath = value;
+                    Log.Debug($"{nameof(PresetsDirectoryPath)} => <{UserConfig.Instance.PresetsDirectoryPath}> will change to <{value}>");
+                    UserConfig.Instance.PresetsDirectoryPath = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public string PersonalSettingsPath
+        public string PersonalSettingsDirectoryPath
         {
             get
             {
-                return UserConfig.Instance.PersonalSettingsPath;
+                return UserConfig.Instance.PersonalSettingsDirectoryPath;
             }
             set
             {
-                if (UserConfig.Instance.PersonalSettingsPath != value)
+                if (UserConfig.Instance.PersonalSettingsDirectoryPath != value)
                 {
-                    Log.Debug($"{nameof(PersonalSettingsPath)} => <{UserConfig.Instance.PersonalSettingsPath}> will change to <{value}>");
-                    UserConfig.Instance.PersonalSettingsPath = value;
+                    Log.Debug($"{nameof(PersonalSettingsDirectoryPath)} => <{UserConfig.Instance.PersonalSettingsDirectoryPath}> will change to <{value}>");
+                    UserConfig.Instance.PersonalSettingsDirectoryPath = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public string InputRomPath
+        public string InputRomFilePath
         {
             get
             {
-                return UserConfig.Instance.InputRomPath;
+                return UserConfig.Instance.InputRomFilePath;
             }
             set
             {
-                if (UserConfig.Instance.InputRomPath != value)
+                if (UserConfig.Instance.InputRomFilePath != value)
                 {
-                    Log.Debug($"{nameof(InputRomPath)} => <{UserConfig.Instance.InputRomPath}> will change to <{value}>");
-                    UserConfig.Instance.InputRomPath = value;
+                    Log.Debug($"{nameof(InputRomFilePath)} => <{UserConfig.Instance.InputRomFilePath}> will change to <{value}>");
+                    UserConfig.Instance.InputRomFilePath = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public string OutputRomPath
+        public string OutputRomDirectoryPath
         {
             get
             {
-                return UserConfig.Instance.OutputRomPath;
+                return UserConfig.Instance.OutputRomDirectoryPath;
             }
             set
             {
-                if (UserConfig.Instance.OutputRomPath != value)
+                if (UserConfig.Instance.OutputRomDirectoryPath != value)
                 {
-                    Log.Debug($"{nameof(OutputRomPath)} => <{UserConfig.Instance.OutputRomPath}> will change to <{value}>");
-                    UserConfig.Instance.OutputRomPath = value;
+                    Log.Debug($"{nameof(OutputRomDirectoryPath)} => <{UserConfig.Instance.OutputRomDirectoryPath}> will change to <{value}>");
+                    UserConfig.Instance.OutputRomDirectoryPath = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public RelayCommand SelectRandstlakerExePath { get { return new RelayCommand(_ => SelectRandstlakerExePathHandler()); } }
-        private void SelectRandstlakerExePathHandler()
+        public RelayCommand SelectRandstlakerExeDirectoryPath { get { return new RelayCommand(_ => SelectRandstlakerExeDirectoryPathHandler()); } }
+        private void SelectRandstlakerExeDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectRandstlakerExePathHandler)}() => Command requested ...");
+            Log.Debug($"{nameof(SelectRandstlakerExeDirectoryPathHandler)}() => Command requested ...");
 
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = RandstlakerExePath;
+            dialog.InitialDirectory = RandstlakerExeDirectoryPath;
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                RandstlakerExePath = dialog.FileName;
+                RandstlakerExeDirectoryPath = dialog.FileName;
 
-            Log.Debug($"{nameof(SelectRandstlakerExePathHandler)}() => Command executed");
+            Log.Debug($"{nameof(SelectRandstlakerExeDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectPresetsPath { get { return new RelayCommand(_ => SelectPresetsPathHandler()); } }
-        private void SelectPresetsPathHandler()
+        public RelayCommand SelectPresetsDirectoryPath { get { return new RelayCommand(_ => SelectPresetsDirectoryPathHandler()); } }
+        private void SelectPresetsDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectPresetsPathHandler)}() => Command requested ...");
+            Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command requested ...");
 
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = PresetsPath;
+            dialog.InitialDirectory = PresetsDirectoryPath;
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                PresetsPath = dialog.FileName;
+                PresetsDirectoryPath = dialog.FileName;
 
-            Log.Debug($"{nameof(SelectPresetsPathHandler)}() => Command executed");
+            Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectPersonalSettingsPath { get { return new RelayCommand(_ => SelectPersonalSettingsPathHandler()); } }
-        private void SelectPersonalSettingsPathHandler()
+        public RelayCommand SelectPersonalSettingsDirectoryPath { get { return new RelayCommand(_ => SelectPersonalSettingsDirectoryPathHandler()); } }
+        private void SelectPersonalSettingsDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectPersonalSettingsPathHandler)}() => Command requested ...");
+            Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command requested ...");
 
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = PersonalSettingsPath;
+            dialog.InitialDirectory = PersonalSettingsDirectoryPath;
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                PersonalSettingsPath = dialog.FileName;
+                PersonalSettingsDirectoryPath = dialog.FileName;
 
-            Log.Debug($"{nameof(SelectPersonalSettingsPathHandler)}() => Command executed");
+            Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectInputRomPath { get { return new RelayCommand(_ => SelectInputRomPathHandler()); } }
-        private void SelectInputRomPathHandler()
+        public RelayCommand SelectInputRomFilePath { get { return new RelayCommand(_ => SelectInputRomFilePathHandler()); } }
+        private void SelectInputRomFilePathHandler()
         {
-            Log.Debug($"{nameof(SelectInputRomPathHandler)}() => Command requested ...");
+            Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command requested ...");
 
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = InputRomPath;
-            dialog.IsFolderPicker = true;
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                InputRomPath = dialog.FileName;
+            OpenFileDialog dialog = new OpenFileDialog();
+            if (File.Exists(InputRomFilePath))
+                dialog.InitialDirectory = Path.GetDirectoryName(InputRomFilePath);
+            if (dialog.ShowDialog().Value)
+                InputRomFilePath = dialog.FileName;
 
-            Log.Debug($"{nameof(SelectInputRomPathHandler)}() => Command executed");
+            Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectOutputRomPath { get { return new RelayCommand(_ => SelectOutputRomPathHandler()); } }
-        private void SelectOutputRomPathHandler()
+        public RelayCommand SelectOutputRomDirectoryPath { get { return new RelayCommand(_ => SelectOutputRomDirectoryPathHandler()); } }
+        private void SelectOutputRomDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectOutputRomPathHandler)}() => Command requested ...");
+            Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command requested ...");
 
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = OutputRomPath;
+            dialog.InitialDirectory = OutputRomDirectoryPath;
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                OutputRomPath = dialog.FileName;
+                OutputRomDirectoryPath = dialog.FileName;
 
-            Log.Debug($"{nameof(SelectOutputRomPathHandler)}() => Command executed");
+            Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command executed");
         }
 
         public RelayCommand SaveUserConfig { get { return new RelayCommand(_ => SaveUserConfigHandler()); } }

@@ -1,7 +1,9 @@
 {
-  "randstlakerExePath": "./Randstalker/",
-  "presetsPath": "./Randstalker/",
-  "personalSettingsPath": "./Randstalker/",
-  "inputRomPath": "./Randstalker/",
-  "outputRomPath": "./Randstalker/seeds/"
+  "randstlakerExeDirectoryPath": "",
+  "presetsDirectoryPath": "",
+  "defaultPresetFilePath": "/preset.json",
+  "personalSettingsDirectoryPath": "",
+  "defaultPersonalSettingsFilePath": "/personal_settings.json",
+  "inputRomFilePath": "",
+  "outputRomDirectoryPath": ""
 }

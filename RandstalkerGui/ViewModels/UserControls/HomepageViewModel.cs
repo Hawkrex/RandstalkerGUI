@@ -51,7 +51,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command requested ...");
 
             Progress = 0;
-            OutputLog = _randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomPath + "input.md", UserConfig.Instance.OutputRomPath, UserConfig.Instance.PresetsPath + "preset.json", UserConfig.Instance.PersonalSettingsPath + "personal_settings.json");
+            OutputLog = _randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath, UserConfig.Instance.OutputRomDirectoryPath, UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath, UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath);
             Progress = 100;
 
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command executed");

@@ -1,4 +1,5 @@
-﻿using RandstalkerGui.Tools;
+﻿using RandstalkerGui.Models;
+using RandstalkerGui.Tools;
 using RandstalkerGui.Views.Popups;
 using System;
 using System.Threading;
@@ -76,6 +77,12 @@ namespace RandstalkerGui.ViewModels
         {
             Log.Info($"--------------------------------------------------");
             Log.Info($"{nameof(MainViewModel)}() => Initialization");
+
+            while (!UserConfig.Instance.ArePathsValid())
+            {
+                MessageBox.Show("User config not valid");
+                ConfigHandler();
+            } 
         }
     }
 }
