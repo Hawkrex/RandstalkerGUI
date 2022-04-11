@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:RandstalkerGui.ViewModels.UserControls"
-             xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"        
+             xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
+             xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"
              xmlns:converters="clr-namespace:RandstalkerGui.Converters"
              mc:Ignorable="d">
     <UserControl.DataContext>
@@ -29,6 +30,8 @@
         </Style>
     </UserControl.Resources>
     <DockPanel LastChildFill="False">
+        <views:FileTreeView DataContext="{Binding PresetTreeViewModel}"
+                DockPanel.Dock="Left" />
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

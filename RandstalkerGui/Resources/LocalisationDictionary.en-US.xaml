@@ -4,6 +4,13 @@
     <system:String x:Key="ResourceDictionaryName">Localisation-en-US</system:String>
 
     <system:String x:Key="Title">Randstalker GUI</system:String>
+    
+    <!-- Common -->
+    <system:String x:Key="NewFile">New file</system:String>
+    <system:String x:Key="NewFolder">New folder</system:String>
+    <system:String x:Key="Add">Add</system:String>
+    <system:String x:Key="Duplicate">Duplicate</system:String>
+    <system:String x:Key="Delete">Delete</system:String>
 
     <!-- MainWindow : Top menu -->
     <system:String x:Key="MenuItem_File">_File</system:String>
@@ -44,6 +51,10 @@
     <system:String x:Key="SaveUserConfig">Save UserConfig</system:String>
 
     <!-- Homepage -->
+    <system:String x:Key="PresetChoice">Preset choice</system:String>
+    <system:String x:Key="SelectedPreset">Selected preset</system:String>
+    <system:String x:Key="SelectedPresetTooltip">Preset that will be use to generate a seed</system:String>
+    <system:String x:Key="ParametersRecap">Parameters recap</system:String>
     <system:String x:Key="GenerateRom">Generate ROM</system:String>
 
     <!-- Preset -->
@@ -132,8 +143,6 @@
 
     <system:String x:Key="StartingItems">Starting items</system:String>
     <system:String x:Key="ItemsDistribution">Items distribution</system:String>
-    <system:String x:Key="Add">Add</system:String>
-    <system:String x:Key="Delete">Delete</system:String>
 
     <system:String x:Key="SavePreset">Save preset</system:String>
 

@@ -12,14 +12,14 @@ namespace RandstalkerGui.Models
         [JsonProperty("presetsDirectoryPath")]
         public string PresetsDirectoryPath { get; set; }
 
-        [JsonProperty("defaultPresetFilePath")]
-        public string DefaultPresetFilePath { get; set; }
+        [JsonProperty("lastUsedPresetFilePath")]
+        public string LastUsedPresetFilePath { get; set; }
 
         [JsonProperty("personalSettingsDirectoryPath")]
         public string PersonalSettingsDirectoryPath { get; set; }
 
-        [JsonProperty("defaultPersonalSettingsFilePath")]
-        public string DefaultPersonalSettingsFilePath { get; set; }
+        [JsonProperty("lastUsedPersonalSettingsFilePath")]
+        public string LastUsedPersonalSettingsFilePath { get; set; }
 
         [JsonProperty("inputRomFilePath")]
         public string InputRomFilePath { get; set; }

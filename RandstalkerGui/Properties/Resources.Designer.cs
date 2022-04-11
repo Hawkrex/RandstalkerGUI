@@ -61,6 +61,26 @@ namespace RandstalkerGui.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] DefaultPersonalSettings {
+            get {
+                object obj = ResourceManager.GetObject("DefaultPersonalSettings", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] DefaultPreset {
+            get {
+                object obj = ResourceManager.GetObject("DefaultPreset", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à {
         ///    &quot;0&quot;: {
         ///        &quot;name&quot;: &quot;EkeEke&quot;,

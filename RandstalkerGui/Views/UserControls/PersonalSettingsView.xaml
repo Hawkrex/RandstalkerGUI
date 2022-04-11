@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RandstalkerGui.ViewModels.UserControls"
+             xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:PersonalSettingsViewModel/>
@@ -22,6 +23,8 @@
         </Style>
     </UserControl.Resources>
     <StackPanel>
+        <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"
+                DockPanel.Dock="Left" />
         <StackPanel>
             <StackPanel Style="{StaticResource ParameterPanel}">
                 <CheckBox IsChecked="{Binding RemoveMusic}" />

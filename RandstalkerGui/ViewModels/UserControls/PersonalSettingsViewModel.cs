@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RandstalkerGui.Models;
+using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using System.IO;
 
@@ -10,6 +11,8 @@ namespace RandstalkerGui.ViewModels.UserControls
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private PersonalSettings _personalSettings;
+
+        public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
 
         public bool RemoveMusic
         {
@@ -101,17 +104,19 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
-            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath, JsonConvert.SerializeObject(_personalSettings));
+            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath, JsonConvert.SerializeObject(_personalSettings));
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
 
         public PersonalSettingsViewModel()
         {
-            if (File.Exists(UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath))
-                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath));
+            if (File.Exists(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath))
+                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath));
             else
-                _personalSettings = new PersonalSettings();
+                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Resources.DefaultPersonalSettings.ToString());
+
+            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath);
         }
     }
 }

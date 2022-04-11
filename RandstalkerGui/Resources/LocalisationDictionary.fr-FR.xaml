@@ -5,6 +5,13 @@
 
     <system:String x:Key="Title">Randstalker GUI</system:String>
 
+    <!-- Common -->
+    <system:String x:Key="NewFile">Nouveau fichier</system:String>
+    <system:String x:Key="NewFolder">Nouveau dossier</system:String>
+    <system:String x:Key="Add">Ajouter</system:String>
+    <system:String x:Key="Duplicate">Dupliquer</system:String>
+    <system:String x:Key="Delete">Supprimer</system:String>
+
     <!-- MainWindow : Top menu -->
     <system:String x:Key="MenuItem_File">_Fichier</system:String>
     <system:String x:Key="MenuItem_Exit">_Quitter</system:String>
@@ -44,6 +51,10 @@
     <system:String x:Key="SaveUserConfig">Enregistrer le fichier de config utilisateur</system:String>
     
     <!-- Homepage -->
+    <system:String x:Key="PresetChoice">Choix du préréglage</system:String>
+    <system:String x:Key="SelectedPreset">Préréglage séléctionné</system:String>
+    <system:String x:Key="SelectedPresetTooltip">Préréglage qui sera utilisé pour génerer la seed</system:String>
+    <system:String x:Key="ParametersRecap">Récapitulatif des paramètres</system:String>
     <system:String x:Key="GenerateRom">Générer ROM</system:String>
 
     <!-- Preset -->
@@ -132,8 +143,6 @@
     
     <system:String x:Key="StartingItems">Objets de départ</system:String>
     <system:String x:Key="ItemsDistribution">Répartition des objets</system:String>
-    <system:String x:Key="Add">Ajouter</system:String>
-    <system:String x:Key="Delete">Supprimer</system:String>
 
     <system:String x:Key="SavePreset">Enregistrer les préréglages</system:String>
 

@@ -9,6 +9,8 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private RandstalkerApp _randstalkerApp;
 
+        public FileTreeViewModel PresetTreeViewModel { get; set; }
+
         private string _outputLog;
         public string OutputLog
         {
@@ -51,14 +53,18 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command requested ...");
 
             Progress = 0;
-            OutputLog = _randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath, UserConfig.Instance.OutputRomDirectoryPath, UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath, UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.DefaultPersonalSettingsFilePath);
+            OutputLog = _randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath, UserConfig.Instance.OutputRomDirectoryPath, UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, UserConfig.Instance.PersonalSettingsDirectoryPath + UserConfig.Instance.LastUsedPersonalSettingsFilePath);
             Progress = 100;
+
+            UserConfig.Instance.LastUsedPresetFilePath = PresetTreeViewModel.SelectedFileRelativePath;
 
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command executed");
         }
 
         public HomepageViewModel()
         {
+            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath);
+
             _randstalkerApp = new RandstalkerApp();
 
             Progress = 0;

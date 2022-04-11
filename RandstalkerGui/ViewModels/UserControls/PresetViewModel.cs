@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using RandstalkerGui.Models;
+using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.UserControls.SubPresets;
+using System;
 using System.IO;
+using System.Text;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -12,6 +15,8 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private Preset _preset;
         private ItemDefinitions _itemDefinitions;
+
+        public FileTreeViewModel PresetTreeViewModel { get; set; }
 
         public bool ChristmasEvent
         {
@@ -512,22 +517,74 @@ namespace RandstalkerGui.ViewModels.UserControls
             _preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.ComputePresetInfos();
             _preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.ComputePresetInfos();
 
-            File.WriteAllText(UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath, JsonConvert.SerializeObject(_preset));
+            File.WriteAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(_preset));
 
             Log.Debug($"{nameof(SavePresetHandler)}() => Command executed");
         }
 
         public PresetViewModel()
         {
-            if (File.Exists(UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath))
-                _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + UserConfig.Instance.DefaultPresetFilePath));
+            if (File.Exists(UserConfig.Instance.PresetsDirectoryPath + '/' + UserConfig.Instance.LastUsedPresetFilePath))
+                _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + UserConfig.Instance.LastUsedPresetFilePath));
             else
-                _preset = new Preset();
+                _preset = JsonConvert.DeserializeObject<Preset>(Encoding.UTF8.GetString(Resources.DefaultPreset));
+
             _itemDefinitions = new ItemDefinitions();
+
+            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath);
+            PresetTreeViewModel.PropertyChanged += PresetTreeViewModel_PropertyChanged;
 
             StartingsItemsViewModel = new ItemsCounterViewModel(_preset.GameSettings.StartingItems, _itemDefinitions);
             SpawnLocationsViewModel = new SpawnLocationsViewModel(_preset.RandomizerSettings.SpawnLocations);
             ItemsDistributionViewModel = new ItemsCounterViewModel(_preset.RandomizerSettings.ItemsDistribution, _itemDefinitions);
+        }
+
+        private void PresetTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == nameof(PresetTreeViewModel.SelectedFileRelativePath))
+            {
+                _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath));
+                StartingsItemsViewModel = new ItemsCounterViewModel(_preset.GameSettings.StartingItems, _itemDefinitions);
+                SpawnLocationsViewModel = new SpawnLocationsViewModel(_preset.RandomizerSettings.SpawnLocations);
+                ItemsDistributionViewModel = new ItemsCounterViewModel(_preset.RandomizerSettings.ItemsDistribution, _itemDefinitions);
+
+                UpdateProperties();
+            }
+        }
+
+        private void UpdateProperties()
+        {
+            OnPropertyChanged(nameof(ChristmasEvent));
+            OnPropertyChanged(nameof(JewelCount));
+            OnPropertyChanged(nameof(ArmorUpgrades));
+            OnPropertyChanged(nameof(StartingGold));
+            OnPropertyChanged(nameof(AutomaticStartingLife));
+            OnPropertyChanged(nameof(StartingLife));
+            OnPropertyChanged(nameof(StartingsItemsViewModel));
+            OnPropertyChanged(nameof(FixArmletSkip));
+            OnPropertyChanged(nameof(RemoveTreeCuttingGlitchDrops));
+            OnPropertyChanged(nameof(ConsumableRecordBook));
+            OnPropertyChanged(nameof(RemoveGumiBoulder));
+            OnPropertyChanged(nameof(RemoveTiborRequirement));
+            OnPropertyChanged(nameof(AllTreesVisitedAtStart));
+            OnPropertyChanged(nameof(EnemiesDamageFactor));
+            OnPropertyChanged(nameof(EnemiesHealthFactor));
+            OnPropertyChanged(nameof(EnemiesArmorFactor));
+            OnPropertyChanged(nameof(EnemiesGoldsFactor));
+            OnPropertyChanged(nameof(EnemiesDropChanceFactor));
+            OnPropertyChanged(nameof(HealthGainedPerLifestock));
+            OnPropertyChanged(nameof(AllowSpoilerLog));
+            OnPropertyChanged(nameof(SpawnLocationsViewModel));
+            OnPropertyChanged(nameof(ShuffleTrees));
+            OnPropertyChanged(nameof(EnemyJumpingInLogic));
+            OnPropertyChanged(nameof(DamageBoostingInLogic));
+            OnPropertyChanged(nameof(TreeCuttingGlitchInLogic));
+            OnPropertyChanged(nameof(ItemsDistributionViewModel));
+            OnPropertyChanged(nameof(RegionRequirement));
+            OnPropertyChanged(nameof(ItemRequirement));
+            OnPropertyChanged(nameof(ItemLocation));
+            OnPropertyChanged(nameof(DarkRegion));
+            OnPropertyChanged(nameof(Joke));
         }
     }
 }

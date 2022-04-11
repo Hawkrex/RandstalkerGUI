@@ -1,9 +1,9 @@
 {
   "randstlakerExeDirectoryPath": "",
   "presetsDirectoryPath": "",
-  "defaultPresetFilePath": "/preset.json",
+  "lastUsedPresetFilePath": "preset.json",
   "personalSettingsDirectoryPath": "",
-  "defaultPersonalSettingsFilePath": "/personal_settings.json",
+  "lastUsedPersonalSettingsFilePath": "personal_settings.json",
   "inputRomFilePath": "",
   "outputRomDirectoryPath": ""
 }
