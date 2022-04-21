@@ -22,10 +22,10 @@
             <Setter Property="Width" Value="40"/>
         </Style>
     </UserControl.Resources>
-    <StackPanel>
+    <DockPanel LastChildFill="False">
         <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"
                 DockPanel.Dock="Left" />
-        <StackPanel>
+        <StackPanel DockPanel.Dock="Top">
             <StackPanel Style="{StaticResource ParameterPanel}">
                 <CheckBox IsChecked="{Binding RemoveMusic}" />
                 <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
@@ -49,5 +49,5 @@
             <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettings}"
                     Margin="10,10,10,10" Height="50"/>
         </StackPanel>
-    </StackPanel>
+    </DockPanel>
 </UserControl>

@@ -7,10 +7,19 @@
     
     <!-- Common -->
     <system:String x:Key="NewFile">New file</system:String>
-    <system:String x:Key="NewFolder">New folder</system:String>
+    <system:String x:Key="NewDirectory">New directory</system:String>
+    <system:String x:Key="Name">Name :</system:String>
     <system:String x:Key="Add">Add</system:String>
     <system:String x:Key="Duplicate">Duplicate</system:String>
     <system:String x:Key="Delete">Delete</system:String>
+
+    <!-- MessageBox -->
+    <system:String x:Key="DeleteDirectoryAskTitle">Delete directory</system:String>
+    <system:String x:Key="DeleteDirectoryAskMessage">Are you sure you want to delete that directory and all its files ?</system:String>
+    <system:String x:Key="DuplicateFileAskTitle">Duplicate file</system:String>
+    <system:String x:Key="DuplicateFileAskMessage">Are you sure you want to duplicate that file ?</system:String>
+    <system:String x:Key="DeleteFileAskTitle">Delete file</system:String>
+    <system:String x:Key="DeleteFileAskMessage">Are you sure you want to delete that file ?</system:String>
 
     <!-- MainWindow : Top menu -->
     <system:String x:Key="MenuItem_File">_File</system:String>
@@ -52,9 +61,13 @@
 
     <!-- Homepage -->
     <system:String x:Key="PresetChoice">Preset choice</system:String>
+    <system:String x:Key="PersonalSettingsChoice">Personal settings choice</system:String>
+    <system:String x:Key="ParametersRecap">Parameters recap</system:String>
     <system:String x:Key="SelectedPreset">Selected preset</system:String>
     <system:String x:Key="SelectedPresetTooltip">Preset that will be use to generate a seed</system:String>
-    <system:String x:Key="ParametersRecap">Parameters recap</system:String>
+    <system:String x:Key="SelectedPersonalSettings">Selected personal settings</system:String>
+    <system:String x:Key="SelectedPersonalSettingsTooltip">Personal settings that will be use to generate a seed</system:String>
+
     <system:String x:Key="GenerateRom">Generate ROM</system:String>
 
     <!-- Preset -->

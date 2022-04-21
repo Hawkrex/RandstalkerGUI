@@ -7,10 +7,19 @@
 
     <!-- Common -->
     <system:String x:Key="NewFile">Nouveau fichier</system:String>
-    <system:String x:Key="NewFolder">Nouveau dossier</system:String>
+    <system:String x:Key="NewDirectory">Nouveau dossier</system:String>
+    <system:String x:Key="Name">Nom :</system:String>
     <system:String x:Key="Add">Ajouter</system:String>
     <system:String x:Key="Duplicate">Dupliquer</system:String>
     <system:String x:Key="Delete">Supprimer</system:String>
+
+    <!-- MessageBox -->
+    <system:String x:Key="DeleteDirectoryAskTitle">Suppression dossier</system:String>
+    <system:String x:Key="DeleteDirectoryAskMessage">Voulez-vous vraiment supprimer ce dossier et tout ce qu'il contient ?</system:String>
+    <system:String x:Key="DuplicateFileAskTitle">Duplication fichier</system:String>
+    <system:String x:Key="DuplicateFileAskMessage">Voulez-vous vraiment duppliquer ce fichier ?</system:String>
+    <system:String x:Key="DeleteFileAskTitle">Suppression fichier</system:String>
+    <system:String x:Key="DeleteFileAskMessage">Voulez-vous vraiment supprimer ce fichier ?</system:String>
 
     <!-- MainWindow : Top menu -->
     <system:String x:Key="MenuItem_File">_Fichier</system:String>
@@ -52,9 +61,13 @@
     
     <!-- Homepage -->
     <system:String x:Key="PresetChoice">Choix du préréglage</system:String>
+    <system:String x:Key="PersonalSettingsChoice">Choix des réglages personnels</system:String>
+    <system:String x:Key="ParametersRecap">Récapitulatif des paramètres</system:String>
     <system:String x:Key="SelectedPreset">Préréglage séléctionné</system:String>
     <system:String x:Key="SelectedPresetTooltip">Préréglage qui sera utilisé pour génerer la seed</system:String>
-    <system:String x:Key="ParametersRecap">Récapitulatif des paramètres</system:String>
+    <system:String x:Key="SelectedPersonalSettings">Réglages personnels séléctionné</system:String>
+    <system:String x:Key="SelectedPersonalSettingsTooltip">Réglages personnels qui seront utilisé pour génerer la seed</system:String>
+    
     <system:String x:Key="GenerateRom">Générer ROM</system:String>
 
     <!-- Preset -->

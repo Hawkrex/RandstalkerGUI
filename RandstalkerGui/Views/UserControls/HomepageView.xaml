@@ -19,11 +19,18 @@
         <Expander Margin="10" Header="{DynamicResource PresetChoice}">
             <views:FileTreeView DataContext="{Binding PresetTreeViewModel}"/>
         </Expander>
+        <Expander Margin="10" Header="{DynamicResource PersonalSettingsChoice}">
+            <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"/>
+        </Expander>
         <GroupBox Header="{DynamicResource ParametersRecap}">
             <StackPanel Orientation="Vertical">
                 <StackPanel Style="{StaticResource ParameterPanel}">
                     <Label Content="{DynamicResource SelectedPreset}" ToolTip="{DynamicResource SelectedPresetTooltip}"/>
-                    <Label Content="{Binding PresetTreeViewModel.SelectedFileName}"/>
+                    <Label Content="{Binding PresetTreeViewModel.SelectedFileRelativePath}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <Label Content="{DynamicResource SelectedPersonalSettings}" ToolTip="{DynamicResource SelectedPersonalSettingsTooltip}"/>
+                    <Label Content="{Binding PersonalSettingsTreeViewModel.SelectedFileRelativePath}"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>

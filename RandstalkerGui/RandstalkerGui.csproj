@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Tools\BaseViewModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="ViewModels\Popups\InputDialogViewModel.cs" />
     <Compile Include="ViewModels\Popups\UserConfigPopupViewModel.cs" />
     <Compile Include="ViewModels\UserControls\FileTreeViewModel.cs" />
     <Compile Include="ViewModels\UserControls\HomepageViewModel.cs" />
@@ -138,6 +139,9 @@
     <Compile Include="ViewModels\UserControls\PresetViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\SpawnLocationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\ItemsCounterViewModel.cs" />
+    <Compile Include="Views\Popups\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Popups\UserConfigPopup.xaml.cs">
       <DependentUpon>UserConfigPopup.xaml</DependentUpon>
     </Compile>
@@ -184,6 +188,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Popups\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Popups\UserConfigPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

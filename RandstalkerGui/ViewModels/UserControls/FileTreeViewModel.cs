@@ -1,9 +1,14 @@
 ﻿using RandstalkerGui.Models.TreeViewElements;
+using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
+using RandstalkerGui.ViewModels.Popups;
+using RandstalkerGui.Views.Popups;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -11,140 +16,202 @@ namespace RandstalkerGui.ViewModels.UserControls
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string _basePath;
+        private string basePath = string.Empty;
 
         public ObservableCollection<TreeViewElement> Tree { get; set; }
 
-        private string _selectedFileRelativePath;
-        public string SelectedFileRelativePath
+        private bool contextMenuEnabled;
+        public bool ContextMenuEnabled
         {
             get
             {
-                return _selectedFileRelativePath;
+                return contextMenuEnabled;
             }
             set
             {
-                if (_selectedFileRelativePath != value)
+                if (contextMenuEnabled != value)
                 {
-                    Log.Debug($"{nameof(SelectedFileRelativePath)} => <{_selectedFileRelativePath}> will change to <{value}>");
-                    _selectedFileRelativePath = value;
+                    Log.Debug($"{nameof(ContextMenuEnabled)} => <{contextMenuEnabled}> will change to <{value}>");
+                    contextMenuEnabled = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public RelayCommand NewDirectory { get { return new RelayCommand(_ => NewDirectoryHandler()); } }
-        private void NewDirectoryHandler()
+        private string selectedFileRelativePath;
+        public string SelectedFileRelativePath
+        {
+            get
+            {
+                return selectedFileRelativePath;
+            }
+            set
+            {
+                if (selectedFileRelativePath != value)
+                {
+                    Log.Debug($"{nameof(SelectedFileRelativePath)} => <{selectedFileRelativePath}> will change to <{value}>");
+                    selectedFileRelativePath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public RelayCommand<string> NewDirectory { get { return new RelayCommand<string>(param => NewDirectoryHandler(param)); } }
+        private void NewDirectoryHandler(string directoryPath)
         {
             Log.Debug($"{nameof(NewDirectoryHandler)}() => Command requested ...");
 
+            string newDirectoryPath = string.Empty;
+
+            try
+            {
+                InputDialog win = new InputDialog();
+                if(win.ShowDialog().Value)
+                {
+                    newDirectoryPath = Path.Combine(directoryPath, ((InputDialogViewModel)win.DataContext).Input);
+                    Directory.CreateDirectory(newDirectoryPath);
+
+                    UpdateTree();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"{nameof(NewDirectoryHandler)}() => Impossible to create the directory <{newDirectoryPath}> : {ex}");
+            }
 
             Log.Debug($"{nameof(NewDirectoryHandler)}() => Command executed");
         }
 
-        public RelayCommand DuplicateDirectory { get { return new RelayCommand(_ => DuplicateDirectoryHandler()); } }
-        private void DuplicateDirectoryHandler()
-        {
-            Log.Debug($"{nameof(DuplicateDirectoryHandler)}() => Command requested ...");
-
-
-            Log.Debug($"{nameof(DuplicateDirectoryHandler)}() => Command executed");
-        }
-
-        public RelayCommand DeleteDirectory { get { return new RelayCommand(_ => DeleteDirectoryHandler()); } }
-        private void DeleteDirectoryHandler()
-        {
-            Log.Debug($"{nameof(DeleteDirectoryHandler)}() => Command requested ...");
-
-            try
-            {
-                if (MessageBox.Show("Delete Directory ?", "DeleteDirectory", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    Directory.Delete(_basePath + SelectedFileRelativePath);
-                }
-            }
-            catch(Exception ex)
-            {
-
-            }
-
-            Log.Debug($"{nameof(DeleteDirectoryHandler)}() => Command executed");
-        }
-
-        public RelayCommand NewFile { get { return new RelayCommand(_ => NewFileHandler()); } }
-        private void NewFileHandler()
+        public RelayCommand<string> NewFile { get { return new RelayCommand<string>(param => NewFileHandler(param)); } }
+        private void NewFileHandler(string directoryPath)
         {
             Log.Debug($"{nameof(NewFileHandler)}() => Command requested ...");
 
+            string newFilePath = string.Empty;
+
+            try
+            {
+                Stream myStream;
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "json files (*.json)|*.json";
+                saveFileDialog.InitialDirectory = directoryPath;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if ((myStream = saveFileDialog.OpenFile()) != null)
+                    {
+                        newFilePath = saveFileDialog.FileName;
+                        myStream.Write(Resources.DefaultPreset, 0, Resources.DefaultPreset.Length);
+                        myStream.Close();
+                    }
+                }
+
+                UpdateTree();
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"{nameof(NewFileHandler)}() => Impossible to create the file <{newFilePath}> : {ex}");
+            }
 
             Log.Debug($"{nameof(NewFileHandler)}() => Command executed");
         }
 
-        public RelayCommand DuplicateFile { get { return new RelayCommand(_ => DuplicateFileHandler()); } }
-        private void DuplicateFileHandler()
+        public RelayCommand<string> DuplicateFile { get { return new RelayCommand<string>(param => DuplicateFileHandler(param)); } }
+        private void DuplicateFileHandler(string filePath)
         {
             Log.Debug($"{nameof(DuplicateFileHandler)}() => Command requested ...");
 
             try
             {
-                if (MessageBox.Show("Delete file ?", "DeleteFile", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show((string)App.Instance.TryFindResource("DuplicateFileAskTitle"), (string)App.Instance.TryFindResource("DuplicateFileAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    File.Copy(_basePath + SelectedFileRelativePath, _basePath + SelectedFileRelativePath + "_Copy");
+                    File.Copy(filePath, Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath) + "_Copy" + Path.GetExtension(filePath)));
+
+                    UpdateTree();
                 }
             }
             catch (Exception ex)
             {
-
+                Log.Error($"{nameof(DuplicateFileHandler)}() => Impossible to duplicate the file <{filePath}> : {ex}");
             }
 
             Log.Debug($"{nameof(DuplicateFileHandler)}() => Command executed");
         }
 
-        public RelayCommand DeleteFile { get { return new RelayCommand(_ => DeleteFileHandler()); } }
-        private void DeleteFileHandler()
+        public RelayCommand<string> DeleteDirectory { get { return new RelayCommand<string>(param => DeleteDirectoryHandler(param)); } }
+        private void DeleteDirectoryHandler(string directoryPath)
+        {
+            Log.Debug($"{nameof(DeleteDirectoryHandler)}() => Command requested ...");
+
+            try
+            {
+                if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteDirectoryAskTitle"), (string)App.Instance.TryFindResource("DeleteDirectoryAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Directory.Delete(directoryPath, true);
+
+                    UpdateTree();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"{nameof(DeleteDirectoryHandler)}() => Impossible to delete the directory <{directoryPath}> : {ex}");
+            }
+
+            Log.Debug($"{nameof(DeleteDirectoryHandler)}() => Command executed");
+        }
+
+        public RelayCommand<string> DeleteFile { get { return new RelayCommand<string>(param => DeleteFileHandler(param)); } }
+        private void DeleteFileHandler(string filePath)
         {
             Log.Debug($"{nameof(DeleteFileHandler)}() => Command requested ...");
 
             try
             {
-                if(MessageBox.Show("Delete file ?", "DeleteFile", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteFileAskTitle"), (string)App.Instance.TryFindResource("DeleteFileAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    File.Delete(_basePath + SelectedFileRelativePath);
+                    File.Delete(filePath);
+
+                    UpdateTree();
                 }
             }
             catch (Exception ex)
             {
-
+                Log.Error($"{nameof(DeleteFileHandler)}() => Impossible to delete the file <{SelectedFileRelativePath}> : {ex}");
             }
 
             Log.Debug($"{nameof(DeleteFileHandler)}() => Command executed");
         }
 
-        public FileTreeViewModel(string basepath)
+        public FileTreeViewModel(string basePath, string defaultSelectedFilePath, bool canExecuteCommands = true)
         {
-            _basePath = basepath;
+            this.basePath = basePath;
+            SelectedFileRelativePath = defaultSelectedFilePath;
+            ContextMenuEnabled = canExecuteCommands;
 
-            var baseDirInfo = new DirectoryInfo(basepath);
-            Tree = new ObservableCollection<TreeViewElement>()
-            {
-                new TreeViewDirectory
-                {
-                    Name = baseDirInfo.Name,
-                    Path = baseDirInfo.FullName,
-                    Items = GetItems(baseDirInfo.FullName)
-                }
-            };
-
-            SelectedFileRelativePath = "default.json";
+            Tree = new ObservableCollection<TreeViewElement>();
+            UpdateTree();
         }
 
         public void SelectedItemChangedHandler(string selectedItem)
         {
             Log.Debug($"{nameof(SelectedItemChangedHandler)}() => Command requested ...");
 
-            SelectedFileRelativePath = selectedItem.Substring(_basePath.Length + 1);
+            SelectedFileRelativePath = selectedItem.Substring(basePath.Length + 1);
 
             Log.Debug($"{nameof(SelectedItemChangedHandler)}() => Command executed");
+        }
+
+        private void UpdateTree()
+        {
+            Tree.Clear();
+            var baseDirInfo = new DirectoryInfo(basePath);
+            Tree.Add(new TreeViewDirectory
+            {
+                Name = baseDirInfo.Name,
+                Path = baseDirInfo.FullName,
+                Items = GetItems(baseDirInfo.FullName)
+            });
         }
 
         private ObservableCollection<TreeViewElement> GetItems(string path)

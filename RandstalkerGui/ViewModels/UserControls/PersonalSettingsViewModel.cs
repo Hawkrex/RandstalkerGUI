@@ -3,6 +3,7 @@ using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using System.IO;
+using System.Text;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -104,7 +105,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
-            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath, JsonConvert.SerializeObject(_personalSettings));
+            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(_personalSettings));
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
@@ -114,9 +115,29 @@ namespace RandstalkerGui.ViewModels.UserControls
             if (File.Exists(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath))
                 _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath));
             else
-                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Resources.DefaultPersonalSettings.ToString());
+                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Encoding.UTF8.GetString(Resources.DefaultPersonalSettings));
 
-            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath);
+            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath);
+            PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged; ;
+        }
+
+        private void PersonalSettingsTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(PersonalSettingsTreeViewModel.SelectedFileRelativePath))
+            {
+                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath));
+
+                UpdateProperties();
+            }
+        }
+
+        private void UpdateProperties()
+        {
+            OnPropertyChanged(nameof(RemoveMusic));
+            OnPropertyChanged(nameof(InGameTracker));
+            OnPropertyChanged(nameof(HudColor));
+            OnPropertyChanged(nameof(MainNigelColor));
+            OnPropertyChanged(nameof(SecondaryNigelColor));
         }
     }
 }
