@@ -9,54 +9,67 @@ namespace RandstalkerGui.ViewModels.UserControls
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private RandstalkerApp _randstalkerApp;
+        private RandstalkerApp randstalkerApp;
+
 
         public FileTreeViewModel PresetTreeViewModel { get; set; }
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
 
-        private string _outputLog;
+        private string outputLog;
+
         public string OutputLog
         {
             get
             {
-                return _outputLog;
+                return outputLog;
+
             }
             set
             {
-                if (_outputLog != value)
+                if (outputLog != value)
+
                 {
-                    Log.Debug($"{nameof(OutputLog)} => <{_outputLog}> will change to <{value}>");
-                    _outputLog = value;
+                    Log.Debug($"{nameof(OutputLog)} => <{outputLog}> will change to <{value}>");
+
+                    outputLog = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private int _progress;
+        private int progress;
+
         public int Progress
         {
             get
             {
-                return _progress;
+                return progress;
+
             }
             set
             {
-                if (_progress != value)
+                if (progress != value)
+
                 {
-                    Log.Debug($"{nameof(Progress)} => <{_progress}> will change to <{value}>");
-                    _progress = value;
+                    Log.Debug($"{nameof(Progress)} => <{progress}> will change to <{value}>");
+
+                    progress = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
         public RelayCommand GenerateRom { get { return new RelayCommand(_ => GenerateRomHandler()); } }
+
         private void GenerateRomHandler()
         {
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command requested ...");
 
             Progress = 0;
-            OutputLog = _randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath, UserConfig.Instance.OutputRomDirectoryPath, UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath);
+            OutputLog = randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath, UserConfig.Instance.OutputRomDirectoryPath, UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath);
+
             Progress = 100;
 
             UserConfig.Instance.LastUsedPresetFilePath = PresetTreeViewModel.SelectedFileRelativePath;
@@ -72,7 +85,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath, false);
             PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, false);
 
-            _randstalkerApp = new RandstalkerApp();
+            randstalkerApp = new RandstalkerApp();
 
             Progress = 0;
         }

@@ -31,7 +31,7 @@
     </UserControl.Resources>
     <DockPanel LastChildFill="False">
         <views:FileTreeView DataContext="{Binding PresetTreeViewModel}"
-                DockPanel.Dock="Left" />
+                DockPanel.Dock="Left" Width="150" />
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

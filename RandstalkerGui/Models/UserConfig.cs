@@ -28,8 +28,10 @@ namespace RandstalkerGui.Models
         public string OutputRomDirectoryPath { get; set; }
 
 
-        private static readonly Lazy<UserConfig> _instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
-        public static UserConfig Instance => _instance.Value;
+        private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
+
+        public static UserConfig Instance => instance.Value;
+
 
         public bool ArePathsValid()
         {

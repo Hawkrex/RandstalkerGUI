@@ -63,9 +63,9 @@
     <system:String x:Key="PresetChoice">Choix du préréglage</system:String>
     <system:String x:Key="PersonalSettingsChoice">Choix des réglages personnels</system:String>
     <system:String x:Key="ParametersRecap">Récapitulatif des paramètres</system:String>
-    <system:String x:Key="SelectedPreset">Préréglage séléctionné</system:String>
+    <system:String x:Key="SelectedPreset">Préréglage séléctionné :</system:String>
     <system:String x:Key="SelectedPresetTooltip">Préréglage qui sera utilisé pour génerer la seed</system:String>
-    <system:String x:Key="SelectedPersonalSettings">Réglages personnels séléctionné</system:String>
+    <system:String x:Key="SelectedPersonalSettings">Réglages personnels séléctionné :</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Réglages personnels qui seront utilisé pour génerer la seed</system:String>
     
     <system:String x:Key="GenerateRom">Générer ROM</system:String>

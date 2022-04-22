@@ -126,7 +126,8 @@ namespace RandstalkerGui.ViewModels.UserControls
             {
                 if (MessageBox.Show((string)App.Instance.TryFindResource("DuplicateFileAskTitle"), (string)App.Instance.TryFindResource("DuplicateFileAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    File.Copy(filePath, Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath) + "_Copy" + Path.GetExtension(filePath)));
+                    File.Copy(filePath, Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath) + "Copy" + Path.GetExtension(filePath)));
+
 
                     UpdateTree();
                 }
@@ -146,7 +147,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             try
             {
-                if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteDirectoryAskTitle"), (string)App.Instance.TryFindResource("DeleteDirectoryAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteDirectoryAskMessage"), (string)App.Instance.TryFindResource("DeleteDirectoryAskTitle"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     Directory.Delete(directoryPath, true);
 
@@ -168,7 +169,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             try
             {
-                if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteFileAskTitle"), (string)App.Instance.TryFindResource("DeleteFileAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteFileAskMessage"), (string)App.Instance.TryFindResource("DeleteFileAskTitle"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     File.Delete(filePath);
 

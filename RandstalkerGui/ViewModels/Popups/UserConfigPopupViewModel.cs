@@ -97,6 +97,7 @@ namespace RandstalkerGui.ViewModels.Popups
         }
 
         public RelayCommand SelectRandstlakerExeDirectoryPath { get { return new RelayCommand(_ => SelectRandstlakerExeDirectoryPathHandler()); } }
+
         private void SelectRandstlakerExeDirectoryPathHandler()
         {
             Log.Debug($"{nameof(SelectRandstlakerExeDirectoryPathHandler)}() => Command requested ...");
@@ -111,6 +112,7 @@ namespace RandstalkerGui.ViewModels.Popups
         }
 
         public RelayCommand SelectPresetsDirectoryPath { get { return new RelayCommand(_ => SelectPresetsDirectoryPathHandler()); } }
+
         private void SelectPresetsDirectoryPathHandler()
         {
             Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command requested ...");
@@ -125,6 +127,7 @@ namespace RandstalkerGui.ViewModels.Popups
         }
 
         public RelayCommand SelectPersonalSettingsDirectoryPath { get { return new RelayCommand(_ => SelectPersonalSettingsDirectoryPathHandler()); } }
+
         private void SelectPersonalSettingsDirectoryPathHandler()
         {
             Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command requested ...");
@@ -139,6 +142,7 @@ namespace RandstalkerGui.ViewModels.Popups
         }
 
         public RelayCommand SelectInputRomFilePath { get { return new RelayCommand(_ => SelectInputRomFilePathHandler()); } }
+
         private void SelectInputRomFilePathHandler()
         {
             Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command requested ...");
@@ -153,6 +157,7 @@ namespace RandstalkerGui.ViewModels.Popups
         }
 
         public RelayCommand SelectOutputRomDirectoryPath { get { return new RelayCommand(_ => SelectOutputRomDirectoryPathHandler()); } }
+
         private void SelectOutputRomDirectoryPathHandler()
         {
             Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command requested ...");
@@ -167,6 +172,7 @@ namespace RandstalkerGui.ViewModels.Popups
         }
 
         public RelayCommand SaveUserConfig { get { return new RelayCommand(_ => SaveUserConfigHandler()); } }
+
         private void SaveUserConfigHandler()
         {
             Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command requested ...");

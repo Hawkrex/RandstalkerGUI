@@ -63,9 +63,9 @@
     <system:String x:Key="PresetChoice">Preset choice</system:String>
     <system:String x:Key="PersonalSettingsChoice">Personal settings choice</system:String>
     <system:String x:Key="ParametersRecap">Parameters recap</system:String>
-    <system:String x:Key="SelectedPreset">Selected preset</system:String>
+    <system:String x:Key="SelectedPreset">Selected preset:</system:String>
     <system:String x:Key="SelectedPresetTooltip">Preset that will be use to generate a seed</system:String>
-    <system:String x:Key="SelectedPersonalSettings">Selected personal settings</system:String>
+    <system:String x:Key="SelectedPersonalSettings">Selected personal settings:</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Personal settings that will be use to generate a seed</system:String>
 
     <system:String x:Key="GenerateRom">Generate ROM</system:String>

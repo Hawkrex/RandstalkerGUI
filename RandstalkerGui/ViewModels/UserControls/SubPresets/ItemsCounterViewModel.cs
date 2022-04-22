@@ -15,25 +15,31 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public ObservableCollection<ItemCount> ItemCounters { get; set; }
 
-        private string _itemToAdd;
+        private string itemToAdd;
+
         public string ItemToAdd
         {
             get
             {
-                return _itemToAdd;
+                return itemToAdd;
+
             }
             set
             {
-                if (_itemToAdd != value)
+                if (itemToAdd != value)
+
                 {
-                    Log.Debug($"{nameof(_itemToAdd)} => <{_itemToAdd}> will change to <{value}>");
-                    _itemToAdd = value;
+                    Log.Debug($"{nameof(itemToAdd)} => <{itemToAdd}> will change to <{value}>");
+
+                    itemToAdd = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
         public RelayCommand AddItem { get { return new RelayCommand(_ => AddItemHandler()); } }
+
         private void AddItemHandler()
         {
             Log.Debug($"{nameof(AddItemHandler)}() => Command requested ...");

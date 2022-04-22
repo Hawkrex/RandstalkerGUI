@@ -13,8 +13,10 @@ namespace RandstalkerGui.ViewModels.UserControls
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private Preset _preset;
-        private ItemDefinitions _itemDefinitions;
+        private Preset preset;
+
+        private ItemDefinitions itemDefinitions;
+
 
         public FileTreeViewModel PresetTreeViewModel { get; set; }
 
@@ -22,14 +24,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.ChristmasEvent;
+                return preset.ChristmasEvent;
+
             }
             set
             {
-                if (_preset.ChristmasEvent != value)
+                if (preset.ChristmasEvent != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.ChristmasEvent)} => <{_preset.ChristmasEvent}> will change to <{value}>");
-                    _preset.ChristmasEvent = value;
+                    Log.Debug($"{nameof(preset.ChristmasEvent)} => <{preset.ChristmasEvent}> will change to <{value}>");
+
+                    preset.ChristmasEvent = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -39,14 +45,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.JewelCount;
+                return preset.GameSettings.JewelCount;
+
             }
             set
             {
-                if (_preset.GameSettings.JewelCount != value)
+                if (preset.GameSettings.JewelCount != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.JewelCount)} => <{_preset.GameSettings.JewelCount}> will change to <{value}>");
-                    _preset.GameSettings.JewelCount = value;
+                    Log.Debug($"{nameof(preset.GameSettings.JewelCount)} => <{preset.GameSettings.JewelCount}> will change to <{value}>");
+
+                    preset.GameSettings.JewelCount = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -56,14 +66,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.ArmorUpgrades;
+                return preset.GameSettings.ArmorUpgrades;
+
             }
             set
             {
-                if (_preset.GameSettings.ArmorUpgrades != value)
+                if (preset.GameSettings.ArmorUpgrades != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.ArmorUpgrades)} => <{_preset.GameSettings.ArmorUpgrades}> will change to <{value}>");
-                    _preset.GameSettings.ArmorUpgrades = value;
+                    Log.Debug($"{nameof(preset.GameSettings.ArmorUpgrades)} => <{preset.GameSettings.ArmorUpgrades}> will change to <{value}>");
+
+                    preset.GameSettings.ArmorUpgrades = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -73,14 +87,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.StartingGold;
+                return preset.GameSettings.StartingGold;
+
             }
             set
             {
-                if (_preset.GameSettings.StartingGold != value)
+                if (preset.GameSettings.StartingGold != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.StartingGold)} => <{_preset.GameSettings.StartingGold}> will change to <{value}>");
-                    _preset.GameSettings.StartingGold = value;
+                    Log.Debug($"{nameof(preset.GameSettings.StartingGold)} => <{preset.GameSettings.StartingGold}> will change to <{value}>");
+
+                    preset.GameSettings.StartingGold = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -90,21 +108,28 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.StartingLife == 0;
+                return preset.GameSettings.StartingLife == 0;
+
             }
             set
             {
-                if (value && _preset.GameSettings.StartingLife != 0)
+                if (value && preset.GameSettings.StartingLife != 0)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.StartingLife)} => <{_preset.GameSettings.StartingLife}> will change to 0");
-                    _preset.GameSettings.StartingLife = 0;
+                    Log.Debug($"{nameof(preset.GameSettings.StartingLife)} => <{preset.GameSettings.StartingLife}> will change to 0");
+
+                    preset.GameSettings.StartingLife = 0;
+
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(StartingLife));
                 }
-                else if (!value && _preset.GameSettings.StartingLife == 0)
+                else if (!value && preset.GameSettings.StartingLife == 0)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.StartingLife)} => <{_preset.GameSettings.StartingLife}> will change to 0");
-                    _preset.GameSettings.StartingLife = 4;
+                    Log.Debug($"{nameof(preset.GameSettings.StartingLife)} => <{preset.GameSettings.StartingLife}> will change to 0");
+
+                    preset.GameSettings.StartingLife = 4;
+
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(StartingLife));
                 }
@@ -115,14 +140,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.StartingLife;
+                return preset.GameSettings.StartingLife;
+
             }
             set
             {
-                if (_preset.GameSettings.StartingLife != value)
+                if (preset.GameSettings.StartingLife != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.StartingLife)} => <{_preset.GameSettings.StartingLife}> will change to <{value}>");
-                    _preset.GameSettings.StartingLife = value;
+                    Log.Debug($"{nameof(preset.GameSettings.StartingLife)} => <{preset.GameSettings.StartingLife}> will change to <{value}>");
+
+                    preset.GameSettings.StartingLife = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -134,14 +163,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.FixArmletSkip;
+                return preset.GameSettings.FixArmletSkip;
+
             }
             set
             {
-                if (_preset.GameSettings.FixArmletSkip != value)
+                if (preset.GameSettings.FixArmletSkip != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.FixArmletSkip)} => <{_preset.GameSettings.FixArmletSkip}> will change to <{value}>");
-                    _preset.GameSettings.FixArmletSkip = value;
+                    Log.Debug($"{nameof(preset.GameSettings.FixArmletSkip)} => <{preset.GameSettings.FixArmletSkip}> will change to <{value}>");
+
+                    preset.GameSettings.FixArmletSkip = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -151,14 +184,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.RemoveTreeCuttingGlitchDrops;
+                return preset.GameSettings.RemoveTreeCuttingGlitchDrops;
+
             }
             set
             {
-                if (_preset.GameSettings.RemoveTreeCuttingGlitchDrops != value)
+                if (preset.GameSettings.RemoveTreeCuttingGlitchDrops != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.RemoveTreeCuttingGlitchDrops)} => <{_preset.GameSettings.RemoveTreeCuttingGlitchDrops}> will change to <{value}>");
-                    _preset.GameSettings.RemoveTreeCuttingGlitchDrops = value;
+                    Log.Debug($"{nameof(preset.GameSettings.RemoveTreeCuttingGlitchDrops)} => <{preset.GameSettings.RemoveTreeCuttingGlitchDrops}> will change to <{value}>");
+
+                    preset.GameSettings.RemoveTreeCuttingGlitchDrops = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -168,14 +205,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.ConsumableRecordBook;
+                return preset.GameSettings.ConsumableRecordBook;
+
             }
             set
             {
-                if (_preset.GameSettings.ConsumableRecordBook != value)
+                if (preset.GameSettings.ConsumableRecordBook != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.ConsumableRecordBook)} => <{_preset.GameSettings.ConsumableRecordBook}> will change to <{value}>");
-                    _preset.GameSettings.ConsumableRecordBook = value;
+                    Log.Debug($"{nameof(preset.GameSettings.ConsumableRecordBook)} => <{preset.GameSettings.ConsumableRecordBook}> will change to <{value}>");
+
+                    preset.GameSettings.ConsumableRecordBook = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -185,14 +226,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.RemoveGumiBoulder;
+                return preset.GameSettings.RemoveGumiBoulder;
+
             }
             set
             {
-                if (_preset.GameSettings.RemoveGumiBoulder != value)
+                if (preset.GameSettings.RemoveGumiBoulder != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.RemoveGumiBoulder)} => <{_preset.GameSettings.RemoveGumiBoulder}> will change to <{value}>");
-                    _preset.GameSettings.RemoveGumiBoulder = value;
+                    Log.Debug($"{nameof(preset.GameSettings.RemoveGumiBoulder)} => <{preset.GameSettings.RemoveGumiBoulder}> will change to <{value}>");
+
+                    preset.GameSettings.RemoveGumiBoulder = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -202,14 +247,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.RemoveTiborRequirement;
+                return preset.GameSettings.RemoveTiborRequirement;
+
             }
             set
             {
-                if (_preset.GameSettings.RemoveTiborRequirement != value)
+                if (preset.GameSettings.RemoveTiborRequirement != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.RemoveTiborRequirement)} => <{_preset.GameSettings.RemoveTiborRequirement}> will change to <{value}>");
-                    _preset.GameSettings.RemoveTiborRequirement = value;
+                    Log.Debug($"{nameof(preset.GameSettings.RemoveTiborRequirement)} => <{preset.GameSettings.RemoveTiborRequirement}> will change to <{value}>");
+
+                    preset.GameSettings.RemoveTiborRequirement = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -219,14 +268,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.AllTreesVisitedAtStart;
+                return preset.GameSettings.AllTreesVisitedAtStart;
+
             }
             set
             {
-                if (_preset.GameSettings.AllTreesVisitedAtStart != value)
+                if (preset.GameSettings.AllTreesVisitedAtStart != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.AllTreesVisitedAtStart)} => <{_preset.GameSettings.AllTreesVisitedAtStart}> will change to <{value}>");
-                    _preset.GameSettings.AllTreesVisitedAtStart = value;
+                    Log.Debug($"{nameof(preset.GameSettings.AllTreesVisitedAtStart)} => <{preset.GameSettings.AllTreesVisitedAtStart}> will change to <{value}>");
+
+                    preset.GameSettings.AllTreesVisitedAtStart = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -236,14 +289,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.EnemiesDamageFactor;
+                return preset.GameSettings.EnemiesDamageFactor;
+
             }
             set
             {
-                if (_preset.GameSettings.EnemiesDamageFactor != value)
+                if (preset.GameSettings.EnemiesDamageFactor != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.EnemiesDamageFactor)} => <{_preset.GameSettings.EnemiesDamageFactor}> will change to <{value}>");
-                    _preset.GameSettings.EnemiesDamageFactor = value;
+                    Log.Debug($"{nameof(preset.GameSettings.EnemiesDamageFactor)} => <{preset.GameSettings.EnemiesDamageFactor}> will change to <{value}>");
+
+                    preset.GameSettings.EnemiesDamageFactor = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -253,14 +310,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.EnemiesHealthFactor;
+                return preset.GameSettings.EnemiesHealthFactor;
+
             }
             set
             {
-                if (_preset.GameSettings.EnemiesHealthFactor != value)
+                if (preset.GameSettings.EnemiesHealthFactor != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.EnemiesHealthFactor)} => <{_preset.GameSettings.EnemiesHealthFactor}> will change to <{value}>");
-                    _preset.GameSettings.EnemiesHealthFactor = value;
+                    Log.Debug($"{nameof(preset.GameSettings.EnemiesHealthFactor)} => <{preset.GameSettings.EnemiesHealthFactor}> will change to <{value}>");
+
+                    preset.GameSettings.EnemiesHealthFactor = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -270,14 +331,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.EnemiesArmorFactor;
+                return preset.GameSettings.EnemiesArmorFactor;
+
             }
             set
             {
-                if (_preset.GameSettings.EnemiesArmorFactor != value)
+                if (preset.GameSettings.EnemiesArmorFactor != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.EnemiesArmorFactor)} => <{_preset.GameSettings.EnemiesArmorFactor}> will change to <{value}>");
-                    _preset.GameSettings.EnemiesArmorFactor = value;
+                    Log.Debug($"{nameof(preset.GameSettings.EnemiesArmorFactor)} => <{preset.GameSettings.EnemiesArmorFactor}> will change to <{value}>");
+
+                    preset.GameSettings.EnemiesArmorFactor = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -287,14 +352,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.EnemiesGoldsFactor;
+                return preset.GameSettings.EnemiesGoldsFactor;
+
             }
             set
             {
-                if (_preset.GameSettings.EnemiesGoldsFactor != value)
+                if (preset.GameSettings.EnemiesGoldsFactor != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.EnemiesGoldsFactor)} => <{_preset.GameSettings.EnemiesGoldsFactor}> will change to <{value}>");
-                    _preset.GameSettings.EnemiesGoldsFactor = value;
+                    Log.Debug($"{nameof(preset.GameSettings.EnemiesGoldsFactor)} => <{preset.GameSettings.EnemiesGoldsFactor}> will change to <{value}>");
+
+                    preset.GameSettings.EnemiesGoldsFactor = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -304,14 +373,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.EnemiesDropChanceFactor;
+                return preset.GameSettings.EnemiesDropChanceFactor;
+
             }
             set
             {
-                if (_preset.GameSettings.EnemiesDropChanceFactor != value)
+                if (preset.GameSettings.EnemiesDropChanceFactor != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.EnemiesDropChanceFactor)} => <{_preset.GameSettings.EnemiesDropChanceFactor}> will change to <{value}>");
-                    _preset.GameSettings.EnemiesDropChanceFactor = value;
+                    Log.Debug($"{nameof(preset.GameSettings.EnemiesDropChanceFactor)} => <{preset.GameSettings.EnemiesDropChanceFactor}> will change to <{value}>");
+
+                    preset.GameSettings.EnemiesDropChanceFactor = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -321,14 +394,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.GameSettings.HealthGainedPerLifestock;
+                return preset.GameSettings.HealthGainedPerLifestock;
+
             }
             set
             {
-                if (_preset.GameSettings.HealthGainedPerLifestock != value)
+                if (preset.GameSettings.HealthGainedPerLifestock != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.GameSettings.HealthGainedPerLifestock)} => <{_preset.GameSettings.HealthGainedPerLifestock}> will change to <{value}>");
-                    _preset.GameSettings.HealthGainedPerLifestock = value;
+                    Log.Debug($"{nameof(preset.GameSettings.HealthGainedPerLifestock)} => <{preset.GameSettings.HealthGainedPerLifestock}> will change to <{value}>");
+
+                    preset.GameSettings.HealthGainedPerLifestock = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -338,14 +415,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.AllowSpoilerLog;
+                return preset.RandomizerSettings.AllowSpoilerLog;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.AllowSpoilerLog != value)
+                if (preset.RandomizerSettings.AllowSpoilerLog != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.AllowSpoilerLog)} => <{_preset.RandomizerSettings.AllowSpoilerLog}> will change to <{value}>");
-                    _preset.RandomizerSettings.AllowSpoilerLog = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.AllowSpoilerLog)} => <{preset.RandomizerSettings.AllowSpoilerLog}> will change to <{value}>");
+
+                    preset.RandomizerSettings.AllowSpoilerLog = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -357,14 +438,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.ShuffleTrees;
+                return preset.RandomizerSettings.ShuffleTrees;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.ShuffleTrees != value)
+                if (preset.RandomizerSettings.ShuffleTrees != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.ShuffleTrees)} => <{_preset.RandomizerSettings.ShuffleTrees}> will change to <{value}>");
-                    _preset.RandomizerSettings.ShuffleTrees = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.ShuffleTrees)} => <{preset.RandomizerSettings.ShuffleTrees}> will change to <{value}>");
+
+                    preset.RandomizerSettings.ShuffleTrees = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -374,14 +459,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.EnemyJumpingInLogic;
+                return preset.RandomizerSettings.EnemyJumpingInLogic;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.EnemyJumpingInLogic != value)
+                if (preset.RandomizerSettings.EnemyJumpingInLogic != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.EnemyJumpingInLogic)} => <{_preset.RandomizerSettings.EnemyJumpingInLogic}> will change to <{value}>");
-                    _preset.RandomizerSettings.EnemyJumpingInLogic = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.EnemyJumpingInLogic)} => <{preset.RandomizerSettings.EnemyJumpingInLogic}> will change to <{value}>");
+
+                    preset.RandomizerSettings.EnemyJumpingInLogic = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -391,14 +480,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.DamageBoostingInLogic;
+                return preset.RandomizerSettings.DamageBoostingInLogic;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.DamageBoostingInLogic != value)
+                if (preset.RandomizerSettings.DamageBoostingInLogic != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.DamageBoostingInLogic)} => <{_preset.RandomizerSettings.DamageBoostingInLogic}> will change to <{value}>");
-                    _preset.RandomizerSettings.DamageBoostingInLogic = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.DamageBoostingInLogic)} => <{preset.RandomizerSettings.DamageBoostingInLogic}> will change to <{value}>");
+
+                    preset.RandomizerSettings.DamageBoostingInLogic = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -408,14 +501,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.TreeCuttingGlitchInLogic;
+                return preset.RandomizerSettings.TreeCuttingGlitchInLogic;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.TreeCuttingGlitchInLogic != value)
+                if (preset.RandomizerSettings.TreeCuttingGlitchInLogic != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.TreeCuttingGlitchInLogic)} => <{_preset.RandomizerSettings.TreeCuttingGlitchInLogic}> will change to <{value}>");
-                    _preset.RandomizerSettings.TreeCuttingGlitchInLogic = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.TreeCuttingGlitchInLogic)} => <{preset.RandomizerSettings.TreeCuttingGlitchInLogic}> will change to <{value}>");
+
+                    preset.RandomizerSettings.TreeCuttingGlitchInLogic = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -427,14 +524,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.HintsDistribution.RegionRequirement;
+                return preset.RandomizerSettings.HintsDistribution.RegionRequirement;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.HintsDistribution.RegionRequirement != value)
+                if (preset.RandomizerSettings.HintsDistribution.RegionRequirement != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.HintsDistribution.RegionRequirement)} => <{_preset.RandomizerSettings.HintsDistribution.RegionRequirement}> will change to <{value}>");
-                    _preset.RandomizerSettings.HintsDistribution.RegionRequirement = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.RegionRequirement)} => <{preset.RandomizerSettings.HintsDistribution.RegionRequirement}> will change to <{value}>");
+
+                    preset.RandomizerSettings.HintsDistribution.RegionRequirement = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -444,14 +545,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.HintsDistribution.ItemRequirement;
+                return preset.RandomizerSettings.HintsDistribution.ItemRequirement;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.HintsDistribution.ItemRequirement != value)
+                if (preset.RandomizerSettings.HintsDistribution.ItemRequirement != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.HintsDistribution.ItemRequirement)} => <{_preset.RandomizerSettings.HintsDistribution.ItemRequirement}> will change to <{value}>");
-                    _preset.RandomizerSettings.HintsDistribution.ItemRequirement = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.ItemRequirement)} => <{preset.RandomizerSettings.HintsDistribution.ItemRequirement}> will change to <{value}>");
+
+                    preset.RandomizerSettings.HintsDistribution.ItemRequirement = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -461,14 +566,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.HintsDistribution.ItemLocation;
+                return preset.RandomizerSettings.HintsDistribution.ItemLocation;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.HintsDistribution.ItemLocation != value)
+                if (preset.RandomizerSettings.HintsDistribution.ItemLocation != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.HintsDistribution.ItemLocation)} => <{_preset.RandomizerSettings.HintsDistribution.ItemLocation}> will change to <{value}>");
-                    _preset.RandomizerSettings.HintsDistribution.ItemLocation = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.ItemLocation)} => <{preset.RandomizerSettings.HintsDistribution.ItemLocation}> will change to <{value}>");
+
+                    preset.RandomizerSettings.HintsDistribution.ItemLocation = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -478,14 +587,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.HintsDistribution.DarkRegion;
+                return preset.RandomizerSettings.HintsDistribution.DarkRegion;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.HintsDistribution.DarkRegion != value)
+                if (preset.RandomizerSettings.HintsDistribution.DarkRegion != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.HintsDistribution.DarkRegion)} => <{_preset.RandomizerSettings.HintsDistribution.DarkRegion}> will change to <{value}>");
-                    _preset.RandomizerSettings.HintsDistribution.DarkRegion = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.DarkRegion)} => <{preset.RandomizerSettings.HintsDistribution.DarkRegion}> will change to <{value}>");
+
+                    preset.RandomizerSettings.HintsDistribution.DarkRegion = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -495,29 +608,38 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _preset.RandomizerSettings.HintsDistribution.Joke;
+                return preset.RandomizerSettings.HintsDistribution.Joke;
+
             }
             set
             {
-                if (_preset.RandomizerSettings.HintsDistribution.Joke != value)
+                if (preset.RandomizerSettings.HintsDistribution.Joke != value)
+
                 {
-                    Log.Debug($"{nameof(_preset.RandomizerSettings.HintsDistribution.Joke)} => <{_preset.RandomizerSettings.HintsDistribution.Joke}> will change to <{value}>");
-                    _preset.RandomizerSettings.HintsDistribution.Joke = value;
+                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.Joke)} => <{preset.RandomizerSettings.HintsDistribution.Joke}> will change to <{value}>");
+
+                    preset.RandomizerSettings.HintsDistribution.Joke = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
         public RelayCommand SavePreset { get { return new RelayCommand(_ => SavePresetHandler()); } }
+
         private void SavePresetHandler()
         {
             Log.Debug($"{nameof(SavePresetHandler)}() => Command requested ...");
 
-            _preset.GameSettings.StartingItems = StartingsItemsViewModel.ComputePresetInfos();
-            _preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.ComputePresetInfos();
-            _preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.ComputePresetInfos();
+            preset.GameSettings.StartingItems = StartingsItemsViewModel.ComputePresetInfos();
 
-            File.WriteAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(_preset));
+            preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.ComputePresetInfos();
+
+            preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.ComputePresetInfos();
+
+
+            File.WriteAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(preset));
+
 
             Log.Debug($"{nameof(SavePresetHandler)}() => Command executed");
         }
@@ -525,28 +647,38 @@ namespace RandstalkerGui.ViewModels.UserControls
         public PresetViewModel()
         {
             if (File.Exists(UserConfig.Instance.PresetsDirectoryPath + '/' + UserConfig.Instance.LastUsedPresetFilePath))
-                _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + UserConfig.Instance.LastUsedPresetFilePath));
-            else
-                _preset = JsonConvert.DeserializeObject<Preset>(Encoding.UTF8.GetString(Resources.DefaultPreset));
+                preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + UserConfig.Instance.LastUsedPresetFilePath));
 
-            _itemDefinitions = new ItemDefinitions();
+            else
+                preset = JsonConvert.DeserializeObject<Preset>(Encoding.UTF8.GetString(Resources.DefaultPreset));
+
+
+            itemDefinitions = new ItemDefinitions();
+
 
             PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath);
             PresetTreeViewModel.PropertyChanged += PresetTreeViewModel_PropertyChanged;
 
-            StartingsItemsViewModel = new ItemsCounterViewModel(_preset.GameSettings.StartingItems, _itemDefinitions);
-            SpawnLocationsViewModel = new SpawnLocationsViewModel(_preset.RandomizerSettings.SpawnLocations);
-            ItemsDistributionViewModel = new ItemsCounterViewModel(_preset.RandomizerSettings.ItemsDistribution, _itemDefinitions);
+            StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
+
+            SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
+
+            ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions);
+
         }
 
         private void PresetTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if(e.PropertyName == nameof(PresetTreeViewModel.SelectedFileRelativePath))
             {
-                _preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath));
-                StartingsItemsViewModel = new ItemsCounterViewModel(_preset.GameSettings.StartingItems, _itemDefinitions);
-                SpawnLocationsViewModel = new SpawnLocationsViewModel(_preset.RandomizerSettings.SpawnLocations);
-                ItemsDistributionViewModel = new ItemsCounterViewModel(_preset.RandomizerSettings.ItemsDistribution, _itemDefinitions);
+                preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath));
+
+                StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
+
+                SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
+
+                ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions);
+
 
                 UpdateProperties();
             }

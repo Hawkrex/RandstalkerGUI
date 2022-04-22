@@ -17,163 +17,208 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
         private const string GreenmazeName = "greenmaze";
         private const string DestelName = "destel";
 
-        private bool _massan;
+        private bool massan;
+
         public bool Massan
         {
             get
             {
-                return _massan;
+                return massan;
+
             }
             set
             {
-                if (_massan != value)
+                if (massan != value)
+
                 {
-                    Log.Debug($"{nameof(_massan)} => <{_massan}> will change to <{value}>");
-                    _massan = value;
+                    Log.Debug($"{nameof(massan)} => <{massan}> will change to <{value}>");
+
+                    massan = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _gumi;
+        private bool gumi;
+
         public bool Gumi
         {
             get
             {
-                return _gumi;
+                return gumi;
+
             }
             set
             {
-                if (_gumi != value)
+                if (gumi != value)
+
                 {
-                    Log.Debug($"{nameof(_gumi)} => <{_gumi}> will change to <{value}>");
-                    _gumi = value;
+                    Log.Debug($"{nameof(gumi)} => <{gumi}> will change to <{value}>");
+
+                    gumi = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _kado;
+        private bool kado;
+
         public bool Kado
         {
             get
             {
-                return _kado;
+                return kado;
+
             }
             set
             {
-                if (_kado != value)
+                if (kado != value)
+
                 {
-                    Log.Debug($"{nameof(_kado)} => <{_kado}> will change to <{value}>");
-                    _kado = value;
+                    Log.Debug($"{nameof(kado)} => <{kado}> will change to <{value}>");
+
+                    kado = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _waterfall;
+        private bool waterfall;
+
         public bool Waterfall
         {
             get
             {
-                return _waterfall;
+                return waterfall;
+
             }
             set
             {
-                if (_waterfall != value)
+                if (waterfall != value)
+
                 {
-                    Log.Debug($"{nameof(_waterfall)} => <{_waterfall}> will change to <{value}>");
-                    _waterfall = value;
+                    Log.Debug($"{nameof(waterfall)} => <{waterfall}> will change to <{value}>");
+
+                    waterfall = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _ryuma;
+        private bool ryuma;
+
         public bool Ryuma
         {
             get
             {
-                return _ryuma;
+                return ryuma;
+
             }
             set
             {
-                if (_ryuma != value)
+                if (ryuma != value)
+
                 {
-                    Log.Debug($"{nameof(_ryuma)} => <{_ryuma}> will change to <{value}>");
-                    _ryuma = value;
+                    Log.Debug($"{nameof(ryuma)} => <{ryuma}> will change to <{value}>");
+
+                    ryuma = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _mercator;
+        private bool mercator;
+
         public bool Mercator
         {
             get
             {
-                return _mercator;
+                return mercator;
+
             }
             set
             {
-                if (_mercator != value)
+                if (mercator != value)
+
                 {
-                    Log.Debug($"{nameof(_mercator)} => <{_mercator}> will change to <{value}>");
-                    _mercator = value;
+                    Log.Debug($"{nameof(mercator)} => <{mercator}> will change to <{value}>");
+
+                    mercator = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _verla;
+        private bool verla;
+
         public bool Verla
         {
             get
             {
-                return _verla;
+                return verla;
+
             }
             set
             {
-                if (_verla != value)
+                if (verla != value)
+
                 {
-                    Log.Debug($"{nameof(_verla)} => <{_verla}> will change to <{value}>");
-                    _verla = value;
+                    Log.Debug($"{nameof(verla)} => <{verla}> will change to <{value}>");
+
+                    verla = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _greenmaze;
+        private bool greenmaze;
+
         public bool Greenmaze
         {
             get
             {
-                return _greenmaze;
+                return greenmaze;
+
             }
             set
             {
-                if (_greenmaze != value)
+                if (greenmaze != value)
+
                 {
-                    Log.Debug($"{nameof(_greenmaze)} => <{_greenmaze}> will change to <{value}>");
-                    _greenmaze = value;
+                    Log.Debug($"{nameof(greenmaze)} => <{greenmaze}> will change to <{value}>");
+
+                    greenmaze = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
-        private bool _destel;
+        private bool destel;
+
         public bool Destel
         {
             get
             {
-                return _destel;
+                return destel;
+
             }
             set
             {
-                if (_destel != value)
+                if (destel != value)
+
                 {
-                    Log.Debug($"{nameof(_destel)} => <{_destel}> will change to <{value}>");
-                    _destel = value;
+                    Log.Debug($"{nameof(destel)} => <{destel}> will change to <{value}>");
+
+                    destel = value;
+
                     OnPropertyChanged();
                 }
             }

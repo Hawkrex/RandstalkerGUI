@@ -5,32 +5,42 @@ namespace RandstalkerGui.Models
 {
     public class RandstalkerApp
     {
-        private ProcessStartInfo _start;
+        private ProcessStartInfo start;
+
 
         public RandstalkerApp()
         {
             // Prepare the process to run
-            _start = new ProcessStartInfo();
+            start = new ProcessStartInfo();
+
 
             // Enter the executable to run, including the complete path          
-            _start.FileName = Path.GetFullPath(UserConfig.Instance.RandstlakerExeDirectoryPath + "/randstalker.exe");
+            start.FileName = Path.GetFullPath(UserConfig.Instance.RandstlakerExeDirectoryPath + "/randstalker.exe");
+
             // Do you want to show a console window?
-            _start.WindowStyle = ProcessWindowStyle.Hidden;
-            _start.RedirectStandardOutput = true;
-            _start.RedirectStandardError = true;
-            _start.CreateNoWindow = false;
-            _start.UseShellExecute = false;
+            start.WindowStyle = ProcessWindowStyle.Hidden;
+
+            start.RedirectStandardOutput = true;
+
+            start.RedirectStandardError = true;
+
+            start.CreateNoWindow = false;
+
+            start.UseShellExecute = false;
+
         }
 
         public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetFilePath, string personalSettingsFilePath, string permalink = "")
         {
             // Enter in the command line arguments, everything you would enter after the executable name itself
-            _start.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomDirectoryPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
+            start.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomDirectoryPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
+
             if (!string.IsNullOrEmpty(permalink))
-                _start.Arguments += " --permalink {permalink}";
+                start.Arguments += " --permalink {permalink}";
 
             var proc = new Process();
-            proc.StartInfo = _start;
+            proc.StartInfo = start;
+
             proc.Start();
 
             string output = proc.StandardOutput.ReadToEnd();

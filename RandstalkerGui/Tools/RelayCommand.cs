@@ -5,23 +5,23 @@ namespace RandstalkerGui.Tools
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action<object> _execute;
-        private readonly Func<object, bool> _canExecute;
+        private readonly Action<object> execute;
+        private readonly Func<object, bool> canExecute;
 
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            execute(parameter);
         }
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute(parameter);
+            return canExecute == null || canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged
@@ -33,23 +33,23 @@ namespace RandstalkerGui.Tools
 
     public class RelayCommand<T> : ICommand
     {
-        private readonly Action<T> _execute;
-        private readonly Func<T, bool> _canExecute;
+        private readonly Action<T> execute;
+        private readonly Func<T, bool> canExecute;
 
         public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         public void Execute(object parameter)
         {
-            _execute((T)parameter);
+            execute((T)parameter);
         }
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute((T)parameter);
+            return canExecute == null || canExecute((T)parameter);
         }
 
         public event EventHandler CanExecuteChanged

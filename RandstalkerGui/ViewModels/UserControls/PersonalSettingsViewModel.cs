@@ -11,7 +11,8 @@ namespace RandstalkerGui.ViewModels.UserControls
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private PersonalSettings _personalSettings;
+        private PersonalSettings personalSettings;
+
 
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
 
@@ -19,14 +20,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _personalSettings.RemoveMusic;
+                return personalSettings.RemoveMusic;
+
             }
             set
             {
-                if (_personalSettings.RemoveMusic != value)
+                if (personalSettings.RemoveMusic != value)
+
                 {
-                    Log.Debug($"{nameof(_personalSettings.RemoveMusic)} => <{_personalSettings.RemoveMusic}> will change to <{value}>");
-                    _personalSettings.RemoveMusic = value;
+                    Log.Debug($"{nameof(personalSettings.RemoveMusic)} => <{personalSettings.RemoveMusic}> will change to <{value}>");
+
+                    personalSettings.RemoveMusic = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -36,14 +41,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _personalSettings.InGameTracker;
+                return personalSettings.InGameTracker;
+
             }
             set
             {
-                if (_personalSettings.InGameTracker != value)
+                if (personalSettings.InGameTracker != value)
+
                 {
-                    Log.Debug($"{nameof(_personalSettings.InGameTracker)} => <{_personalSettings.InGameTracker}> will change to <{value}>");
-                    _personalSettings.InGameTracker = value;
+                    Log.Debug($"{nameof(personalSettings.InGameTracker)} => <{personalSettings.InGameTracker}> will change to <{value}>");
+
+                    personalSettings.InGameTracker = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -53,14 +62,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _personalSettings.HudColor;
+                return personalSettings.HudColor;
+
             }
             set
             {
-                if (_personalSettings.HudColor != value)
+                if (personalSettings.HudColor != value)
+
                 {
-                    Log.Debug($"{nameof(_personalSettings.HudColor)} => <{_personalSettings.HudColor}> will change to <{value}>");
-                    _personalSettings.HudColor = value;
+                    Log.Debug($"{nameof(personalSettings.HudColor)} => <{personalSettings.HudColor}> will change to <{value}>");
+
+                    personalSettings.HudColor = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -70,14 +83,18 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _personalSettings.NigelColor[0];
+                return personalSettings.NigelColor[0];
+
             }
             set
             {
-                if (_personalSettings.NigelColor[0] != value)
+                if (personalSettings.NigelColor[0] != value)
+
                 {
-                    Log.Debug($"{nameof(MainNigelColor)} => <{_personalSettings.NigelColor[0]}> will change to <{value}>");
-                    _personalSettings.NigelColor[0] = value;
+                    Log.Debug($"{nameof(MainNigelColor)} => <{personalSettings.NigelColor[0]}> will change to <{value}>");
+
+                    personalSettings.NigelColor[0] = value;
+
                     OnPropertyChanged();
                 }
             }
@@ -87,25 +104,31 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             get
             {
-                return _personalSettings.NigelColor[1];
+                return personalSettings.NigelColor[1];
+
             }
             set
             {
-                if (_personalSettings.NigelColor[1] != value)
+                if (personalSettings.NigelColor[1] != value)
+
                 {
-                    Log.Debug($"{nameof(SecondaryNigelColor)} => <{_personalSettings.NigelColor[1]}> will change to <{value}>");
-                    _personalSettings.NigelColor[1] = value;
+                    Log.Debug($"{nameof(SecondaryNigelColor)} => <{personalSettings.NigelColor[1]}> will change to <{value}>");
+
+                    personalSettings.NigelColor[1] = value;
+
                     OnPropertyChanged();
                 }
             }
         }
 
         public RelayCommand SavePersonalSettings { get { return new RelayCommand(_ => SavePersonalSettingsHandler()); } }
+
         private void SavePersonalSettingsHandler()
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
-            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(_personalSettings));
+            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(personalSettings));
+
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
@@ -113,9 +136,11 @@ namespace RandstalkerGui.ViewModels.UserControls
         public PersonalSettingsViewModel()
         {
             if (File.Exists(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath))
-                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath));
+                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath));
+
             else
-                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Encoding.UTF8.GetString(Resources.DefaultPersonalSettings));
+                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Encoding.UTF8.GetString(Resources.DefaultPersonalSettings));
+
 
             PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath);
             PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged; ;
@@ -125,7 +150,8 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             if (e.PropertyName == nameof(PersonalSettingsTreeViewModel.SelectedFileRelativePath))
             {
-                _personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath));
+                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath));
+
 
                 UpdateProperties();
             }

@@ -12,6 +12,7 @@ namespace RandstalkerGui.ViewModels
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public RelayCommand OnClose { get { return new RelayCommand(_ => OnCloseHandler()); } }
+
         public void OnCloseHandler()
         {
             Log.Info($"{nameof(OnCloseHandler)}() => Closing window");
@@ -20,6 +21,7 @@ namespace RandstalkerGui.ViewModels
         }
 
         public RelayCommand Config { get { return new RelayCommand(_ => ConfigHandler()); } }
+
         private void ConfigHandler()
         {
             Log.Debug($"{nameof(ConfigHandler)}() => Command requested ...");
@@ -64,6 +66,7 @@ namespace RandstalkerGui.ViewModels
         }
 
         public RelayCommand About { get { return new RelayCommand(_ => AboutHandler()); } }
+
         private void AboutHandler()
         {
             Log.Debug($"{nameof(AboutHandler)}() => Command requested ...");
