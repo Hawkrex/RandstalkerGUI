@@ -67,8 +67,12 @@
     <system:String x:Key="SelectedPresetTooltip">Préréglage qui sera utilisé pour génerer la seed</system:String>
     <system:String x:Key="SelectedPersonalSettings">Réglages personnels séléctionné :</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Réglages personnels qui seront utilisé pour génerer la seed</system:String>
-    
+    <system:String x:Key="PermalinkToGenerateFrom">Permalink à partir duquel généré:</system:String>
+    <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink à partir duquel généré (Laissez vide pour une seed random)</system:String>
+
     <system:String x:Key="GenerateRom">Générer ROM</system:String>
+
+    <system:String x:Key="CopyPermalink">Copier le permalink</system:String>
 
     <!-- Preset -->
     <system:String x:Key="StartingGroupBox">Départ</system:String>

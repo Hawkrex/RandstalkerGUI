@@ -36,7 +36,7 @@ namespace RandstalkerGui.Models
             start.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomDirectoryPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
 
             if (!string.IsNullOrEmpty(permalink))
-                start.Arguments += " --permalink {permalink}";
+                start.Arguments += $" --permalink={permalink}";
 
             var proc = new Process();
             proc.StartInfo = start;

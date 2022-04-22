@@ -32,12 +32,20 @@
                     <Label Content="{DynamicResource SelectedPersonalSettings}" ToolTip="{DynamicResource SelectedPersonalSettingsTooltip}"/>
                     <Label Content="{Binding PersonalSettingsTreeViewModel.SelectedFileRelativePath}"/>
                 </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <Label Content="{DynamicResource PermalinkToGenerateFrom}" ToolTip="{DynamicResource PermalinkToGenerateFromTooltip}" />
+                    <TextBox Text="{Binding PermalinkToGenerateFrom}" MinWidth="300"/>
+                </StackPanel>
             </StackPanel>
         </GroupBox>
         <Button Content="{DynamicResource GenerateRom}" Command="{Binding GenerateRom}"
                             Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10,10,10"/>
         <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" 
                      Height="30"/>
+        <StackPanel Style="{StaticResource ParameterPanel}">
+            <Button Content="{DynamicResource CopyPermalink}" Command="{Binding CopyPermalink}"/>
+            <TextBox Text="{Binding PermalinkToCopy}" IsReadOnly="True"/>
+        </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <TextBox Text="{Binding OutputLog}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="600"/>
         </StackPanel>
