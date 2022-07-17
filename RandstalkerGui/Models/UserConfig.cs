@@ -6,8 +6,8 @@ namespace RandstalkerGui.Models
 {
     public class UserConfig
     {
-        [JsonProperty("randstlakerExeDirectoryPath")]
-        public string RandstlakerExeDirectoryPath { get; set; }
+        [JsonProperty("randstlakerExeFilePath")]
+        public string RandstlakerExeFilePath { get; set; }
 
         [JsonProperty("presetsDirectoryPath")]
         public string PresetsDirectoryPath { get; set; }
@@ -27,15 +27,13 @@ namespace RandstalkerGui.Models
         [JsonProperty("outputRomDirectoryPath")]
         public string OutputRomDirectoryPath { get; set; }
 
-
         private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
 
         public static UserConfig Instance => instance.Value;
 
-
         public bool ArePathsValid()
         {
-            if(!File.Exists(RandstlakerExeDirectoryPath + "/randstalker.exe"))
+            if(!File.Exists(RandstlakerExeFilePath))
                 return false;
 
             if (string.IsNullOrWhiteSpace(PresetsDirectoryPath))

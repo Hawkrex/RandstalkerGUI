@@ -131,6 +131,8 @@
     </Compile>
     <Compile Include="Tools\BaseViewModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="ValidationRules\FileExistenceValidationRule.cs" />
+    <Compile Include="ValidationRules\TextFilledValidationRule.cs" />
     <Compile Include="ViewModels\Popups\InputDialogViewModel.cs" />
     <Compile Include="ViewModels\Popups\UserConfigPopupViewModel.cs" />
     <Compile Include="ViewModels\UserControls\FileTreeViewModel.cs" />
@@ -165,6 +167,7 @@
     </Compile>
     <Resource Include="Resources\Images\GearIcon.png" />
     <Resource Include="Resources\Images\UserIcon.png" />
+    <Resource Include="Resources\Images\LakeShrinePath.png" />
     <Content Include="Resources\LocalisationDictionary.en-US.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RandstalkerGui.ViewModels.Popups"
+        xmlns:validationRules="clr-namespace:RandstalkerGui.ValidationRules"
         mc:Ignorable="d"
         Title="{DynamicResource UserConfig}" Height="300" Width="800">
     <Window.DataContext>
@@ -14,34 +15,80 @@
             <Setter Property="Margin" Value="5,5,5,5"/>
             <Setter Property="Orientation" Value="Horizontal"/>
         </Style>
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <Label Content="{DynamicResource RandstlakerExeDirectoryPath}" ToolTip="{DynamicResource RandstlakerExeDirectoryPathTooltip}"/>
-            <TextBox Text="{Binding RandstlakerExeDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Content="..." Command="{Binding SelectRandstlakerExeDirectoryPath}"/>
+            <Label Content="{DynamicResource RandstlakerExeFilePath}" ToolTip="{DynamicResource RandstlakerExeFilePathTooltip}"/>
+            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+                <TextBox.Text>
+                    <Binding Path="RandstlakerExeFilePath" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:FileExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Content="..." Command="{Binding SelectRandstlakerExeFilePath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource PresetsDirectoryPath}" ToolTip="{DynamicResource PresetsDirectoryPathTooltip}"/>
-            <TextBox Text="{Binding PresetsDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+                <TextBox.Text>
+                    <Binding Path="PresetsDirectoryPath" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:DirectoryExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Button Content="..." Command="{Binding SelectPresetsDirectoryPath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource PersonalSettingsDirectoryPath}" ToolTip="{DynamicResource PersonalSettingsDirectoryPathTooltip}"/>
-            <TextBox Text="{Binding PersonalSettingsDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+                <TextBox.Text>
+                    <Binding Path="PersonalSettingsDirectoryPath" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:DirectoryExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Button Content="..." Command="{Binding SelectPersonalSettingsDirectoryPath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource InputRomFilePath}" ToolTip="{DynamicResource InputRomFilePathTooltip}"/>
-            <TextBox Text="{Binding InputRomFilePath, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+                <TextBox.Text>
+                    <Binding Path="InputRomFilePath" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:FileExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Button Content="..." Command="{Binding SelectInputRomFilePath}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource OutputRomDirectoryPath}" ToolTip="{DynamicResource OutputRomDirectoryPathTooltip}"/>
-            <TextBox Text="{Binding OutputRomDirectoryPath, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+                <TextBox.Text>
+                    <Binding Path="OutputRomDirectoryPath" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:DirectoryExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Button Content="..." Command="{Binding SelectOutputRomDirectoryPath}"/>
         </StackPanel>
-        <Button Content="{DynamicResource SaveUserConfig}" Command="{Binding SaveUserConfig}"
-                Margin="5,5,5,5" Height="50" />
+        <Button Content="{DynamicResource SaveUserConfig}" Command="{Binding SaveUserConfig}" Margin="5,5,5,5" Height="50" />
     </StackPanel>
 </Window>

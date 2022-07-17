@@ -24,17 +24,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return massan;
-
             }
             set
             {
                 if (massan != value)
-
                 {
                     Log.Debug($"{nameof(massan)} => <{massan}> will change to <{value}>");
-
                     massan = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -47,17 +43,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return gumi;
-
             }
             set
             {
                 if (gumi != value)
-
                 {
                     Log.Debug($"{nameof(gumi)} => <{gumi}> will change to <{value}>");
-
                     gumi = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -70,17 +62,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return kado;
-
             }
             set
             {
                 if (kado != value)
-
                 {
                     Log.Debug($"{nameof(kado)} => <{kado}> will change to <{value}>");
-
                     kado = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -93,17 +81,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return waterfall;
-
             }
             set
             {
                 if (waterfall != value)
-
                 {
                     Log.Debug($"{nameof(waterfall)} => <{waterfall}> will change to <{value}>");
-
                     waterfall = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -116,17 +100,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return ryuma;
-
             }
             set
             {
                 if (ryuma != value)
-
                 {
                     Log.Debug($"{nameof(ryuma)} => <{ryuma}> will change to <{value}>");
-
                     ryuma = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -139,17 +119,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return mercator;
-
             }
             set
             {
                 if (mercator != value)
-
                 {
                     Log.Debug($"{nameof(mercator)} => <{mercator}> will change to <{value}>");
-
                     mercator = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -162,17 +138,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return verla;
-
             }
             set
             {
                 if (verla != value)
-
                 {
                     Log.Debug($"{nameof(verla)} => <{verla}> will change to <{value}>");
-
                     verla = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -185,17 +157,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return greenmaze;
-
             }
             set
             {
                 if (greenmaze != value)
-
                 {
                     Log.Debug($"{nameof(greenmaze)} => <{greenmaze}> will change to <{value}>");
-
                     greenmaze = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -208,17 +176,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return destel;
-
             }
             set
             {
                 if (destel != value)
-
                 {
                     Log.Debug($"{nameof(destel)} => <{destel}> will change to <{value}>");
-
                     destel = value;
-
                     OnPropertyChanged();
                 }
             }

@@ -16,14 +16,7 @@ namespace RandstalkerGui.ViewModels.Popups
 
             if (dialog != null)
             {
-                if (string.IsNullOrEmpty(Input))
-                {
-                    dialog.DialogResult = false;
-                }
-                else
-                {
-                    dialog.DialogResult = true;
-                }
+                dialog.DialogResult = string.IsNullOrEmpty(Input) ? false : true;
             }
 
             Log.Debug($"{nameof(ValidateHandler)}() => Command executed");
@@ -35,7 +28,9 @@ namespace RandstalkerGui.ViewModels.Popups
             Log.Debug($"{nameof(CancelHandler)}() => Command requested ...");
 
             if (dialog != null)
+            {
                 dialog.DialogResult = false;
+            }
 
             Log.Debug($"{nameof(CancelHandler)}() => Command executed");
         }

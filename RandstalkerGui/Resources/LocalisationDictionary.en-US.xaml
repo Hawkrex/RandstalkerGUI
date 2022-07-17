@@ -47,16 +47,16 @@
 
     <!-- UserConfig -->
     <system:String x:Key="UserConfig">UserConfig</system:String>
-    <system:String x:Key="RandstlakerExeDirectoryPath">Randstalker exe path</system:String>
-    <system:String x:Key="RandstlakerExeDirectoryPathTooltip">Randstalker exe path</system:String>
-    <system:String x:Key="PresetsDirectoryPath">Presets path</system:String>
-    <system:String x:Key="PresetsDirectoryPathTooltip">Presets path</system:String>
-    <system:String x:Key="PersonalSettingsDirectoryPath">Personal settings path</system:String>
-    <system:String x:Key="PersonalSettingsDirectoryPathTooltip">Personal settings path</system:String>
-    <system:String x:Key="InputRomFilePath">Input rom path</system:String>
-    <system:String x:Key="InputRomFilePathTooltip">Input rom path</system:String>
-    <system:String x:Key="OutputRomDirectoryPath">Output rom path</system:String>
-    <system:String x:Key="OutputRomDirectoryPathTooltip">Output rom path</system:String>
+    <system:String x:Key="RandstlakerExeFilePath">Randstalker exe file path</system:String>
+    <system:String x:Key="RandstlakerExeFilePathTooltip">Randstalker exe file path</system:String>
+    <system:String x:Key="PresetsDirectoryPath">Presets directory path</system:String>
+    <system:String x:Key="PresetsDirectoryPathTooltip">Presets directory path</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPath">Personal settings directory path</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPathTooltip">Personal settings directory path</system:String>
+    <system:String x:Key="InputRomFilePath">Input rom file path</system:String>
+    <system:String x:Key="InputRomFilePathTooltip">Input rom file path</system:String>
+    <system:String x:Key="OutputRomDirectoryPath">Output rom directory path</system:String>
+    <system:String x:Key="OutputRomDirectoryPathTooltip">Output rom directory path</system:String>
     <system:String x:Key="SaveUserConfig">Save UserConfig</system:String>
 
     <!-- Homepage -->
@@ -69,6 +69,8 @@
     <system:String x:Key="SelectedPersonalSettingsTooltip">Personal settings that will be use to generate a seed</system:String>
     <system:String x:Key="PermalinkToGenerateFrom">Permalink to generate from: </system:String>
     <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink to generate from (Leave blank for a random one)</system:String>
+    <system:String x:Key="OutputRomFileName">Name of the output rom:</system:String>
+    <system:String x:Key="OutputRomFileNameTooltip">Name of the output rom (Leave blank for seed's hash)</system:String>
 
     <system:String x:Key="GenerateRom">Generate ROM</system:String>
 

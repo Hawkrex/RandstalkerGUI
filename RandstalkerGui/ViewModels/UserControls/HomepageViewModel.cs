@@ -72,6 +72,24 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        private string outputRomFileName;
+        public string OutputRomFileName
+        {
+            get
+            {
+                return outputRomFileName;
+            }
+            set
+            {
+                if (outputRomFileName != value)
+                {
+                    Log.Debug($"{nameof(OutputRomFileName)} => <{outputRomFileName}> will change to <{value}>");
+                    outputRomFileName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string permalinkToCopy;
         public string PermalinkToCopy
         {
@@ -96,7 +114,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command requested ...");
 
             Progress = 0;
-            OutputLog = randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath, UserConfig.Instance.OutputRomDirectoryPath, UserConfig.Instance.PresetsDirectoryPath + '/' + PresetTreeViewModel.SelectedFileRelativePath, UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath, PermalinkToGenerateFrom);
+            OutputLog = randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath,
+                UserConfig.Instance.OutputRomDirectoryPath,
+                Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath),
+                Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath),
+                PermalinkToGenerateFrom,
+                OutputRomFileName);
+
             PermalinkToCopy = Regex.Match(OutputLog, @"Permalink: (.*)").Groups[1].Value;
             Progress = 100;
 

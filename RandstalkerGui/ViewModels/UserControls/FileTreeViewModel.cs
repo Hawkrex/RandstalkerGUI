@@ -91,19 +91,19 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             try
             {
-                Stream myStream;
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                Stream savingStream;
+                var saveFileDialog = new SaveFileDialog();
 
                 saveFileDialog.Filter = "json files (*.json)|*.json";
                 saveFileDialog.InitialDirectory = directoryPath;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if ((myStream = saveFileDialog.OpenFile()) != null)
+                    if ((savingStream = saveFileDialog.OpenFile()) != null)
                     {
                         newFilePath = saveFileDialog.FileName;
-                        myStream.Write(Resources.DefaultPreset, 0, Resources.DefaultPreset.Length);
-                        myStream.Close();
+                        savingStream.Write(Resources.DefaultPreset, 0, Resources.DefaultPreset.Length);
+                        savingStream.Close();
                     }
                 }
 
@@ -127,7 +127,6 @@ namespace RandstalkerGui.ViewModels.UserControls
                 if (MessageBox.Show((string)App.Instance.TryFindResource("DuplicateFileAskTitle"), (string)App.Instance.TryFindResource("DuplicateFileAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     File.Copy(filePath, Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath) + "Copy" + Path.GetExtension(filePath)));
-
 
                     UpdateTree();
                 }
@@ -206,6 +205,11 @@ namespace RandstalkerGui.ViewModels.UserControls
         private void UpdateTree()
         {
             Tree.Clear();
+            if(string.IsNullOrEmpty(basePath))
+            {
+                return;
+            }
+
             var baseDirInfo = new DirectoryInfo(basePath);
             Tree.Add(new TreeViewDirectory
             {

@@ -59,9 +59,9 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="{DynamicResource Wiki}">
-                <StackPanel>
-                    <Label>Coming soon !</Label>
-                </StackPanel>
+                <Grid>
+                    <Image  Source="../Resources/Images/LakeShrinePath.png"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </DockPanel>

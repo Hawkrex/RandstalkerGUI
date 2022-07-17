@@ -5,51 +5,49 @@ namespace RandstalkerGui.Models
 {
     public class RandstalkerApp
     {
-        private ProcessStartInfo start;
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private ProcessStartInfo startInfos;
 
         public RandstalkerApp()
         {
-            // Prepare the process to run
-            start = new ProcessStartInfo();
+            startInfos = new ProcessStartInfo();
 
-
-            // Enter the executable to run, including the complete path          
-            start.FileName = Path.GetFullPath(UserConfig.Instance.RandstlakerExeDirectoryPath + "/randstalker.exe");
-
-            // Do you want to show a console window?
-            start.WindowStyle = ProcessWindowStyle.Hidden;
-
-            start.RedirectStandardOutput = true;
-
-            start.RedirectStandardError = true;
-
-            start.CreateNoWindow = false;
-
-            start.UseShellExecute = false;
-
+            startInfos.FileName = UserConfig.Instance.RandstlakerExeFilePath;
+            startInfos.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfos.RedirectStandardOutput = true;
+            startInfos.RedirectStandardError = true;
+            startInfos.CreateNoWindow = false;
+            startInfos.UseShellExecute = false;
         }
 
-        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetFilePath, string personalSettingsFilePath, string permalink = "")
+        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetFilePath, string personalSettingsFilePath, string permalink, string outputFileName)
         {
+            string outputRomPath = string.IsNullOrEmpty(outputFileName) ? outputRomDirectoryPath : Path.Combine(outputRomDirectoryPath, outputFileName + ".md");
+
             // Enter in the command line arguments, everything you would enter after the executable name itself
-            start.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomDirectoryPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
+            startInfos.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
 
+            string log = $"Generating seed with inputrom={inputRomFilePath}, outputrom={outputRomPath}, preset={presetFilePath}, personalsettings={personalSettingsFilePath}";
             if (!string.IsNullOrEmpty(permalink))
-                start.Arguments += $" --permalink={permalink}";
+            {
+                startInfos.Arguments += $" --permalink={permalink}";
+                log += $", permalink={permalink}";
+            }
 
-            var proc = new Process();
-            proc.StartInfo = start;
+            var randstalkerProcess = new Process();
+            randstalkerProcess.StartInfo = startInfos;
+            
+            Log.Info(log);
+            randstalkerProcess.Start();
 
-            proc.Start();
+            string output = randstalkerProcess.StandardOutput.ReadToEnd();
+            string error = randstalkerProcess.StandardError.ReadToEnd();
 
-            string output = proc.StandardOutput.ReadToEnd();
-            string error = proc.StandardError.ReadToEnd();
             // Read the standard error of net.exe and write it on to console.                
-            proc.WaitForExit();
+            randstalkerProcess.WaitForExit();
 
             return output;
         }
-
     }
 }

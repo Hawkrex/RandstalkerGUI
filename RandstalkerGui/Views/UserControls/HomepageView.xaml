@@ -34,7 +34,11 @@
                 </StackPanel>
                 <StackPanel Style="{StaticResource ParameterPanel}">
                     <Label Content="{DynamicResource PermalinkToGenerateFrom}" ToolTip="{DynamicResource PermalinkToGenerateFromTooltip}" />
-                    <TextBox Text="{Binding PermalinkToGenerateFrom}" MinWidth="300"/>
+                    <TextBox Text="{Binding PermalinkToGenerateFrom}" MinWidth="300" MaxWidth="1190"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <Label Content="{DynamicResource OutputRomFileName}" ToolTip="{DynamicResource OutputRomFileNameTooltip}" />
+                    <TextBox Text="{Binding OutputRomFileName}" MinWidth="300"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>
@@ -44,10 +48,10 @@
                      Height="30"/>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Button Content="{DynamicResource CopyPermalink}" Command="{Binding CopyPermalink}"/>
-            <TextBox Text="{Binding PermalinkToCopy}" IsReadOnly="True"/>
+            <TextBox Text="{Binding PermalinkToCopy}" IsReadOnly="True" MinWidth="300" MaxWidth="1280"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
-            <TextBox Text="{Binding OutputLog}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="600"/>
+            <TextBox Text="{Binding OutputLog}" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Width="1390" Height="380"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

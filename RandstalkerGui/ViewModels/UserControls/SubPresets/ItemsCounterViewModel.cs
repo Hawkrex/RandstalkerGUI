@@ -22,17 +22,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             get
             {
                 return itemToAdd;
-
             }
             set
             {
                 if (itemToAdd != value)
-
                 {
                     Log.Debug($"{nameof(itemToAdd)} => <{itemToAdd}> will change to <{value}>");
-
                     itemToAdd = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -45,17 +41,23 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             Log.Debug($"{nameof(AddItemHandler)}() => Command requested ...");
 
             if (string.IsNullOrEmpty(ItemToAdd))
+            {
                 throw new InvalidOperationException("Cannot add empty item !");
+            }
 
             ItemCounters.Add(new ItemCount(ItemToAdd, 1));
             Log.Info($"{nameof(AddItemHandler)}() => Added item <{ItemToAdd}> to the list of items");
 
             if (!Items.Remove(ItemToAdd))
+            {
                 throw new InvalidOperationException($"The item <{ItemToAdd}> has not been removed from the available items list !");
+            }
 
             ItemToAdd = Items?.FirstOrDefault();
             if (ItemToAdd == null)
+            {
                 ItemToAdd = string.Empty;
+            }
 
             Log.Debug($"{nameof(AddItemHandler)}() => Command executed");
         }
@@ -66,18 +68,26 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             Log.Debug($"{nameof(DeleteItemHandler)}() => Command requested ...");
 
             if (string.IsNullOrEmpty(name))
+            {
                 throw new InvalidOperationException("Cannot remove empty item !");
+            }
 
             if (ItemCounters.Remove(ItemCounters.First(x => x.Name == name)))
+            {
                 Log.Info($"{nameof(AddItemHandler)}() => Removed item <{name}> from the list of items");
+            }
             else
+            {
                 throw new InvalidOperationException($"The item <{name}> has not been removed from the list of items");
+            }
 
             Items.Add(name);
 
             ItemToAdd = Items?.FirstOrDefault();
             if (ItemToAdd == null)
+            {
                 ItemToAdd = string.Empty;
+            }
 
             Log.Debug($"{nameof(DeleteItemHandler)}() => Command executed");
         }
@@ -87,7 +97,9 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             Items = new ObservableCollection<string>();
 
             foreach (var itemDefinition in itemDefinitions.Items)
+            {
                 Items.Add(itemDefinition.Name);
+            }
 
             ItemCounters = new ObservableCollection<ItemCount>();
             foreach (var item in items)
@@ -101,9 +113,11 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public Dictionary<string, int> ComputePresetInfos()
         {
-            Dictionary<string, int> itemsCount = new Dictionary<string, int>();
+            var itemsCount = new Dictionary<string, int>();
             foreach (var itemCounter in ItemCounters)
+            {
                 itemsCount.Add(itemCounter.Name, itemCounter.Count);
+            }
 
             return itemsCount;
         }

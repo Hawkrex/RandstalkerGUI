@@ -12,12 +12,9 @@ namespace RandstalkerGui.Models
         {
             Items = new List<ItemDefinition>();
 
-            JObject itemDefinitions;
-            itemDefinitions = JsonConvert.DeserializeObject<JObject>(Properties.Resources.Items);
-
-            foreach (var item in itemDefinitions)
+            foreach (var item in JsonConvert.DeserializeObject<JObject>(Properties.Resources.Items))
             {
-                ItemDefinition obj = JsonConvert.DeserializeObject<ItemDefinition>(item.Value.ToString());
+                var obj = JsonConvert.DeserializeObject<ItemDefinition>(item.Value.ToString());
                 obj.Id = int.Parse(item.Key);
 
                 Items.Add(obj);

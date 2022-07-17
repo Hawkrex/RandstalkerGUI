@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
 using System.IO;
+using System.Windows;
 
 namespace RandstalkerGui.ViewModels.Popups
 {
@@ -11,18 +12,18 @@ namespace RandstalkerGui.ViewModels.Popups
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public string RandstlakerExeDirectoryPath
+        public string RandstlakerExeFilePath
         {
             get
             {
-                return UserConfig.Instance.RandstlakerExeDirectoryPath;
+                return UserConfig.Instance.RandstlakerExeFilePath;
             }
             set
             {
-                if (UserConfig.Instance.RandstlakerExeDirectoryPath != value)
+                if (UserConfig.Instance.RandstlakerExeFilePath != value)
                 {
-                    Log.Debug($"{nameof(RandstlakerExeDirectoryPath)} => <{UserConfig.Instance.RandstlakerExeDirectoryPath}> will change to <{value}>");
-                    UserConfig.Instance.RandstlakerExeDirectoryPath = value;
+                    Log.Debug($"{nameof(RandstlakerExeFilePath)} => <{UserConfig.Instance.RandstlakerExeFilePath}> will change to <{value}>");
+                    UserConfig.Instance.RandstlakerExeFilePath = value;
                     OnPropertyChanged();
                 }
             }
@@ -96,19 +97,22 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand SelectRandstlakerExeDirectoryPath { get { return new RelayCommand(_ => SelectRandstlakerExeDirectoryPathHandler()); } }
+        public RelayCommand SelectRandstlakerExeFilePath { get { return new RelayCommand(_ => SelectRandstlakerExeFilePathHandler()); } }
 
-        private void SelectRandstlakerExeDirectoryPathHandler()
+        private void SelectRandstlakerExeFilePathHandler()
         {
-            Log.Debug($"{nameof(SelectRandstlakerExeDirectoryPathHandler)}() => Command requested ...");
+            Log.Debug($"{nameof(SelectRandstlakerExeFilePathHandler)}() => Command requested ...");
 
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = RandstlakerExeDirectoryPath;
-            dialog.IsFolderPicker = true;
-            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
-                RandstlakerExeDirectoryPath = dialog.FileName;
+            var dialog = new OpenFileDialog();
+            dialog.InitialDirectory = RandstlakerExeFilePath;
+            dialog.Filter = "Exe file (*.exe)|*.exe";
 
-            Log.Debug($"{nameof(SelectRandstlakerExeDirectoryPathHandler)}() => Command executed");
+            if (dialog.ShowDialog() == true)
+            {
+                RandstlakerExeFilePath = dialog.FileName;
+            }
+
+            Log.Debug($"{nameof(SelectRandstlakerExeFilePathHandler)}() => Command executed");
         }
 
         public RelayCommand SelectPresetsDirectoryPath { get { return new RelayCommand(_ => SelectPresetsDirectoryPathHandler()); } }
@@ -117,11 +121,14 @@ namespace RandstalkerGui.ViewModels.Popups
         {
             Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command requested ...");
 
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            var dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = PresetsDirectoryPath;
             dialog.IsFolderPicker = true;
+
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
                 PresetsDirectoryPath = dialog.FileName;
+            }
 
             Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command executed");
         }
@@ -132,11 +139,14 @@ namespace RandstalkerGui.ViewModels.Popups
         {
             Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command requested ...");
 
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            var dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = PersonalSettingsDirectoryPath;
             dialog.IsFolderPicker = true;
+
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
                 PersonalSettingsDirectoryPath = dialog.FileName;
+            }
 
             Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command executed");
         }
@@ -147,11 +157,17 @@ namespace RandstalkerGui.ViewModels.Popups
         {
             Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command requested ...");
 
-            OpenFileDialog dialog = new OpenFileDialog();
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Megadrive file (*.md)|*.md";
             if (File.Exists(InputRomFilePath))
+            {
                 dialog.InitialDirectory = Path.GetDirectoryName(InputRomFilePath);
+            }
+            
             if (dialog.ShowDialog().Value)
+            {
                 InputRomFilePath = dialog.FileName;
+            }
 
             Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command executed");
         }
@@ -162,22 +178,30 @@ namespace RandstalkerGui.ViewModels.Popups
         {
             Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command requested ...");
 
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            var dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = OutputRomDirectoryPath;
             dialog.IsFolderPicker = true;
+
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
                 OutputRomDirectoryPath = dialog.FileName;
+            }
 
             Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand SaveUserConfig { get { return new RelayCommand(_ => SaveUserConfigHandler()); } }
+        public RelayCommand<Window> SaveUserConfig { get { return new RelayCommand<Window>(dialog => SaveUserConfigHandler(dialog)); } }
 
-        private void SaveUserConfigHandler()
+        private void SaveUserConfigHandler(Window dialog)
         {
             Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command requested ...");
 
             File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+
+            if (dialog != null)
+            {
+                dialog.DialogResult = true;
+            }
 
             Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command executed");
         }

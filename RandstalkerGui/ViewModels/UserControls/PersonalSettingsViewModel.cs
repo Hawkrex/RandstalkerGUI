@@ -13,7 +13,6 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private PersonalSettings personalSettings;
 
-
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
 
         public bool RemoveMusic
@@ -21,17 +20,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             get
             {
                 return personalSettings.RemoveMusic;
-
             }
             set
             {
                 if (personalSettings.RemoveMusic != value)
-
                 {
                     Log.Debug($"{nameof(personalSettings.RemoveMusic)} => <{personalSettings.RemoveMusic}> will change to <{value}>");
-
                     personalSettings.RemoveMusic = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -42,17 +37,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             get
             {
                 return personalSettings.InGameTracker;
-
             }
             set
             {
                 if (personalSettings.InGameTracker != value)
-
                 {
                     Log.Debug($"{nameof(personalSettings.InGameTracker)} => <{personalSettings.InGameTracker}> will change to <{value}>");
-
                     personalSettings.InGameTracker = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -63,17 +54,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             get
             {
                 return personalSettings.HudColor;
-
             }
             set
             {
                 if (personalSettings.HudColor != value)
-
                 {
                     Log.Debug($"{nameof(personalSettings.HudColor)} => <{personalSettings.HudColor}> will change to <{value}>");
-
                     personalSettings.HudColor = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -84,17 +71,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             get
             {
                 return personalSettings.NigelColor[0];
-
             }
             set
             {
                 if (personalSettings.NigelColor[0] != value)
-
                 {
                     Log.Debug($"{nameof(MainNigelColor)} => <{personalSettings.NigelColor[0]}> will change to <{value}>");
-
                     personalSettings.NigelColor[0] = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -105,17 +88,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             get
             {
                 return personalSettings.NigelColor[1];
-
             }
             set
             {
                 if (personalSettings.NigelColor[1] != value)
-
                 {
                     Log.Debug($"{nameof(SecondaryNigelColor)} => <{personalSettings.NigelColor[1]}> will change to <{value}>");
-
                     personalSettings.NigelColor[1] = value;
-
                     OnPropertyChanged();
                 }
             }
@@ -127,31 +106,31 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
-            File.WriteAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath, JsonConvert.SerializeObject(personalSettings));
-
+            File.WriteAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath), JsonConvert.SerializeObject(personalSettings));
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
 
         public PersonalSettingsViewModel()
         {
-            if (File.Exists(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath))
-                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + UserConfig.Instance.LastUsedPersonalSettingsFilePath));
-
+            if (File.Exists(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath)))
+            {
+                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath)));
+            }
             else
+            {
                 personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Encoding.UTF8.GetString(Resources.DefaultPersonalSettings));
-
+            }
 
             PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath);
-            PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged; ;
+            PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged;
         }
 
         private void PersonalSettingsTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(PersonalSettingsTreeViewModel.SelectedFileRelativePath))
             {
-                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(UserConfig.Instance.PersonalSettingsDirectoryPath + '/' + PersonalSettingsTreeViewModel.SelectedFileRelativePath));
-
+                personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath)));
 
                 UpdateProperties();
             }

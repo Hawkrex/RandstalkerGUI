@@ -17,7 +17,7 @@
     <system:String x:Key="DeleteDirectoryAskTitle">Suppression dossier</system:String>
     <system:String x:Key="DeleteDirectoryAskMessage">Voulez-vous vraiment supprimer ce dossier et tout ce qu'il contient ?</system:String>
     <system:String x:Key="DuplicateFileAskTitle">Duplication fichier</system:String>
-    <system:String x:Key="DuplicateFileAskMessage">Voulez-vous vraiment duppliquer ce fichier ?</system:String>
+    <system:String x:Key="DuplicateFileAskMessage">Voulez-vous vraiment dupliquer ce fichier ?</system:String>
     <system:String x:Key="DeleteFileAskTitle">Suppression fichier</system:String>
     <system:String x:Key="DeleteFileAskMessage">Voulez-vous vraiment supprimer ce fichier ?</system:String>
 
@@ -47,16 +47,16 @@
 
     <!-- UserConfig -->
     <system:String x:Key="UserConfig">Config utilisateur</system:String>
-    <system:String x:Key="RandstlakerExeDirectoryPath">Chemin de l'exe de Randstalker</system:String>
-    <system:String x:Key="RandstlakerExeDirectoryPathTooltip">Chemin de l'exe de Randstalker</system:String>
-    <system:String x:Key="PresetsDirectoryPath">Chemin du fichier de préréglages</system:String>
-    <system:String x:Key="PresetsDirectoryPathTooltip">Chemin du fichier de préréglages</system:String>
-    <system:String x:Key="PersonalSettingsDirectoryPath">Chemin du fichier de réglages personnels</system:String>
-    <system:String x:Key="PersonalSettingsDirectoryPathTooltip">Chemin du fichier de réglages personnels</system:String>
-    <system:String x:Key="InputRomFilePath">Chemin de la rom en entrée</system:String>
-    <system:String x:Key="InputRomFilePathTooltip">Chemin de la rom en entrée</system:String>
-    <system:String x:Key="OutputRomDirectoryPath">Chemin de la rom en sortie</system:String>
-    <system:String x:Key="OutputRomDirectoryPathTooltip">Chemin de la rom en sortie</system:String>
+    <system:String x:Key="RandstlakerExeFilePath">Chemin du fichier de l'exe de Randstalker</system:String>
+    <system:String x:Key="RandstlakerExeFilePathTooltip">Chemin du fichier de l'exe de Randstalker</system:String>
+    <system:String x:Key="PresetsDirectoryPath">Chemin du dossier de préréglages</system:String>
+    <system:String x:Key="PresetsDirectoryPathTooltip">Chemin du dossier de préréglages</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPath">Chemin du dossier de réglages personnels</system:String>
+    <system:String x:Key="PersonalSettingsDirectoryPathTooltip">Chemin du dossier de réglages personnels</system:String>
+    <system:String x:Key="InputRomFilePath">Chemin du fichier de la rom en entrée</system:String>
+    <system:String x:Key="InputRomFilePathTooltip">Chemin du fichier de la rom en entrée</system:String>
+    <system:String x:Key="OutputRomDirectoryPath">Chemin du dossier de la rom en sortie</system:String>
+    <system:String x:Key="OutputRomDirectoryPathTooltip">Chemin du dossier de la rom en sortie</system:String>
     <system:String x:Key="SaveUserConfig">Enregistrer le fichier de config utilisateur</system:String>
     
     <!-- Homepage -->
@@ -67,8 +67,10 @@
     <system:String x:Key="SelectedPresetTooltip">Préréglage qui sera utilisé pour génerer la seed</system:String>
     <system:String x:Key="SelectedPersonalSettings">Réglages personnels séléctionné :</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Réglages personnels qui seront utilisé pour génerer la seed</system:String>
-    <system:String x:Key="PermalinkToGenerateFrom">Permalink à partir duquel généré:</system:String>
-    <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink à partir duquel généré (Laissez vide pour une seed random)</system:String>
+    <system:String x:Key="PermalinkToGenerateFrom">Permalink à partir duquel générer :</system:String>
+    <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink à partir duquel générer (Laissez vide pour une seed random)</system:String>
+    <system:String x:Key="OutputRomFileName">Nom de la rom en sortie :</system:String>
+    <system:String x:Key="OutputRomFileNameTooltip">Nom de la rom en sortie (Laissez vide pour mettre le hash de la seed)</system:String>
 
     <system:String x:Key="GenerateRom">Générer ROM</system:String>
 

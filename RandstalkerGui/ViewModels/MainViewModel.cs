@@ -26,7 +26,7 @@ namespace RandstalkerGui.ViewModels
         {
             Log.Debug($"{nameof(ConfigHandler)}() => Command requested ...");
 
-            UserConfigPopup userConfigPopup = new UserConfigPopup();
+            var userConfigPopup = new UserConfigPopup();
             userConfigPopup.ShowDialog();
 
             Log.Debug($"{nameof(ConfigHandler)}() => Command executed");
@@ -81,10 +81,14 @@ namespace RandstalkerGui.ViewModels
             Log.Info($"--------------------------------------------------");
             Log.Info($"{nameof(MainViewModel)}() => Initialization");
 
-            while (!UserConfig.Instance.ArePathsValid())
+            if (!UserConfig.Instance.ArePathsValid())
             {
                 MessageBox.Show("User config not valid");
                 ConfigHandler();
+                if (!UserConfig.Instance.ArePathsValid())
+                {
+                    OnCloseHandler(); // Initialize all Viewmodels afterwards, maybe find another proper shutdown solution
+                }
             } 
         }
     }
