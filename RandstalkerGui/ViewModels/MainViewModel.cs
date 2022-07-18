@@ -83,7 +83,7 @@ namespace RandstalkerGui.ViewModels
 
             if (!UserConfig.Instance.ArePathsValid())
             {
-                MessageBox.Show("User config not valid");
+                MessageBox.Show((string)App.Instance.TryFindResource("UserConfigNotValid"));
                 ConfigHandler();
                 if (!UserConfig.Instance.ArePathsValid())
                 {

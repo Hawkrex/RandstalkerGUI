@@ -46,6 +46,7 @@
     <system:String x:Key="PersonalSettingsTooltip">Personal Settings</system:String>
 
     <!-- UserConfig -->
+    <system:String x:Key="UserConfigNotValid">User config not valid</system:String>
     <system:String x:Key="UserConfig">UserConfig</system:String>
     <system:String x:Key="RandstlakerExeFilePath">Randstalker exe file path</system:String>
     <system:String x:Key="RandstlakerExeFilePathTooltip">Randstalker exe file path</system:String>
