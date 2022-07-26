@@ -31,6 +31,10 @@
                 <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding SwapOverworldMusic}" />
+                <Label Content="{DynamicResource SwapOverworldMusic}" ToolTip="{DynamicResource SwapOverworldMusicTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
                 <CheckBox IsChecked="{Binding InGameTracker}" />
                 <Label Content="{DynamicResource InGameTracker}" ToolTip="{DynamicResource InGameTrackerTooltip}"/>
             </StackPanel>

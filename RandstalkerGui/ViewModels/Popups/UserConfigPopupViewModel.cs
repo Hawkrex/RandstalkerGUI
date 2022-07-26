@@ -3,6 +3,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
+using System;
 using System.IO;
 using System.Windows;
 
@@ -12,6 +13,8 @@ namespace RandstalkerGui.ViewModels.Popups
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private bool isModificationFromOpenDialog = false;
+
         public string RandstlakerExeFilePath
         {
             get
@@ -20,7 +23,7 @@ namespace RandstalkerGui.ViewModels.Popups
             }
             set
             {
-                if (UserConfig.Instance.RandstlakerExeFilePath != value)
+                if (UserConfig.Instance.RandstlakerExeFilePath != value || isModificationFromOpenDialog)
                 {
                     Log.Debug($"{nameof(RandstlakerExeFilePath)} => <{UserConfig.Instance.RandstlakerExeFilePath}> will change to <{value}>");
                     UserConfig.Instance.RandstlakerExeFilePath = value;
@@ -37,7 +40,7 @@ namespace RandstalkerGui.ViewModels.Popups
             }
             set
             {
-                if (UserConfig.Instance.PresetsDirectoryPath != value)
+                if (UserConfig.Instance.PresetsDirectoryPath != value || isModificationFromOpenDialog)
                 {
                     Log.Debug($"{nameof(PresetsDirectoryPath)} => <{UserConfig.Instance.PresetsDirectoryPath}> will change to <{value}>");
                     UserConfig.Instance.PresetsDirectoryPath = value;
@@ -54,7 +57,7 @@ namespace RandstalkerGui.ViewModels.Popups
             }
             set
             {
-                if (UserConfig.Instance.PersonalSettingsDirectoryPath != value)
+                if (UserConfig.Instance.PersonalSettingsDirectoryPath != value || isModificationFromOpenDialog)
                 {
                     Log.Debug($"{nameof(PersonalSettingsDirectoryPath)} => <{UserConfig.Instance.PersonalSettingsDirectoryPath}> will change to <{value}>");
                     UserConfig.Instance.PersonalSettingsDirectoryPath = value;
@@ -71,7 +74,7 @@ namespace RandstalkerGui.ViewModels.Popups
             }
             set
             {
-                if (UserConfig.Instance.InputRomFilePath != value)
+                if (UserConfig.Instance.InputRomFilePath != value || isModificationFromOpenDialog)
                 {
                     Log.Debug($"{nameof(InputRomFilePath)} => <{UserConfig.Instance.InputRomFilePath}> will change to <{value}>");
                     UserConfig.Instance.InputRomFilePath = value;
@@ -88,7 +91,7 @@ namespace RandstalkerGui.ViewModels.Popups
             }
             set
             {
-                if (UserConfig.Instance.OutputRomDirectoryPath != value)
+                if (UserConfig.Instance.OutputRomDirectoryPath != value || isModificationFromOpenDialog)
                 {
                     Log.Debug($"{nameof(OutputRomDirectoryPath)} => <{UserConfig.Instance.OutputRomDirectoryPath}> will change to <{value}>");
                     UserConfig.Instance.OutputRomDirectoryPath = value;
@@ -109,7 +112,9 @@ namespace RandstalkerGui.ViewModels.Popups
 
             if (dialog.ShowDialog() == true)
             {
+                isModificationFromOpenDialog = true;
                 RandstlakerExeFilePath = dialog.FileName;
+                isModificationFromOpenDialog = false;
             }
 
             Log.Debug($"{nameof(SelectRandstlakerExeFilePathHandler)}() => Command executed");
@@ -127,7 +132,9 @@ namespace RandstalkerGui.ViewModels.Popups
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                isModificationFromOpenDialog = true;
                 PresetsDirectoryPath = dialog.FileName;
+                isModificationFromOpenDialog = false;
             }
 
             Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command executed");
@@ -145,7 +152,9 @@ namespace RandstalkerGui.ViewModels.Popups
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                isModificationFromOpenDialog = true;
                 PersonalSettingsDirectoryPath = dialog.FileName;
+                isModificationFromOpenDialog = false;
             }
 
             Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command executed");
@@ -166,7 +175,9 @@ namespace RandstalkerGui.ViewModels.Popups
             
             if (dialog.ShowDialog().Value)
             {
+                isModificationFromOpenDialog = true;
                 InputRomFilePath = dialog.FileName;
+                isModificationFromOpenDialog = false;
             }
 
             Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command executed");
@@ -184,7 +195,9 @@ namespace RandstalkerGui.ViewModels.Popups
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                isModificationFromOpenDialog = true;
                 OutputRomDirectoryPath = dialog.FileName;
+                isModificationFromOpenDialog = false;
             }
 
             Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command executed");
@@ -196,11 +209,18 @@ namespace RandstalkerGui.ViewModels.Popups
         {
             Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command requested ...");
 
-            File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
-
-            if (dialog != null)
+            try
             {
-                dialog.DialogResult = true;
+                File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+
+                MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
+                dialog.Close();
+            }
+            catch(Exception ex)
+            {
+                string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Error(errorMessage + " : " + ex);
             }
 
             Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command executed");

@@ -6,6 +6,7 @@ using RandstalkerGui.ViewModels.UserControls.SubPresets;
 using System;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -524,7 +525,18 @@ namespace RandstalkerGui.ViewModels.UserControls
             preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.ComputePresetInfos();
             preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.ComputePresetInfos();
 
-            File.WriteAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath), JsonConvert.SerializeObject(preset));
+            try
+            {
+                File.WriteAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath), JsonConvert.SerializeObject(preset));
+
+                MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Error(errorMessage + " : " + ex);
+            }
 
             Log.Debug($"{nameof(SavePresetHandler)}() => Command executed");
         }

@@ -1,4 +1,5 @@
 ﻿<Window x:Class="RandstalkerGui.Views.Popups.UserConfigPopup"
+        x:Name="TestWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -26,7 +27,7 @@
     <StackPanel Orientation="Vertical">
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource RandstlakerExeFilePath}" ToolTip="{DynamicResource RandstlakerExeFilePathTooltip}"/>
-            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+            <TextBox Name="RandstlakerExeFilePath" Style="{StaticResource textBoxInError}" MinWidth="300">
                 <TextBox.Text>
                     <Binding Path="RandstlakerExeFilePath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -39,7 +40,7 @@
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource PresetsDirectoryPath}" ToolTip="{DynamicResource PresetsDirectoryPathTooltip}"/>
-            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+            <TextBox Name="PresetsDirectoryPath" Style="{StaticResource textBoxInError}" MinWidth="300">
                 <TextBox.Text>
                     <Binding Path="PresetsDirectoryPath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -52,7 +53,7 @@
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource PersonalSettingsDirectoryPath}" ToolTip="{DynamicResource PersonalSettingsDirectoryPathTooltip}"/>
-            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+            <TextBox Name="PersonalSettingsDirectoryPath" Style="{StaticResource textBoxInError}" MinWidth="300">
                 <TextBox.Text>
                     <Binding Path="PersonalSettingsDirectoryPath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -65,7 +66,7 @@
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource InputRomFilePath}" ToolTip="{DynamicResource InputRomFilePathTooltip}"/>
-            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+            <TextBox Name="InputRomFilePath" Style="{StaticResource textBoxInError}" MinWidth="300">
                 <TextBox.Text>
                     <Binding Path="InputRomFilePath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -78,7 +79,7 @@
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource OutputRomDirectoryPath}" ToolTip="{DynamicResource OutputRomDirectoryPathTooltip}"/>
-            <TextBox Style="{StaticResource textBoxInError}" MinWidth="300">
+            <TextBox Name="OutputRomDirectoryPath" Style="{StaticResource textBoxInError}" MinWidth="300">
                 <TextBox.Text>
                     <Binding Path="OutputRomDirectoryPath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -89,6 +90,26 @@
             </TextBox>
             <Button Content="..." Command="{Binding SelectOutputRomDirectoryPath}"/>
         </StackPanel>
-        <Button Content="{DynamicResource SaveUserConfig}" Command="{Binding SaveUserConfig}" Margin="5,5,5,5" Height="50" />
+        <Button Content="{DynamicResource SaveUserConfig}"
+                Command="{Binding SaveUserConfig}" CommandParameter="{Binding ElementName=TestWindow}" 
+                Margin="5,5,5,5" Height="50">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="false" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=RandstlakerExeFilePath, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=PresetsDirectoryPath, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=PersonalSettingsDirectoryPath, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=InputRomFilePath, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=OutputRomDirectoryPath, Path=(Validation.HasError)}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </StackPanel>
 </Window>

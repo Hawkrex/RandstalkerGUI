@@ -16,5 +16,8 @@ namespace RandstalkerGui.Models
 
         [JsonProperty("removeMusic")]
         public bool RemoveMusic { get; set; }
+
+        [JsonProperty("swapOverworldMusic")]
+        public bool SwapOverworldMusic { get; set; }
     }
 }

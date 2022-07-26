@@ -20,6 +20,10 @@
     <system:String x:Key="DuplicateFileAskMessage">Voulez-vous vraiment dupliquer ce fichier ?</system:String>
     <system:String x:Key="DeleteFileAskTitle">Suppression fichier</system:String>
     <system:String x:Key="DeleteFileAskMessage">Voulez-vous vraiment supprimer ce fichier ?</system:String>
+    <system:String x:Key="SuccessTitle">Succès</system:String>
+    <system:String x:Key="FileWriteSuccessMessage">Fichier écrit avec succès !</system:String>
+    <system:String x:Key="ErrorTitle">Erreur</system:String>
+    <system:String x:Key="FileWriteErrorMessage">Erreur pendant l'écriture du fichier !</system:String>
 
     <!-- MainWindow : Top menu -->
     <system:String x:Key="MenuItem_File">_Fichier</system:String>
@@ -169,6 +173,8 @@
     <!-- Personal Settings -->
     <system:String x:Key="RemoveMusic">Suppression de la musique</system:String>
     <system:String x:Key="RemoveMusicTooltip">Suppression de la musique</system:String>
+    <system:String x:Key="SwapOverworldMusic">Échanger les musiques de l'overworld</system:String>
+    <system:String x:Key="SwapOverworldMusicTooltip">Échanger les musiques de l'overworld</system:String>
     <system:String x:Key="InGameTracker">Tracker InGame</system:String>
     <system:String x:Key="InGameTrackerTooltip">Tracker InGame</system:String>
     <system:String x:Key="HudColor">Couleur du HUD</system:String>

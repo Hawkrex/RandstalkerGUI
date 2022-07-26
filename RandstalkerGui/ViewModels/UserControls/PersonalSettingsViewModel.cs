@@ -2,8 +2,10 @@
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
+using System;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -27,6 +29,23 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(personalSettings.RemoveMusic)} => <{personalSettings.RemoveMusic}> will change to <{value}>");
                     personalSettings.RemoveMusic = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool SwapOverworldMusic
+        {
+            get
+            {
+                return personalSettings.SwapOverworldMusic;
+            }
+            set
+            {
+                if (personalSettings.SwapOverworldMusic != value)
+                {
+                    Log.Debug($"{nameof(personalSettings.SwapOverworldMusic)} => <{personalSettings.SwapOverworldMusic}> will change to <{value}>");
+                    personalSettings.SwapOverworldMusic = value;
                     OnPropertyChanged();
                 }
             }
@@ -106,7 +125,17 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
-            File.WriteAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath), JsonConvert.SerializeObject(personalSettings));
+            try
+            {
+                File.WriteAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath), JsonConvert.SerializeObject(personalSettings));
+                MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Error(errorMessage + " : " + ex);
+            }
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
@@ -139,6 +168,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         private void UpdateProperties()
         {
             OnPropertyChanged(nameof(RemoveMusic));
+            OnPropertyChanged(nameof(SwapOverworldMusic));
             OnPropertyChanged(nameof(InGameTracker));
             OnPropertyChanged(nameof(HudColor));
             OnPropertyChanged(nameof(MainNigelColor));
