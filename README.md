@@ -9,13 +9,15 @@ GUI for the Landstalker randomizer
 GUI is still in early stages and quality of life features will be added in the near future.
 
 ## Setup
-Create a **Randstalker** folder in the same folder as **RandstalkerGui.exe**, then copy/paste the [Randstalker](https://github.com/Dinopony/randstalker) files in it (Don't forget to place input rom named 'input.md' in this directory too). Now you can launch the GUI exe.
+- Download the lastest release of the GUI and extract its files anywhere you want.
+- Download the lastest release of [Randstalker](https://github.com/Dinopony/randstalker) and extract its files anywhere you want. 
+- Now you can launch the GUI. If you don't have a UserConfig file, a popup will ask for the various path needed for the GUI to work.
 
 ## Features
 
 ### Homepage
 
-Used for generating a rom (once everything is setup), afterwards the [Randstalker](https://github.com/Dinopony/randstalker) log will appear below the button.
+Used to **generate a seed**. You can choose the preset and personal settings you want. In the recap, you can specify a permalink (useful for races) and a customized name for the output rom. Once the seed is generated, you can copy the permalink by clicking on the related button.
 
 ### Settings
 
@@ -26,7 +28,7 @@ In the **Personal Settings** tab, colors must respect the format "#RGB" with R, 
 
 ### Options
 
-In the **Options** menu, you can change the language of the GUI and also configure the paths for various files (By default points to Randstalker subfolder)
+In the **Options** menu, you can change the language of the GUI and also configure the paths for various files.
 
 ### Tips and tricks
 
