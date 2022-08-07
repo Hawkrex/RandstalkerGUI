@@ -75,6 +75,10 @@
                             <Label Content="{DynamicResource ConsumableRecordBook}" ToolTip="{DynamicResource ConsumableRecordBookTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
+                            <CheckBox IsChecked="{Binding ConsumableSpellBook}"/>
+                            <Label Content="{DynamicResource ConsumableSpellBook}" ToolTip="{DynamicResource ConsumableSpellBookTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
                             <CheckBox IsChecked="{Binding ShuffleTrees}"/>
                             <Label Content="{DynamicResource ShuffleTrees}" ToolTip="{DynamicResource ShuffleTreesTooltip}"/>
                         </StackPanel>
@@ -89,6 +93,10 @@
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <CheckBox IsChecked="{Binding TreeCuttingGlitchInLogic}"/>
                             <Label Content="{DynamicResource TreeCuttingGlitchInLogic}" ToolTip="{DynamicResource TreeCuttingGlitchInLogicTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <CheckBox IsChecked="{Binding AllowWhistleUsageBehindTrees}"/>
+                            <Label Content="{DynamicResource AllowWhistleUsageBehindTrees}" ToolTip="{DynamicResource AllowWhistleUsageBehindTreesTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <CheckBox IsChecked="{Binding ChristmasEvent}"/>
@@ -148,6 +156,10 @@
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <xctk:IntegerUpDown Value="{Binding HealthGainedPerLifestock}"/>
                             <Label Content="{DynamicResource HealthGainedPerLifestock}" ToolTip="{DynamicResource HealthGainedPerLifestockTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <CheckBox IsChecked="{Binding FastMenuTransitions}"/>
+                            <Label Content="{DynamicResource FastMenuTransitions}" ToolTip="{DynamicResource FastMenuTransitionsTooltip}"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

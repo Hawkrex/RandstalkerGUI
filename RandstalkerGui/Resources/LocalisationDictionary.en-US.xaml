@@ -106,6 +106,8 @@
     <system:String x:Key="RemoveTreeCuttingGlitchDropsTooltip">Remove Tree Cutting Glitch drops</system:String>
     <system:String x:Key="ConsumableRecordBook">Consumable Record Book</system:String>
     <system:String x:Key="ConsumableRecordBookTooltip">Consumable Record Book</system:String>
+    <system:String x:Key="ConsumableSpellBook">Consumable Spell Book</system:String>
+    <system:String x:Key="ConsumableSpellBookTooltip">Consumable Spell Book</system:String>
     <system:String x:Key="RemoveGumiBoulder">Remove Gumi boulder</system:String>
     <system:String x:Key="RemoveGumiBoulderTooltip">Remove Gumi boulder</system:String>
     <system:String x:Key="RemoveTiborRequirement">Remove Tibor requirement</system:String>
@@ -124,6 +126,8 @@
     <system:String x:Key="EnemiesDropChanceFactorTooltip">Enemies drop chance factor</system:String>
     <system:String x:Key="HealthGainedPerLifestock">Health gained per lifestock</system:String>
     <system:String x:Key="HealthGainedPerLifestockTooltip">Health gained per lifestock</system:String>
+    <system:String x:Key="FastMenuTransitions">Fast menu transitions</system:String>
+    <system:String x:Key="FastMenuTransitionsTooltip">Fast menu transitions</system:String>
     <system:String x:Key="AllowSpoilerLog">Allow spoiler log</system:String>
     <system:String x:Key="AllowSpoilerLogTooltip">Allow spoiler log</system:String>
     <system:String x:Key="ShuffleTrees">Shuffle trees</system:String>
@@ -134,6 +138,8 @@
     <system:String x:Key="DamageBoostingInLogicTooltip">Damage Boosting in logic</system:String>
     <system:String x:Key="TreeCuttingGlitchInLogic">Tree Cutting Glitch in logic</system:String>
     <system:String x:Key="TreeCuttingGlitchInLogicTooltip">Tree Cutting Glitch in logic</system:String>
+    <system:String x:Key="AllowWhistleUsageBehindTrees">Allow whistle usage behind trees</system:String>
+    <system:String x:Key="AllowWhistleUsageBehindTreesTooltip">Allow whistle usage behind trees</system:String>
     <system:String x:Key="RegionRequirement">Region requirement</system:String>
     <system:String x:Key="RegionRequirementTooltip">Region requirement</system:String>
     <system:String x:Key="ItemRequirement">Item requirement</system:String>

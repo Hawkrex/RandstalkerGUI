@@ -106,6 +106,8 @@
     <system:String x:Key="RemoveTreeCuttingGlitchDropsTooltip">Suppression des drops du Tree Cutting Glitch</system:String>
     <system:String x:Key="ConsumableRecordBook">Record Book consommable</system:String>
     <system:String x:Key="ConsumableRecordBookTooltip">Record Book consommable</system:String>
+    <system:String x:Key="ConsumableSpellBook">Spell Book consommable</system:String>
+    <system:String x:Key="ConsumableSpellBookTooltip">Spell Book consommable</system:String>
     <system:String x:Key="RemoveGumiBoulder">Suppression du rocher de Gumi</system:String>
     <system:String x:Key="RemoveGumiBoulderTooltip">Suppression du rocher de Gumi</system:String>
     <system:String x:Key="RemoveTiborRequirement">Suppression du prérequis pour Tibor</system:String>
@@ -124,6 +126,8 @@
     <system:String x:Key="EnemiesDropChanceFactorTooltip">Facteur de chance de drop</system:String>
     <system:String x:Key="HealthGainedPerLifestock">Vie gagnée par lifestock</system:String>
     <system:String x:Key="HealthGainedPerLifestockTooltip">Vie gagnée par lifestock</system:String>
+    <system:String x:Key="FastMenuTransitions">Transitions de menu rapide</system:String>
+    <system:String x:Key="FastMenuTransitionsTooltip">Transitions de menu rapide</system:String>
     <system:String x:Key="AllowSpoilerLog">Autoriser le spoiler log</system:String>
     <system:String x:Key="AllowSpoilerLogTooltip">Autoriser le spoiler log</system:String>
     <system:String x:Key="ShuffleTrees">Mélange des arbres</system:String>
@@ -134,6 +138,8 @@
     <system:String x:Key="DamageBoostingInLogicTooltip">Damage Boosting dans la logique</system:String>
     <system:String x:Key="TreeCuttingGlitchInLogic">Tree Cutting Glitch dans la logique</system:String>
     <system:String x:Key="TreeCuttingGlitchInLogicTooltip">Tree Cutting Glitch dans la logique</system:String>
+    <system:String x:Key="AllowWhistleUsageBehindTrees">Autoriser l'utilisation du Whistle derrière les arbres</system:String>
+    <system:String x:Key="AllowWhistleUsageBehindTreesTooltip">Autoriser l'utilisation du Whistle derrière les arbres</system:String>
     <system:String x:Key="RegionRequirement">Prérequis de la région</system:String>
     <system:String x:Key="RegionRequirementTooltip">Prérequis de la région</system:String>
     <system:String x:Key="ItemRequirement">Prérequis de l'objet</system:String>

@@ -41,6 +41,9 @@ namespace RandstalkerGui.Models
         [JsonProperty("consumableRecordBook")]
         public bool ConsumableRecordBook { get; set; }
 
+        [JsonProperty("consumableSpellBook")]
+        public bool ConsumableSpellBook { get; set; }
+
         [JsonProperty("removeGumiBoulder")]
         public bool RemoveGumiBoulder { get; set; }
 
@@ -67,6 +70,9 @@ namespace RandstalkerGui.Models
 
         [JsonProperty("healthGainedPerLifestock")]
         public int HealthGainedPerLifestock { get; set; }
+
+        [JsonProperty("fastMenuTransitions")]
+        public bool FastMenuTransitions { get; set; }
     }
 
     public class RandomizerSettings
@@ -88,6 +94,9 @@ namespace RandstalkerGui.Models
 
         [JsonProperty("treeCuttingGlitchInLogic")]
         public bool TreeCuttingGlitchInLogic { get; set; }
+
+        [JsonProperty("allowWhistleUsageBehindTrees")]
+        public bool AllowWhistleUsageBehindTrees { get; set; }
 
         [JsonProperty("itemsDistribution")]
         public Dictionary<string, int> ItemsDistribution { get; set; }

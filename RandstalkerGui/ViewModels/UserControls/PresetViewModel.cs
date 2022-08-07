@@ -187,6 +187,23 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        public bool ConsumableSpellBook
+        {
+            get
+            {
+                return preset.GameSettings.ConsumableSpellBook;
+            }
+            set
+            {
+                if (preset.GameSettings.ConsumableSpellBook != value)
+                {
+                    Log.Debug($"{nameof(preset.GameSettings.ConsumableSpellBook)} => <{preset.GameSettings.ConsumableSpellBook}> will change to <{value}>");
+                    preset.GameSettings.ConsumableSpellBook = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool RemoveGumiBoulder
         {
             get
@@ -340,6 +357,23 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        public bool FastMenuTransitions
+        {
+            get
+            {
+                return preset.GameSettings.FastMenuTransitions;
+            }
+            set
+            {
+                if (preset.GameSettings.FastMenuTransitions != value)
+                {
+                    Log.Debug($"{nameof(preset.GameSettings.FastMenuTransitions)} => <{preset.GameSettings.FastMenuTransitions}> will change to <{value}>");
+                    preset.GameSettings.FastMenuTransitions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool AllowSpoilerLog
         {
             get
@@ -423,6 +457,23 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.RandomizerSettings.TreeCuttingGlitchInLogic)} => <{preset.RandomizerSettings.TreeCuttingGlitchInLogic}> will change to <{value}>");
                     preset.RandomizerSettings.TreeCuttingGlitchInLogic = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool AllowWhistleUsageBehindTrees
+        {
+            get
+            {
+                return preset.RandomizerSettings.AllowWhistleUsageBehindTrees;
+            }
+            set
+            {
+                if (preset.RandomizerSettings.AllowWhistleUsageBehindTrees != value)
+                {
+                    Log.Debug($"{nameof(preset.RandomizerSettings.AllowWhistleUsageBehindTrees)} => <{preset.RandomizerSettings.AllowWhistleUsageBehindTrees}> will change to <{value}>");
+                    preset.RandomizerSettings.AllowWhistleUsageBehindTrees = value;
                     OnPropertyChanged();
                 }
             }
@@ -588,6 +639,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(FixArmletSkip));
             OnPropertyChanged(nameof(RemoveTreeCuttingGlitchDrops));
             OnPropertyChanged(nameof(ConsumableRecordBook));
+            OnPropertyChanged(nameof(ConsumableSpellBook));
             OnPropertyChanged(nameof(RemoveGumiBoulder));
             OnPropertyChanged(nameof(RemoveTiborRequirement));
             OnPropertyChanged(nameof(AllTreesVisitedAtStart));
@@ -597,12 +649,14 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(EnemiesGoldsFactor));
             OnPropertyChanged(nameof(EnemiesDropChanceFactor));
             OnPropertyChanged(nameof(HealthGainedPerLifestock));
+            OnPropertyChanged(nameof(FastMenuTransitions));
             OnPropertyChanged(nameof(AllowSpoilerLog));
             OnPropertyChanged(nameof(SpawnLocationsViewModel));
             OnPropertyChanged(nameof(ShuffleTrees));
             OnPropertyChanged(nameof(EnemyJumpingInLogic));
             OnPropertyChanged(nameof(DamageBoostingInLogic));
             OnPropertyChanged(nameof(TreeCuttingGlitchInLogic));
+            OnPropertyChanged(nameof(AllowWhistleUsageBehindTrees));
             OnPropertyChanged(nameof(ItemsDistributionViewModel));
             OnPropertyChanged(nameof(RegionRequirement));
             OnPropertyChanged(nameof(ItemRequirement));
