@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="RandstalkerGui.Views.UserControls.Tools.ColorPickerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal">
+        <Label Content="R" ToolTip="Rouge"/>
+        <ComboBox SelectedValue="{Binding RedValue}" SelectedValuePath="Content">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="A"/>
+            <ComboBoxItem Content="C"/>
+            <ComboBoxItem Content="E"/>
+        </ComboBox>
+        <Label Content="G" ToolTip="Vert"/>
+        <ComboBox SelectedValue="{Binding GreenValue}" SelectedValuePath="Content">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="A"/>
+            <ComboBoxItem Content="C"/>
+            <ComboBoxItem Content="E"/>
+        </ComboBox>
+        <Label Content="B" ToolTip="Bleu"/>
+        <ComboBox SelectedValue="{Binding BlueValue}" SelectedValuePath="Content">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="A"/>
+            <ComboBoxItem Content="C"/>
+            <ComboBoxItem Content="E"/>
+        </ComboBox>
+    </StackPanel>
+</UserControl>

@@ -141,6 +141,7 @@
     <Compile Include="ViewModels\UserControls\PresetViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\SpawnLocationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\ItemsCounterViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Tools\ColorPickerViewModel.cs" />
     <Compile Include="Views\Popups\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
@@ -165,9 +166,17 @@
     <Compile Include="Views\UserControls\SubPresets\ItemsCounterView.xaml.cs">
       <DependentUpon>ItemsCounterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\Tools\ColorPickerView.xaml.cs">
+      <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\UserControls\Tools\ColorPickerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Resource Include="Resources\Images\GearIcon.png" />
     <Resource Include="Resources\Images\UserIcon.png" />
     <Resource Include="Resources\Images\LakeShrinePath.png" />
+    <Resource Include="Resources\Images\Nigel.png" />
     <Content Include="Resources\LocalisationDictionary.en-US.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

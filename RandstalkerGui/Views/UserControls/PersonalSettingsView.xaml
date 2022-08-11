@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RandstalkerGui.ViewModels.UserControls"
              xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
+             xmlns:tools="clr-namespace:RandstalkerGui.Views.UserControls.Tools"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:PersonalSettingsViewModel/>
@@ -25,33 +26,50 @@
     <DockPanel LastChildFill="False">
         <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"
                 DockPanel.Dock="Left" Width="150" />
-        <StackPanel DockPanel.Dock="Top">
-            <StackPanel Style="{StaticResource ParameterPanel}">
-                <CheckBox IsChecked="{Binding RemoveMusic}" />
-                <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
-            </StackPanel>
-            <StackPanel Style="{StaticResource ParameterPanel}">
-                <CheckBox IsChecked="{Binding SwapOverworldMusic}" />
-                <Label Content="{DynamicResource SwapOverworldMusic}" ToolTip="{DynamicResource SwapOverworldMusicTooltip}"/>
-            </StackPanel>
-            <StackPanel Style="{StaticResource ParameterPanel}">
-                <CheckBox IsChecked="{Binding InGameTracker}" />
-                <Label Content="{DynamicResource InGameTracker}" ToolTip="{DynamicResource InGameTrackerTooltip}"/>
-            </StackPanel>
-            <StackPanel Style="{StaticResource ParameterPanel}">
-                <TextBox Text="{Binding HudColor, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="{DynamicResource HudColor}" ToolTip="{DynamicResource HudColorTooltip}"/>
-            </StackPanel>
-            <StackPanel Style="{StaticResource ParameterPanel}">
-                <TextBox Text="{Binding MainNigelColor, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="{DynamicResource MainNigelColor}" ToolTip="{DynamicResource MainNigelColorTooltip}"/>
-            </StackPanel>
-            <StackPanel Style="{StaticResource ParameterPanel}">
-                <TextBox Text="{Binding SecondaryNigelColor, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="{DynamicResource SecondaryNigelColor}" ToolTip="{DynamicResource SecondaryNigelColorTooltip}"/>
-            </StackPanel>
-            <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettings}"
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <CheckBox IsChecked="{Binding RemoveMusic}"/>
+                    <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <CheckBox IsChecked="{Binding SwapOverworldMusic}" />
+                    <Label Content="{DynamicResource SwapOverworldMusic}" ToolTip="{DynamicResource SwapOverworldMusicTooltip}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <CheckBox IsChecked="{Binding InGameTracker}"/>
+                    <Label Content="{DynamicResource InGameTracker}" ToolTip="{DynamicResource InGameTrackerTooltip}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <TextBox Text="{Binding HudColor, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="{DynamicResource HudColor}" ToolTip="{DynamicResource HudColorTooltip}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <tools:ColorPickerView DataContext="{Binding MainNigelColorPickerViewModel}"/>
+                    <Label Content="{DynamicResource MainNigelColor}" ToolTip="{DynamicResource MainNigelColorTooltip}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <tools:ColorPickerView DataContext="{Binding SecondaryNigelColorPickerViewModel}"/>
+                    <Label Content="{DynamicResource SecondaryNigelColor}" ToolTip="{DynamicResource SecondaryNigelColorTooltip}"/>
+                </StackPanel>
+                <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettings}"
                     Margin="10,10,10,10" Height="50"/>
-        </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <StackPanel Margin="5,5,5,5">
+                    <Image Source="{Binding NigelImage}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="4" ScaleY="4"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </DockPanel>
 </UserControl>
