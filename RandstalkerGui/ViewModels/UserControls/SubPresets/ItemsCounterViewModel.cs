@@ -111,7 +111,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             ItemToAdd = Items.First();
         }
 
-        public Dictionary<string, int> ComputePresetInfos()
+        public Dictionary<string, int> FormatSettings()
         {
             var itemsCount = new Dictionary<string, int>();
             foreach (var itemCounter in ItemCounters)

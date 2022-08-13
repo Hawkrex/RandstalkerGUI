@@ -572,9 +572,9 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePresetHandler)}() => Command requested ...");
 
-            preset.GameSettings.StartingItems = StartingsItemsViewModel.ComputePresetInfos();
-            preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.ComputePresetInfos();
-            preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.ComputePresetInfos();
+            preset.GameSettings.StartingItems = StartingsItemsViewModel.FormatSettings();
+            preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.FormatSettings();
+            preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.FormatSettings();
 
             try
             {

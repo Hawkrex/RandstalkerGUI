@@ -20,10 +20,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         private PersonalSettings personalSettings;
 
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
-        public ColorPickerViewModel MainNigelColorPickerViewModel { get; set; }
-
-        public ColorPickerViewModel SecondaryNigelColorPickerViewModel { get; set; }
-
+       
         public bool RemoveMusic
         {
             get
@@ -92,41 +89,9 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
-        public string MainNigelColor
-        {
-            get
-            {
-                return personalSettings.NigelColor[0];
-            }
-            set
-            {
-                if (personalSettings.NigelColor[0] != value)
-                {
-                    Log.Debug($"{nameof(MainNigelColor)} => <{personalSettings.NigelColor[0]}> will change to <{value}>");
-                    personalSettings.NigelColor[0] = value;
-                    OnPropertyChanged();
-                    EditNigelColors();
-                }
-            }
-        }
+        public ColorPickerViewModel MainNigelColorPickerViewModel { get; set; }
 
-        public string SecondaryNigelColor
-        {
-            get
-            {
-                return personalSettings.NigelColor[1];
-            }
-            set
-            {
-                if (personalSettings.NigelColor[1] != value)
-                {
-                    Log.Debug($"{nameof(SecondaryNigelColor)} => <{personalSettings.NigelColor[1]}> will change to <{value}>");
-                    personalSettings.NigelColor[1] = value;
-                    OnPropertyChanged();
-                    EditNigelColors();
-                }
-            }
-        }
+        public ColorPickerViewModel SecondaryNigelColorPickerViewModel { get; set; }
 
         private BitmapImage nigelImage;
         public BitmapImage NigelImage
@@ -145,6 +110,7 @@ namespace RandstalkerGui.ViewModels.UserControls
                 }
             }
         }
+
         public Bitmap NigelSprite { get; set; }
 
         public RelayCommand SavePersonalSettings { get { return new RelayCommand(_ => SavePersonalSettingsHandler()); } }
@@ -152,6 +118,9 @@ namespace RandstalkerGui.ViewModels.UserControls
         private void SavePersonalSettingsHandler()
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
+
+            personalSettings.NigelColor[0] = MainNigelColorPickerViewModel.FormatSettings();
+            personalSettings.NigelColor[1] = SecondaryNigelColorPickerViewModel.FormatSettings();
 
             try
             {
@@ -182,11 +151,11 @@ namespace RandstalkerGui.ViewModels.UserControls
             PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath);
             PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged;
 
-            MainNigelColorPickerViewModel = new ColorPickerViewModel(MainNigelColor);
-            SecondaryNigelColorPickerViewModel = new ColorPickerViewModel(SecondaryNigelColor);
+            MainNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[0]);
+            SecondaryNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[1]);
 
-            MainNigelColorPickerViewModel.PropertyChanged += MainNigelColorPickerViewModel_PropertyChanged;
-            SecondaryNigelColorPickerViewModel.PropertyChanged += SecondaryNigelColorPickerViewModel_PropertyChanged;
+            MainNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
+            SecondaryNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
 
             NigelSprite = new Bitmap("../../Resources/Images/Nigel.png");
             NigelImage = ToBitmapImage(NigelSprite);
@@ -203,48 +172,9 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
-        private void MainNigelColorPickerViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void NigelColorPickerViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MainNigelColorPickerViewModel.RedValue))
-            {
-                StringBuilder sb = new StringBuilder(MainNigelColor);
-                sb[1] = MainNigelColorPickerViewModel.RedValue;
-                MainNigelColor = sb.ToString();
-            }
-            else if (e.PropertyName == nameof(MainNigelColorPickerViewModel.GreenValue))
-            {
-                StringBuilder sb = new StringBuilder(MainNigelColor);
-                sb[2] = MainNigelColorPickerViewModel.GreenValue;
-                MainNigelColor = sb.ToString();
-            }
-            else if (e.PropertyName == nameof(MainNigelColorPickerViewModel.BlueValue))
-            {
-                StringBuilder sb = new StringBuilder(MainNigelColor);
-                sb[3] = MainNigelColorPickerViewModel.BlueValue;
-                MainNigelColor = sb.ToString();
-            }
-        }
-
-        private void SecondaryNigelColorPickerViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(SecondaryNigelColorPickerViewModel.RedValue))
-            {
-                StringBuilder sb = new StringBuilder(SecondaryNigelColor);
-                sb[1] = SecondaryNigelColorPickerViewModel.RedValue;
-                SecondaryNigelColor = sb.ToString();
-            }
-            else if (e.PropertyName == nameof(SecondaryNigelColorPickerViewModel.GreenValue))
-            {
-                StringBuilder sb = new StringBuilder(SecondaryNigelColor);
-                sb[2] = SecondaryNigelColorPickerViewModel.GreenValue;
-                SecondaryNigelColor = sb.ToString();
-            }
-            else if (e.PropertyName == nameof(SecondaryNigelColorPickerViewModel.BlueValue))
-            {
-                StringBuilder sb = new StringBuilder(SecondaryNigelColor);
-                sb[3] = SecondaryNigelColorPickerViewModel.BlueValue;
-                SecondaryNigelColor = sb.ToString();
-            }
+            EditNigelColors();
         }
 
         private void UpdateProperties()
@@ -255,8 +185,6 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(HudColor));
             OnPropertyChanged(nameof(MainNigelColorPickerViewModel));
             OnPropertyChanged(nameof(SecondaryNigelColorPickerViewModel));
-            OnPropertyChanged(nameof(MainNigelColor));
-            OnPropertyChanged(nameof(SecondaryNigelColor));
         }
 
         private void EditNigelColors()

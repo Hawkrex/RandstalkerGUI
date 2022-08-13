@@ -66,5 +66,10 @@ namespace RandstalkerGui.ViewModels.UserControls.Tools
             GreenValue = color.ToCharArray()[2];
             BlueValue = color.ToCharArray()[3];
         }
+
+        public string FormatSettings()
+        {
+            return $"#{RedValue}{GreenValue}{BlueValue}";
+        }
     }
 }

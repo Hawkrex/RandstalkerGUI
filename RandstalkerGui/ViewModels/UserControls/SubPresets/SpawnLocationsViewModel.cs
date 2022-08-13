@@ -225,7 +225,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             }
         }
 
-        public List<string> ComputePresetInfos()
+        public List<string> FormatSettings()
         {
             List<string> spawnLocations = new List<string>();
 
