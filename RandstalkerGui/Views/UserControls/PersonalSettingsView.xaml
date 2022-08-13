@@ -6,11 +6,13 @@
              xmlns:local="clr-namespace:RandstalkerGui.ViewModels.UserControls"
              xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
              xmlns:tools="clr-namespace:RandstalkerGui.Views.UserControls.Tools"
+             xmlns:converters="clr-namespace:RandstalkerGui.Converters"
              mc:Ignorable="d">
     <UserControl.DataContext>
         <local:PersonalSettingsViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
+        <converters:ToBitmapImageConverter x:Key="ToBitmapImage"/>
         <Style TargetType="StackPanel" x:Key="ParameterPanel">
             <Setter Property="Margin" Value="5,5,5,5"/>
             <Setter Property="Orientation" Value="Horizontal"/>
@@ -61,7 +63,7 @@
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <StackPanel Margin="5,5,5,5">
-                    <Image Source="{Binding NigelImage}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                    <Image Source="{Binding NigelSprite, Converter={StaticResource ToBitmapImage}}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor">
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleX="4" ScaleY="4"/>

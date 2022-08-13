@@ -114,6 +114,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\CurrentCultureSelectedConverter.cs" />
+    <Compile Include="Converters\ToBitmapImageConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Models\ItemCount.cs" />
     <Compile Include="Models\ItemDefinitions.cs" />

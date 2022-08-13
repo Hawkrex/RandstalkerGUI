@@ -93,25 +93,23 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public ColorPickerViewModel SecondaryNigelColorPickerViewModel { get; set; }
 
-        private BitmapImage nigelImage;
-        public BitmapImage NigelImage
+        private Bitmap nigelSprite;
+        public Bitmap NigelSprite
         {
             get
             {
-                return nigelImage;
+                return nigelSprite;
             }
             set
             {
-                if (nigelImage != value)
+                if (nigelSprite != value)
                 {
-                    Log.Debug($"{nameof(nigelImage)} => <{nigelImage}> will change to <{value}>");
-                    nigelImage = value;
+                    Log.Debug($"{nameof(NigelSprite)} => <{NigelSprite}> will change to <{value}>");
+                    nigelSprite = value;
                     OnPropertyChanged();
                 }
             }
         }
-
-        public Bitmap NigelSprite { get; set; }
 
         public RelayCommand SavePersonalSettings { get { return new RelayCommand(_ => SavePersonalSettingsHandler()); } }
 
@@ -148,7 +146,7 @@ namespace RandstalkerGui.ViewModels.UserControls
                 personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Encoding.UTF8.GetString(Resources.DefaultPersonalSettings));
             }
 
-            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath);
+            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, Resources.DefaultPersonalSettings);
             PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged;
 
             MainNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[0]);
@@ -158,7 +156,6 @@ namespace RandstalkerGui.ViewModels.UserControls
             SecondaryNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
 
             NigelSprite = new Bitmap("../../Resources/Images/Nigel.png");
-            NigelImage = ToBitmapImage(NigelSprite);
             EditNigelColors();
         }
 
@@ -167,6 +164,14 @@ namespace RandstalkerGui.ViewModels.UserControls
             if (e.PropertyName == nameof(PersonalSettingsTreeViewModel.SelectedFileRelativePath))
             {
                 personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath)));
+
+                MainNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[0]);
+                SecondaryNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[1]);
+
+                MainNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
+                SecondaryNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
+
+                EditNigelColors();
 
                 UpdateProperties();
             }
@@ -254,25 +259,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             NigelSprite.SetPixel(16, 17, secondColor);
             NigelSprite.SetPixel(16, 16, secondColor);
 
-            NigelImage = ToBitmapImage(NigelSprite);
-        }
-
-        private BitmapImage ToBitmapImage(Bitmap bitmap)
-        {
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, ImageFormat.Png);
-                memory.Position = 0;
-
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-
-                return bitmapImage;
-            }
+            OnPropertyChanged(nameof(NigelSprite));
         }
 
         private Color CodeToColor(char redCode, char greenCode, char blueCode)

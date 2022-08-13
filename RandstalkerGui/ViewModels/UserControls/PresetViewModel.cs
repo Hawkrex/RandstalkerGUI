@@ -605,7 +605,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             itemDefinitions = new ItemDefinitions();
 
-            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath);
+            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath, Resources.DefaultPreset);
             PresetTreeViewModel.PropertyChanged += PresetTreeViewModel_PropertyChanged;
 
             StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);

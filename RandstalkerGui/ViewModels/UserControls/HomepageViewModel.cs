@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RandstalkerGui.Models;
+using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -144,8 +145,8 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public HomepageViewModel()
         {
-            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath, false);
-            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, false);
+            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath, Resources.DefaultPreset, false);
+            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, Resources.DefaultPersonalSettings, false);
 
             randstalkerApp = new RandstalkerApp();
 

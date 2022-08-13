@@ -18,6 +18,8 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private string basePath = string.Empty;
 
+        private byte[] defaultFile;
+
         public ObservableCollection<TreeViewElement> Tree { get; set; }
 
         private bool contextMenuEnabled;
@@ -102,7 +104,7 @@ namespace RandstalkerGui.ViewModels.UserControls
                     if ((savingStream = saveFileDialog.OpenFile()) != null)
                     {
                         newFilePath = saveFileDialog.FileName;
-                        savingStream.Write(Resources.DefaultPreset, 0, Resources.DefaultPreset.Length);
+                        savingStream.Write(defaultFile, 0, defaultFile.Length);
                         savingStream.Close();
                     }
                 }
@@ -183,10 +185,11 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(DeleteFileHandler)}() => Command executed");
         }
 
-        public FileTreeViewModel(string basePath, string defaultSelectedFilePath, bool canExecuteCommands = true)
+        public FileTreeViewModel(string basePath, string defaultSelectedFilePath, byte[] defaultFile, bool canExecuteCommands = true)
         {
             this.basePath = basePath;
             SelectedFileRelativePath = defaultSelectedFilePath;
+            this.defaultFile = defaultFile;
             ContextMenuEnabled = canExecuteCommands;
 
             Tree = new ObservableCollection<TreeViewElement>();
