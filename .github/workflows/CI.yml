@@ -24,4 +24,4 @@ jobs:
       run: nuget restore RandstalkerGui.sln
     
     - name: Build solution
-      run: msbuild RandstalkerGui.sln
+      run: msbuild RandstalkerGui.sln /p:Configuration=Release
