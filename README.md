@@ -24,7 +24,7 @@ Used to **generate a seed**. You can choose the preset and personal settings you
 Used to edit the preset and personal_settings json files.
 
 In the **Preset tab**, beware of the **Starting items**, **Items distribution** and **Hints** sections as no securisation mechanism is implemented in the GUI.
-In the **Personal Settings** tab, colors must respect the format "#RGB" with R, G and B respectively Red, Green and Blue which values goes from 0 (no color) to 9..A to F (Full color).
+
 
 ### Options
 
