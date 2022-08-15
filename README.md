@@ -1,3 +1,7 @@
+[![Continuous Integration](https://github.com/Hawkrex/RandstalkerGUI/actions/workflows/CI.yml/badge.svg)](https://github.com/Hawkrex/RandstalkerGUI/actions/workflows/CI.yml)
+[![GitHub tag](https://img.shields.io/github/tag/Hawkrex/RandstalkerGUI?include_prereleases=&sort=semver&color=blue)](https://github.com/Hawkrex/RandstalkerGUI/releases/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+
 # RandstalkerGUI
 GUI for the Landstalker randomizer
 
