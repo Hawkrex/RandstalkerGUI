@@ -89,7 +89,7 @@ namespace RandstalkerGui.ViewModels
                 {
                     OnCloseHandler(); // Initialize all Viewmodels afterwards, maybe find another proper shutdown solution
                 }
-            } 
+            }
         }
     }
 }

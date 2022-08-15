@@ -114,10 +114,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\CurrentCultureSelectedConverter.cs" />
+    <Compile Include="Converters\ColorPickerToColorConverter.cs" />
     <Compile Include="Converters\ToBitmapImageConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
     <Compile Include="Models\ItemCount.cs" />
     <Compile Include="Models\ItemDefinitions.cs" />
+    <Compile Include="Models\NigelEditablePixels.cs" />
     <Compile Include="Models\PersonalSettings.cs" />
     <Compile Include="Models\Preset.cs" />
     <Compile Include="Models\RandstalkerApp.cs" />
@@ -178,6 +180,8 @@
     <Resource Include="Resources\Images\UserIcon.png" />
     <Resource Include="Resources\Images\LakeShrinePath.png" />
     <Resource Include="Resources\Images\Nigel.png" />
+    <Resource Include="Resources\Images\Hud.png" />
+    <Resource Include="Resources\Images\HudMask.png" />
     <Content Include="Resources\LocalisationDictionary.en-US.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,6 +262,7 @@
     <Content Include="Resources\userConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\nigelEditablePixels.json" />
     <Resource Include="Resources\defaultPersonalSettings.json" />
     <Resource Include="Resources\defaultPreset.json" />
     <Resource Include="Resources\item.json" />

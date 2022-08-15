@@ -5,11 +5,9 @@ using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.UserControls.Tools;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -18,9 +16,10 @@ namespace RandstalkerGui.ViewModels.UserControls
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private PersonalSettings personalSettings;
+        private NigelEditablePixels nigelEditablePixels;
 
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
-       
+
         public bool RemoveMusic
         {
             get
@@ -72,22 +71,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
-        public string HudColor
-        {
-            get
-            {
-                return personalSettings.HudColor;
-            }
-            set
-            {
-                if (personalSettings.HudColor != value)
-                {
-                    Log.Debug($"{nameof(personalSettings.HudColor)} => <{personalSettings.HudColor}> will change to <{value}>");
-                    personalSettings.HudColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public ColorPickerViewModel HudColorPickerViewModel { get; set; }
 
         public ColorPickerViewModel MainNigelColorPickerViewModel { get; set; }
 
@@ -117,6 +101,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         {
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
 
+            personalSettings.HudColor = HudColorPickerViewModel.FormatSettings();
             personalSettings.NigelColor[0] = MainNigelColorPickerViewModel.FormatSettings();
             personalSettings.NigelColor[1] = SecondaryNigelColorPickerViewModel.FormatSettings();
 
@@ -146,17 +131,13 @@ namespace RandstalkerGui.ViewModels.UserControls
                 personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(Encoding.UTF8.GetString(Resources.DefaultPersonalSettings));
             }
 
+            nigelEditablePixels = JsonConvert.DeserializeObject<NigelEditablePixels>(Encoding.UTF8.GetString(Resources.NigelEditablePixels));
+
             PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, Resources.DefaultPersonalSettings);
             PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged;
 
-            MainNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[0]);
-            SecondaryNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[1]);
-
-            MainNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
-            SecondaryNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
-
-            NigelSprite = new Bitmap("../../Resources/Images/Nigel.png");
-            EditNigelColors();
+            NigelSprite = Resources.Nigel;
+            CreateSubViewModels();
         }
 
         private void PersonalSettingsTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -165,20 +146,22 @@ namespace RandstalkerGui.ViewModels.UserControls
             {
                 personalSettings = JsonConvert.DeserializeObject<PersonalSettings>(File.ReadAllText(Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath)));
 
-                MainNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[0]);
-                SecondaryNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[1]);
-
-                MainNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
-                SecondaryNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
-
-                EditNigelColors();
+                CreateSubViewModels();
 
                 UpdateProperties();
             }
         }
 
-        private void NigelColorPickerViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void CreateSubViewModels()
         {
+            HudColorPickerViewModel = new ColorPickerViewModel(personalSettings.HudColor);
+
+            MainNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[0]);
+            MainNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
+
+            SecondaryNigelColorPickerViewModel = new ColorPickerViewModel(personalSettings.NigelColor[1]);
+            SecondaryNigelColorPickerViewModel.PropertyChanged += NigelColorPickerViewModel_PropertyChanged;
+
             EditNigelColors();
         }
 
@@ -187,77 +170,29 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(RemoveMusic));
             OnPropertyChanged(nameof(SwapOverworldMusic));
             OnPropertyChanged(nameof(InGameTracker));
-            OnPropertyChanged(nameof(HudColor));
+            OnPropertyChanged(nameof(HudColorPickerViewModel));
             OnPropertyChanged(nameof(MainNigelColorPickerViewModel));
             OnPropertyChanged(nameof(SecondaryNigelColorPickerViewModel));
+        }
+
+        private void NigelColorPickerViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            EditNigelColors();
         }
 
         private void EditNigelColors()
         {
             Color mainColor = CodeToColor(MainNigelColorPickerViewModel.RedValue, MainNigelColorPickerViewModel.GreenValue, MainNigelColorPickerViewModel.BlueValue);
-            Color secondColor = CodeToColor(SecondaryNigelColorPickerViewModel.RedValue, SecondaryNigelColorPickerViewModel.GreenValue, SecondaryNigelColorPickerViewModel.BlueValue);
+            foreach (var pixel in nigelEditablePixels.MainColorPixels)
+            {
+                NigelSprite.SetPixel(pixel[0], pixel[1], mainColor);
+            }
 
-            // Main color
-            // Right arm
-            NigelSprite.SetPixel(7, 15, mainColor);
-
-            // Torso
-            NigelSprite.SetPixel(9, 17, mainColor);
-            NigelSprite.SetPixel(10, 17, mainColor);
-            NigelSprite.SetPixel(11, 17, mainColor);
-            NigelSprite.SetPixel(9, 18, mainColor);
-            NigelSprite.SetPixel(10, 18, mainColor);
-
-            // Belly
-            NigelSprite.SetPixel(9, 25, mainColor);
-            NigelSprite.SetPixel(10, 25, mainColor);
-            NigelSprite.SetPixel(11, 25, mainColor);
-
-            // Left arm
-            NigelSprite.SetPixel(17, 16, mainColor);
-            NigelSprite.SetPixel(18, 16, mainColor);
-            NigelSprite.SetPixel(17, 17, mainColor);
-            NigelSprite.SetPixel(19, 17, mainColor);
-            NigelSprite.SetPixel(18, 18, mainColor);
-            NigelSprite.SetPixel(19, 18, mainColor);
-
-            // Secondary color
-            // Right arm
-            NigelSprite.SetPixel(7, 14, secondColor);
-            NigelSprite.SetPixel(6, 15, secondColor);
-            NigelSprite.SetPixel(6, 16, secondColor);
-            NigelSprite.SetPixel(6, 17, secondColor);
-            NigelSprite.SetPixel(7, 16, secondColor);
-
-            // Torso
-            NigelSprite.SetPixel(12, 17, secondColor);
-            NigelSprite.SetPixel(11, 18, secondColor);
-            NigelSprite.SetPixel(10, 19, secondColor);
-            NigelSprite.SetPixel(9, 19, secondColor);
-            NigelSprite.SetPixel(9, 20, secondColor);
-            NigelSprite.SetPixel(9, 21, secondColor);
-
-            // Belly
-            NigelSprite.SetPixel(8, 24, secondColor);
-            NigelSprite.SetPixel(9, 24, secondColor);
-            NigelSprite.SetPixel(10, 24, secondColor);
-            NigelSprite.SetPixel(12, 25, secondColor);
-            NigelSprite.SetPixel(13, 24, secondColor);
-            NigelSprite.SetPixel(14, 23, secondColor);
-
-            // Left arm
-            NigelSprite.SetPixel(18, 15, secondColor);
-            NigelSprite.SetPixel(19, 16, secondColor);
-            NigelSprite.SetPixel(20, 17, secondColor);
-            NigelSprite.SetPixel(20, 18, secondColor);
-            NigelSprite.SetPixel(20, 19, secondColor);
-            NigelSprite.SetPixel(19, 19, secondColor);
-            NigelSprite.SetPixel(18, 19, secondColor);
-            NigelSprite.SetPixel(17, 19, secondColor);
-            NigelSprite.SetPixel(17, 18, secondColor);
-            NigelSprite.SetPixel(16, 18, secondColor);
-            NigelSprite.SetPixel(16, 17, secondColor);
-            NigelSprite.SetPixel(16, 16, secondColor);
+            Color secondaryColor = CodeToColor(SecondaryNigelColorPickerViewModel.RedValue, SecondaryNigelColorPickerViewModel.GreenValue, SecondaryNigelColorPickerViewModel.BlueValue);
+            foreach (var pixel in nigelEditablePixels.SecondaryColorPixels)
+            {
+                NigelSprite.SetPixel(pixel[0], pixel[1], secondaryColor);
+            }
 
             OnPropertyChanged(nameof(NigelSprite));
         }

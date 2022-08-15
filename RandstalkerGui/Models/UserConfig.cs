@@ -33,7 +33,7 @@ namespace RandstalkerGui.Models
 
         public bool ArePathsValid()
         {
-            if(!File.Exists(RandstlakerExeFilePath))
+            if (!File.Exists(RandstlakerExeFilePath))
                 return false;
 
             if (string.IsNullOrWhiteSpace(PresetsDirectoryPath))

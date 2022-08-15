@@ -615,7 +615,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private void PresetTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == nameof(PresetTreeViewModel.SelectedFileRelativePath))
+            if (e.PropertyName == nameof(PresetTreeViewModel.SelectedFileRelativePath))
             {
                 preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath)));
 

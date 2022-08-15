@@ -13,6 +13,7 @@
     </UserControl.DataContext>
     <UserControl.Resources>
         <converters:ToBitmapImageConverter x:Key="ToBitmapImage"/>
+        <converters:ColorPickerToColorConverter x:Key="ColorPickerToColor"/>
         <Style TargetType="StackPanel" x:Key="ParameterPanel">
             <Setter Property="Margin" Value="5,5,5,5"/>
             <Setter Property="Orientation" Value="Horizontal"/>
@@ -28,50 +29,67 @@
     <DockPanel LastChildFill="False">
         <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"
                 DockPanel.Dock="Left" Width="150" />
-        <Grid DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel>
-                <StackPanel Style="{StaticResource ParameterPanel}">
-                    <CheckBox IsChecked="{Binding RemoveMusic}"/>
-                    <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource ParameterPanel}">
-                    <CheckBox IsChecked="{Binding SwapOverworldMusic}" />
-                    <Label Content="{DynamicResource SwapOverworldMusic}" ToolTip="{DynamicResource SwapOverworldMusicTooltip}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource ParameterPanel}">
-                    <CheckBox IsChecked="{Binding InGameTracker}"/>
-                    <Label Content="{DynamicResource InGameTracker}" ToolTip="{DynamicResource InGameTrackerTooltip}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource ParameterPanel}">
-                    <TextBox Text="{Binding HudColor, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="{DynamicResource HudColor}" ToolTip="{DynamicResource HudColorTooltip}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource ParameterPanel}">
-                    <tools:ColorPickerView DataContext="{Binding MainNigelColorPickerViewModel}"/>
-                    <Label Content="{DynamicResource MainNigelColor}" ToolTip="{DynamicResource MainNigelColorTooltip}"/>
-                </StackPanel>
-                <StackPanel Style="{StaticResource ParameterPanel}">
-                    <tools:ColorPickerView DataContext="{Binding SecondaryNigelColorPickerViewModel}"/>
-                    <Label Content="{DynamicResource SecondaryNigelColor}" ToolTip="{DynamicResource SecondaryNigelColorTooltip}"/>
-                </StackPanel>
-                <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettings}"
-                    Margin="10,10,10,10" Height="50"/>
+        <StackPanel DockPanel.Dock="Top">
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding RemoveMusic}"/>
+                <Label Content="{DynamicResource RemoveMusic}" ToolTip="{DynamicResource RemoveMusicTooltip}"/>
             </StackPanel>
-            <StackPanel Grid.Column="1">
-                <StackPanel Margin="5,5,5,5">
-                    <Image Source="{Binding NigelSprite, Converter={StaticResource ToBitmapImage}}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="4" ScaleY="4"/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding SwapOverworldMusic}" />
+                <Label Content="{DynamicResource SwapOverworldMusic}" ToolTip="{DynamicResource SwapOverworldMusicTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding InGameTracker}"/>
+                <Label Content="{DynamicResource InGameTracker}" ToolTip="{DynamicResource InGameTrackerTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}" Margin="5,50,5,5">
+                <tools:ColorPickerView DataContext="{Binding HudColorPickerViewModel}"/>
+                <Label Content="{DynamicResource HudColor}" ToolTip="{DynamicResource HudColorTooltip}"/>
+                <Border DataContext="{Binding HudColorPickerViewModel}" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Border.Background>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <MultiBinding Converter="{StaticResource ColorPickerToColor}">
+                                    <Binding Path="RedValue"/>
+                                    <Binding Path="GreenValue"/>
+                                    <Binding Path="BlueValue"/>
+                                </MultiBinding>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Border.Background>
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+                    <Image Source="/RandstalkerGui;component/Resources/Images/Hud.png" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="None">
+                        <Image.OpacityMask>
+                            <ImageBrush ImageSource="/RandstalkerGui;component/Resources/Images/HudMask.png"/>
+                        </Image.OpacityMask>
                     </Image>
-                </StackPanel>
+                </Border>
             </StackPanel>
-        </Grid>
+            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Style="{StaticResource ParameterPanel}">
+                        <tools:ColorPickerView DataContext="{Binding MainNigelColorPickerViewModel}"/>
+                        <Label Content="{DynamicResource MainNigelColor}" ToolTip="{DynamicResource MainNigelColorTooltip}"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource ParameterPanel}">
+                        <tools:ColorPickerView DataContext="{Binding SecondaryNigelColorPickerViewModel}"/>
+                        <Label Content="{DynamicResource SecondaryNigelColor}" ToolTip="{DynamicResource SecondaryNigelColorTooltip}"/>
+                    </StackPanel>
+                </StackPanel>
+                <Image Source="{Binding NigelSprite, Converter={StaticResource ToBitmapImage}}" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="3" ScaleY="3"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </StackPanel>
+        </StackPanel>
+        <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettings}"
+                    Margin="10,10,10,10" Height="50" DockPanel.Dock="Bottom"/>
     </DockPanel>
 </UserControl>

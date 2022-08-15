@@ -9,7 +9,7 @@
         xmlns:converters="clr-namespace:RandstalkerGui.Converters"
         mc:Ignorable="d"
         Closed="OnClose"
-        Title="{DynamicResource Title}" MinWidth="1110" MinHeight="855">
+        Title="{DynamicResource Title}" MinWidth="1110" MinHeight="915">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
@@ -41,13 +41,13 @@
                 <TabControl TabStripPlacement="Left">
                     <TabItem ToolTip="{DynamicResource PresetTooltip}">
                         <TabItem.Header>
-                            <Image Width="64" Source="../Resources/Images/GearIcon.png"/>
+                            <Image Width="64" Source="/RandstalkerGui;component/Resources/Images/GearIcon.png"/>
                         </TabItem.Header>
                         <uc:PresetView Margin="5,5,5,5"/>
                     </TabItem>
                     <TabItem ToolTip="{DynamicResource PersonalSettingsTooltip}">
                         <TabItem.Header>
-                            <Image Width="64" Source="../Resources/Images/UserIcon.png"/>
+                            <Image Width="64" Source="/RandstalkerGui;component/Resources/Images/UserIcon.png"/>
                         </TabItem.Header>
                         <uc:PersonalSettingsView Margin="5,5,5,5"/>
                     </TabItem>
@@ -60,7 +60,7 @@
             </TabItem>
             <TabItem Header="{DynamicResource Wiki}">
                 <Grid>
-                    <Image  Source="../Resources/Images/LakeShrinePath.png"/>
+                    <Image  Source="/RandstalkerGui;component/Resources/Images/LakeShrinePath.png"/>
                 </Grid>
             </TabItem>
         </TabControl>

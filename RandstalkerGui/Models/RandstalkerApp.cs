@@ -37,7 +37,7 @@ namespace RandstalkerGui.Models
 
             var randstalkerProcess = new Process();
             randstalkerProcess.StartInfo = startInfos;
-            
+
             Log.Info(log);
             randstalkerProcess.Start();
 

@@ -8,9 +8,9 @@ using System.Windows.Media.Imaging;
 namespace RandstalkerGui.Converters
 {
     class ToBitmapImageConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
             var bitmap = value as Bitmap;
             if (bitmap != null)
             {
@@ -36,8 +36,8 @@ namespace RandstalkerGui.Converters
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

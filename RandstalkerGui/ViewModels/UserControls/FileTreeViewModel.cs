@@ -1,5 +1,4 @@
 ﻿using RandstalkerGui.Models.TreeViewElements;
-using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.Popups;
 using RandstalkerGui.Views.Popups;
@@ -68,7 +67,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             try
             {
                 InputDialog win = new InputDialog();
-                if(win.ShowDialog().Value)
+                if (win.ShowDialog().Value)
                 {
                     newDirectoryPath = Path.Combine(directoryPath, ((InputDialogViewModel)win.DataContext).Input);
                     Directory.CreateDirectory(newDirectoryPath);
@@ -208,7 +207,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         private void UpdateTree()
         {
             Tree.Clear();
-            if(string.IsNullOrEmpty(basePath))
+            if (string.IsNullOrEmpty(basePath))
             {
                 return;
             }

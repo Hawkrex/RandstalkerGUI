@@ -172,7 +172,7 @@ namespace RandstalkerGui.ViewModels.Popups
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(InputRomFilePath);
             }
-            
+
             if (dialog.ShowDialog().Value)
             {
                 isModificationFromOpenDialog = true;
@@ -216,7 +216,7 @@ namespace RandstalkerGui.ViewModels.Popups
                 MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
                 dialog.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
                 MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
