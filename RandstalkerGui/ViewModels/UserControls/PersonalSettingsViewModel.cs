@@ -4,6 +4,7 @@ using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.UserControls.Tools;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -133,7 +134,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             nigelEditablePixels = JsonConvert.DeserializeObject<NigelEditablePixels>(Encoding.UTF8.GetString(Resources.NigelEditablePixels));
 
-            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, Resources.DefaultPersonalSettings);
+            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, new Dictionary<string, string>() { { ".json", "json files (*.json)|*.json" } }, Resources.DefaultPersonalSettings, UserConfig.Instance.LastUsedPersonalSettingsFilePath);
             PersonalSettingsTreeViewModel.PropertyChanged += PersonalSettingsTreeViewModel_PropertyChanged;
 
             NigelSprite = Resources.Nigel;

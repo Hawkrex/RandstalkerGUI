@@ -3,8 +3,10 @@ using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.Popups;
 using RandstalkerGui.Views.Popups;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
@@ -16,7 +18,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private string basePath = string.Empty;
-
+        private IDictionary<string, string> acceptedExtensions;
         private byte[] defaultFile;
 
         public ObservableCollection<TreeViewElement> Tree { get; set; }
@@ -95,7 +97,14 @@ namespace RandstalkerGui.ViewModels.UserControls
                 Stream savingStream;
                 var saveFileDialog = new SaveFileDialog();
 
-                saveFileDialog.Filter = "json files (*.json)|*.json";
+                string filter = string.Empty;
+                foreach(var extension in acceptedExtensions)
+                {
+                    filter += extension.Value + "|";
+                }
+                filter = filter.TrimEnd('|');
+                saveFileDialog.Filter = filter;
+
                 saveFileDialog.InitialDirectory = directoryPath;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -184,11 +193,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(DeleteFileHandler)}() => Command executed");
         }
 
-        public FileTreeViewModel(string basePath, string defaultSelectedFilePath, byte[] defaultFile, bool canExecuteCommands = true)
+        public FileTreeViewModel(string basePath, IDictionary<string, string> acceptedExtensions, byte[] defaultFile, string defaultSelectedFilePath, bool canExecuteCommands = true)
         {
             this.basePath = basePath;
-            SelectedFileRelativePath = defaultSelectedFilePath;
+            this.acceptedExtensions = acceptedExtensions;
             this.defaultFile = defaultFile;
+            SelectedFileRelativePath = defaultSelectedFilePath;
+            
             ContextMenuEnabled = canExecuteCommands;
 
             Tree = new ObservableCollection<TreeViewElement>();
@@ -204,6 +215,9 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(SelectedItemChangedHandler)}() => Command executed");
         }
 
+        /// <summary>
+        /// Clear and recreate file tree
+        /// </summary>
         private void UpdateTree()
         {
             Tree.Clear();
@@ -213,14 +227,17 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
 
             var baseDirInfo = new DirectoryInfo(basePath);
-            Tree.Add(new TreeViewDirectory
+            foreach(var item in GetItems(baseDirInfo.FullName))
             {
-                Name = baseDirInfo.Name,
-                Path = baseDirInfo.FullName,
-                Items = GetItems(baseDirInfo.FullName)
-            });
+                Tree.Add(item);
+            }
         }
 
+        /// <summary>
+        /// Get all items in a folder recursively
+        /// </summary>
+        /// <param name="path">Full path of the folder to get items from</param>
+        /// <returns>A collection of treeview elements (File or directory)</returns>
         private ObservableCollection<TreeViewElement> GetItems(string path)
         {
             var items = new ObservableCollection<TreeViewElement>();
@@ -239,11 +256,11 @@ namespace RandstalkerGui.ViewModels.UserControls
                 items.Add(item);
             }
 
-            foreach (var file in dirInfo.GetFiles())
+            foreach (var file in dirInfo.GetFiles().Where(f => acceptedExtensions.ContainsKey(f.Extension)))
             {
                 var item = new TreeViewFile
                 {
-                    Name = file.Name,
+                    Name = Path.GetFileNameWithoutExtension(file.Name),
                     Path = file.FullName
                 };
 

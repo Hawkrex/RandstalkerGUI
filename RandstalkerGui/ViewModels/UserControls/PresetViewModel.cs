@@ -4,6 +4,7 @@ using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.UserControls.SubPresets;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -605,7 +606,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             itemDefinitions = new ItemDefinitions();
 
-            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath, Resources.DefaultPreset);
+            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, new Dictionary<string, string>() { { ".json", "json files (*.json)|*.json" } }, Resources.DefaultPreset, UserConfig.Instance.LastUsedPresetFilePath);
             PresetTreeViewModel.PropertyChanged += PresetTreeViewModel_PropertyChanged;
 
             StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
