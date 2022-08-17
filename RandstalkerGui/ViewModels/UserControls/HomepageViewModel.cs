@@ -2,6 +2,7 @@
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -145,8 +146,8 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public HomepageViewModel()
         {
-            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath, Resources.DefaultPreset, false);
-            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, UserConfig.Instance.LastUsedPersonalSettingsFilePath, Resources.DefaultPersonalSettings, false);
+            PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, new Dictionary<string, string>() { { ".json", "json files (*.json)|*.json" } }, Resources.DefaultPreset, UserConfig.Instance.LastUsedPresetFilePath, false);
+            PersonalSettingsTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PersonalSettingsDirectoryPath, new Dictionary<string, string>() { { ".json", "json files (*.json)|*.json" } }, Resources.DefaultPersonalSettings, UserConfig.Instance.LastUsedPersonalSettingsFilePath, false);
 
             randstalkerApp = new RandstalkerApp();
 

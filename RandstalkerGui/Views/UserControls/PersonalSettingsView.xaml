@@ -28,7 +28,7 @@
     </UserControl.Resources>
     <DockPanel LastChildFill="False">
         <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"
-                DockPanel.Dock="Left" Width="150" />
+                DockPanel.Dock="Left" Width="200" />
         <StackPanel DockPanel.Dock="Top">
             <StackPanel Style="{StaticResource ParameterPanel}">
                 <CheckBox IsChecked="{Binding RemoveMusic}"/>
