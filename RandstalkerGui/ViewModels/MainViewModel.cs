@@ -1,7 +1,9 @@
-﻿using RandstalkerGui.Models;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
 using RandstalkerGui.Views.Popups;
 using System;
+using System.IO;
 using System.Threading;
 using System.Windows;
 
@@ -84,11 +86,27 @@ namespace RandstalkerGui.ViewModels
             if (!UserConfig.Instance.ArePathsValid())
             {
                 MessageBox.Show((string)App.Instance.TryFindResource("UserConfigNotValid"));
-                ConfigHandler();
-                if (!UserConfig.Instance.ArePathsValid())
+
+                var dialog = new CommonOpenFileDialog();
+                dialog.IsFolderPicker = true;
+
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    UserConfig.Instance.RandstlakerExeFilePath = Path.Combine(dialog.FileName, "randstalker.exe");
+                    UserConfig.Instance.PresetsDirectoryPath = Path.Combine(dialog.FileName, "presets");
+                    UserConfig.Instance.PersonalSettingsDirectoryPath = dialog.FileName;
+                    UserConfig.Instance.InputRomFilePath = Path.Combine(dialog.FileName, "input.md");
+                    UserConfig.Instance.OutputRomDirectoryPath = Path.Combine(dialog.FileName, "seeds");
+
+                    if (!UserConfig.Instance.ArePathsValid())
+                    {
+                        OnCloseHandler(); // Initialize all Viewmodels afterwards, maybe find another proper shutdown solution
+                    }
+                }
+                else
                 {
                     OnCloseHandler(); // Initialize all Viewmodels afterwards, maybe find another proper shutdown solution
-                }
+                }   
             }
         }
     }
