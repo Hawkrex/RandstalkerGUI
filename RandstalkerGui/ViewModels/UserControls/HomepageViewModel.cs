@@ -137,7 +137,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             Progress = 0;
             OutputLog = randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath,
                 UserConfig.Instance.OutputRomDirectoryPath,
-                Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath),
+                PresetTreeViewModel.SelectedFileRelativePath,
                 Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath),
                 PermalinkToGenerateFrom,
                 OutputRomFileName);

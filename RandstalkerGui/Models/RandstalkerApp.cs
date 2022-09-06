@@ -19,16 +19,17 @@ namespace RandstalkerGui.Models
             startInfos.RedirectStandardError = true;
             startInfos.CreateNoWindow = false;
             startInfos.UseShellExecute = false;
+            startInfos.WorkingDirectory = Path.GetDirectoryName(UserConfig.Instance.RandstlakerExeFilePath);
         }
 
-        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetFilePath, string personalSettingsFilePath, string permalink, string outputFileName)
+        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetRelativeFilePath, string personalSettingsFilePath, string permalink, string outputFileName)
         {
             string outputRomPath = string.IsNullOrEmpty(outputFileName) ? outputRomDirectoryPath : Path.Combine(outputRomDirectoryPath, outputFileName + ".md");
 
             // Enter in the command line arguments, everything you would enter after the executable name itself
-            startInfos.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomPath} --preset={presetFilePath} --personalsettings={personalSettingsFilePath} --nopause";
+            startInfos.Arguments = $"--inputrom={inputRomFilePath} --outputrom={outputRomPath} --preset={presetRelativeFilePath} --personalsettings={personalSettingsFilePath} --nopause";
 
-            string log = $"Generating seed with inputrom={inputRomFilePath}, outputrom={outputRomPath}, preset={presetFilePath}, personalsettings={personalSettingsFilePath}";
+            string log = $"Generating seed with inputrom={inputRomFilePath}, outputrom={outputRomPath}, preset={presetRelativeFilePath}, personalsettings={personalSettingsFilePath}";
             if (!string.IsNullOrEmpty(permalink))
             {
                 startInfos.Arguments += $" --permalink={permalink}";
@@ -53,7 +54,7 @@ namespace RandstalkerGui.Models
             }
             else
             {
-                return error;
+                return $"{log} failed :\n{error}";
             }
         }
     }

@@ -9,7 +9,7 @@
         xmlns:converters="clr-namespace:RandstalkerGui.Converters"
         mc:Ignorable="d"
         Closed="OnClose"
-        Title="{DynamicResource Title}" MinWidth="1110" MinHeight="915">
+        Title="{DynamicResource Title}" MinWidth="1110" MinHeight="935">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>

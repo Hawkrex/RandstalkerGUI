@@ -256,6 +256,40 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        public bool FastMenuTransitions
+        {
+            get
+            {
+                return preset.GameSettings.FastMenuTransitions;
+            }
+            set
+            {
+                if (preset.GameSettings.FastMenuTransitions != value)
+                {
+                    Log.Debug($"{nameof(preset.GameSettings.FastMenuTransitions)} => <{preset.GameSettings.FastMenuTransitions}> will change to <{value}>");
+                    preset.GameSettings.FastMenuTransitions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool EkeekeAutoRevive
+        {
+            get
+            {
+                return preset.GameSettings.EkeekeAutoRevive;
+            }
+            set
+            {
+                if (preset.GameSettings.EkeekeAutoRevive != value)
+                {
+                    Log.Debug($"{nameof(preset.GameSettings.EkeekeAutoRevive)} => <{preset.GameSettings.EkeekeAutoRevive}> will change to <{value}>");
+                    preset.GameSettings.EkeekeAutoRevive = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public int EnemiesDamageFactor
         {
             get
@@ -353,23 +387,6 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.GameSettings.HealthGainedPerLifestock)} => <{preset.GameSettings.HealthGainedPerLifestock}> will change to <{value}>");
                     preset.GameSettings.HealthGainedPerLifestock = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool FastMenuTransitions
-        {
-            get
-            {
-                return preset.GameSettings.FastMenuTransitions;
-            }
-            set
-            {
-                if (preset.GameSettings.FastMenuTransitions != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.FastMenuTransitions)} => <{preset.GameSettings.FastMenuTransitions}> will change to <{value}>");
-                    preset.GameSettings.FastMenuTransitions = value;
                     OnPropertyChanged();
                 }
             }
@@ -644,13 +661,14 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(RemoveGumiBoulder));
             OnPropertyChanged(nameof(RemoveTiborRequirement));
             OnPropertyChanged(nameof(AllTreesVisitedAtStart));
+            OnPropertyChanged(nameof(FastMenuTransitions));
+            OnPropertyChanged(nameof(EkeekeAutoRevive));
             OnPropertyChanged(nameof(EnemiesDamageFactor));
             OnPropertyChanged(nameof(EnemiesHealthFactor));
             OnPropertyChanged(nameof(EnemiesArmorFactor));
             OnPropertyChanged(nameof(EnemiesGoldsFactor));
             OnPropertyChanged(nameof(EnemiesDropChanceFactor));
             OnPropertyChanged(nameof(HealthGainedPerLifestock));
-            OnPropertyChanged(nameof(FastMenuTransitions));
             OnPropertyChanged(nameof(AllowSpoilerLog));
             OnPropertyChanged(nameof(SpawnLocationsViewModel));
             OnPropertyChanged(nameof(ShuffleTrees));

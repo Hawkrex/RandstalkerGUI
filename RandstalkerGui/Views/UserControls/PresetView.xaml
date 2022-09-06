@@ -129,6 +129,14 @@
                             <CheckBox IsChecked="{Binding AllTreesVisitedAtStart}"/>
                             <Label Content="{DynamicResource AllTreesVisitedAtStart}" ToolTip="{DynamicResource AllTreesVisitedAtStartTooltip}"/>
                         </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <CheckBox IsChecked="{Binding FastMenuTransitions}"/>
+                            <Label Content="{DynamicResource FastMenuTransitions}" ToolTip="{DynamicResource FastMenuTransitionsTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <CheckBox IsChecked="{Binding EkeekeAutoRevive}"/>
+                            <Label Content="{DynamicResource EkeekeAutoRevive}" ToolTip="{DynamicResource EkeekeAutoReviveTooltip}"/>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="{DynamicResource AdjustmentsGroupBox}">
@@ -156,10 +164,6 @@
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <xctk:IntegerUpDown Value="{Binding HealthGainedPerLifestock}"/>
                             <Label Content="{DynamicResource HealthGainedPerLifestock}" ToolTip="{DynamicResource HealthGainedPerLifestockTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding FastMenuTransitions}"/>
-                            <Label Content="{DynamicResource FastMenuTransitions}" ToolTip="{DynamicResource FastMenuTransitionsTooltip}"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

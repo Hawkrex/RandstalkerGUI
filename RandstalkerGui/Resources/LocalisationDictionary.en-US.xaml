@@ -118,6 +118,10 @@
     <system:String x:Key="RemoveTiborRequirementTooltip">Remove Tibor requirement</system:String>
     <system:String x:Key="AllTreesVisitedAtStart">All trees visited at start</system:String>
     <system:String x:Key="AllTreesVisitedAtStartTooltip">All trees visited at start</system:String>
+    <system:String x:Key="FastMenuTransitions">Fast menu transitions</system:String>
+    <system:String x:Key="FastMenuTransitionsTooltip">Fast menu transitions</system:String>
+    <system:String x:Key="EkeekeAutoRevive">Ekeeke auto revive</system:String>
+    <system:String x:Key="EkeekeAutoReviveTooltip">Ekeeke auto revive</system:String>
     <system:String x:Key="EnemiesDamageFactor">Enemies damage factor</system:String>
     <system:String x:Key="EnemiesDamageFactorTooltip">Enemies damage factor</system:String>
     <system:String x:Key="EnemiesHealthFactor">Enemies health factor</system:String>
@@ -130,8 +134,6 @@
     <system:String x:Key="EnemiesDropChanceFactorTooltip">Enemies drop chance factor</system:String>
     <system:String x:Key="HealthGainedPerLifestock">Health gained per lifestock</system:String>
     <system:String x:Key="HealthGainedPerLifestockTooltip">Health gained per lifestock</system:String>
-    <system:String x:Key="FastMenuTransitions">Fast menu transitions</system:String>
-    <system:String x:Key="FastMenuTransitionsTooltip">Fast menu transitions</system:String>
     <system:String x:Key="AllowSpoilerLog">Allow spoiler log</system:String>
     <system:String x:Key="AllowSpoilerLogTooltip">Allow spoiler log</system:String>
     <system:String x:Key="ShuffleTrees">Shuffle trees</system:String>

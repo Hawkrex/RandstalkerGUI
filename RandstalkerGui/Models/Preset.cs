@@ -53,6 +53,9 @@ namespace RandstalkerGui.Models
         [JsonProperty("allTreesVisitedAtStart")]
         public bool AllTreesVisitedAtStart { get; set; }
 
+        [JsonProperty("ekeekeAutoRevive")]
+        public bool EkeekeAutoRevive { get; set; }
+
         [JsonProperty("enemiesDamageFactor")]
         public int EnemiesDamageFactor { get; set; }
 
