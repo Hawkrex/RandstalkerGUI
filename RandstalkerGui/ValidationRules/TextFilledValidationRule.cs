@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace RandstalkerGui.ValidationRules
 {
-    public class DirectoryExistenceValidationRule : ValidationRule
+    public class TextFilledValidationRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {

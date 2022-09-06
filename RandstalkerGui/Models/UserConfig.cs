@@ -27,28 +27,34 @@ namespace RandstalkerGui.Models
         [JsonProperty("outputRomDirectoryPath")]
         public string OutputRomDirectoryPath { get; set; }
 
+        public static event EventHandler SavedValidUserConfig;
+
         private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
 
         public static UserConfig Instance => instance.Value;
 
-        public bool ArePathsValid()
+        public string CheckParametersValidity()
         {
+            string parametersInvalid = string.Empty;
+
             if (!File.Exists(RandstlakerExeFilePath))
-                return false;
-
-            if (string.IsNullOrWhiteSpace(PresetsDirectoryPath))
-                return false;
-
-            if (string.IsNullOrWhiteSpace(PersonalSettingsDirectoryPath))
-                return false;
+            {
+                parametersInvalid += (string)App.Instance.TryFindResource("RandstlakerExeNotFound") + Environment.NewLine;
+            }
 
             if (!File.Exists(InputRomFilePath))
-                return false;
+            {
+                parametersInvalid += (string)App.Instance.TryFindResource("InputRomNotFound") + Environment.NewLine;
+            }
 
-            if (string.IsNullOrWhiteSpace(OutputRomDirectoryPath))
-                return false;
+            parametersInvalid = parametersInvalid.Trim();
 
-            return true;
+            return parametersInvalid;
+        }
+
+        public static void NotifySavedValidUserConfig()
+        {
+            SavedValidUserConfig?.Invoke(null, null);
         }
     }
 }

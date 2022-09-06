@@ -13,6 +13,10 @@
     <system:String x:Key="Duplicate">Dupliquer</system:String>
     <system:String x:Key="Delete">Supprimer</system:String>
 
+    <!-- Error messages -->
+    <system:String x:Key="RandstlakerExeNotFound">Exe de Randstalker non trouvé</system:String>
+    <system:String x:Key="InputRomNotFound">Rom en entrée non trouvée</system:String>
+
     <!-- MessageBox -->
     <system:String x:Key="DeleteDirectoryAskTitle">Suppression dossier</system:String>
     <system:String x:Key="DeleteDirectoryAskMessage">Voulez-vous vraiment supprimer ce dossier et tout ce qu'il contient ?</system:String>
@@ -63,7 +67,7 @@
     <system:String x:Key="OutputRomDirectoryPath">Chemin du dossier de la rom en sortie</system:String>
     <system:String x:Key="OutputRomDirectoryPathTooltip">Chemin du dossier de la rom en sortie</system:String>
     <system:String x:Key="SaveUserConfig">Enregistrer le fichier de config utilisateur</system:String>
-    
+
     <!-- Homepage -->
     <system:String x:Key="PresetChoice">Choix du préréglage</system:String>
     <system:String x:Key="PersonalSettingsChoice">Choix des réglages personnels</system:String>
@@ -87,7 +91,7 @@
     <system:String x:Key="FixesGroupBox">Fixes</system:String>
     <system:String x:Key="AdjustmentsGroupBox">Ajustements</system:String>
     <system:String x:Key="HintsGroupBox">Indices</system:String>
-    
+
     <system:String x:Key="ChristmasEvent">Evenement de Noel</system:String>
     <system:String x:Key="ChristmasEventTooltip">Evenement de Noel</system:String>
     <system:String x:Key="JewelCount">Nombre de joyaux</system:String>
@@ -170,7 +174,7 @@
     <system:String x:Key="GreenmazeTooltip">Greenmaze</system:String>
     <system:String x:Key="Destel">Destel</system:String>
     <system:String x:Key="DestelTooltip">Destel</system:String>
-    
+
     <system:String x:Key="StartingItems">Objets de départ</system:String>
     <system:String x:Key="ItemsDistribution">Répartition des objets</system:String>
 

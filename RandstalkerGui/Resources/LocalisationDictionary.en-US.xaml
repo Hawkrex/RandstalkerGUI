@@ -4,7 +4,7 @@
     <system:String x:Key="ResourceDictionaryName">Localisation-en-US</system:String>
 
     <system:String x:Key="Title">Randstalker GUI</system:String>
-    
+
     <!-- Common -->
     <system:String x:Key="NewFile">New file</system:String>
     <system:String x:Key="NewDirectory">New directory</system:String>
@@ -12,6 +12,10 @@
     <system:String x:Key="Add">Add</system:String>
     <system:String x:Key="Duplicate">Duplicate</system:String>
     <system:String x:Key="Delete">Delete</system:String>
+
+    <!-- Error messages -->
+    <system:String x:Key="RandstlakerExeNotFound">Randstalker exe not found</system:String>
+    <system:String x:Key="InputRomNotFound">Input rom not found</system:String>
 
     <!-- MessageBox -->
     <system:String x:Key="DeleteDirectoryAskTitle">Delete directory</system:String>
@@ -72,7 +76,7 @@
     <system:String x:Key="SelectedPresetTooltip">Preset that will be use to generate a seed</system:String>
     <system:String x:Key="SelectedPersonalSettings">Selected personal settings:</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Personal settings that will be use to generate a seed</system:String>
-    <system:String x:Key="PermalinkToGenerateFrom">Permalink to generate from: </system:String>
+    <system:String x:Key="PermalinkToGenerateFrom">Permalink to generate from:</system:String>
     <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink to generate from (Leave blank for a random one)</system:String>
     <system:String x:Key="OutputRomFileName">Name of the output rom:</system:String>
     <system:String x:Key="OutputRomFileNameTooltip">Name of the output rom (Leave blank for seed's hash)</system:String>
@@ -87,7 +91,7 @@
     <system:String x:Key="FixesGroupBox">Fixes</system:String>
     <system:String x:Key="AdjustmentsGroupBox">Adjustments</system:String>
     <system:String x:Key="HintsGroupBox">Hints</system:String>
-    
+
     <system:String x:Key="ChristmasEvent">Christmas event</system:String>
     <system:String x:Key="ChristmasEventTooltip">Christmas event</system:String>
     <system:String x:Key="JewelCount">Jewel count</system:String>

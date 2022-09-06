@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
 using RandstalkerGui.Views.Popups;
@@ -78,14 +79,34 @@ namespace RandstalkerGui.ViewModels
             Log.Debug($"{nameof(AboutHandler)}() => Command executed");
         }
 
+        private string statusBarMessage;
+        public string StatusBarMessage
+        {
+            get
+            {
+                return statusBarMessage;
+            }
+            set
+            {
+                if (statusBarMessage != value)
+                {
+                    Log.Debug($"{nameof(StatusBarMessage)} => <{statusBarMessage}> will change to <{value}>");
+                    statusBarMessage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public MainViewModel()
         {
             Log.Info($"--------------------------------------------------");
             Log.Info($"{nameof(MainViewModel)}() => Initialization");
 
-            if (!UserConfig.Instance.ArePathsValid())
+            UserConfig.SavedValidUserConfig += OnSavedValidUserConfig;
+
+            if (!string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity()))
             {
-                MessageBox.Show((string)App.Instance.TryFindResource("UserConfigNotValid"));
+                MessageBox.Show((string)App.Instance.TryFindResource("UserConfigNotValid"), (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Error);
 
                 var dialog = new CommonOpenFileDialog();
                 dialog.IsFolderPicker = true;
@@ -98,16 +119,33 @@ namespace RandstalkerGui.ViewModels
                     UserConfig.Instance.InputRomFilePath = Path.Combine(dialog.FileName, "input.md");
                     UserConfig.Instance.OutputRomDirectoryPath = Path.Combine(dialog.FileName, "seeds");
 
-                    if (!UserConfig.Instance.ArePathsValid())
+                    string parametersInvalid = UserConfig.Instance.CheckParametersValidity();
+                    if (!string.IsNullOrEmpty(parametersInvalid))
                     {
-                        OnCloseHandler(); // Initialize all Viewmodels afterwards, maybe find another proper shutdown solution
+                        MessageBox.Show(parametersInvalid, (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                        StatusBarMessage = parametersInvalid;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+                        }
+                        catch (Exception ex)
+                        {
+                            string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                            MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                            Log.Error(errorMessage + " : " + ex);
+                        }
                     }
                 }
-                else
-                {
-                    OnCloseHandler(); // Initialize all Viewmodels afterwards, maybe find another proper shutdown solution
-                }   
             }
+        }
+
+        public void OnSavedValidUserConfig(object sender, EventArgs e)
+        {
+            StatusBarMessage = UserConfig.Instance.CheckParametersValidity();
         }
     }
 }

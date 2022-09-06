@@ -215,6 +215,8 @@ namespace RandstalkerGui.ViewModels.Popups
 
                 MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
                 dialog.Close();
+
+                UserConfig.NotifySavedValidUserConfig();
             }
             catch (Exception ex)
             {

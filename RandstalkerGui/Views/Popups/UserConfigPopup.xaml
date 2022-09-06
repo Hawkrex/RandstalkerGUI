@@ -44,7 +44,7 @@
                 <TextBox.Text>
                     <Binding Path="PresetsDirectoryPath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validationRules:DirectoryExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                            <validationRules:TextFilledValidationRule ValidatesOnTargetUpdated="True" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -57,7 +57,7 @@
                 <TextBox.Text>
                     <Binding Path="PersonalSettingsDirectoryPath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validationRules:DirectoryExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                            <validationRules:TextFilledValidationRule ValidatesOnTargetUpdated="True" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -83,7 +83,7 @@
                 <TextBox.Text>
                     <Binding Path="OutputRomDirectoryPath" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <validationRules:DirectoryExistenceValidationRule ValidatesOnTargetUpdated="True" />
+                            <validationRules:TextFilledValidationRule ValidatesOnTargetUpdated="True" />
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

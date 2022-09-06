@@ -2,6 +2,7 @@
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -110,6 +111,24 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        private bool canGenerateRom;
+        public bool CanGenerateRom
+        {
+            get
+            {
+                return canGenerateRom;
+            }
+            set
+            {
+                if (canGenerateRom != value)
+                {
+                    Log.Debug($"{nameof(CanGenerateRom)} => <{canGenerateRom}> will change to <{value}>");
+                    canGenerateRom = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public RelayCommand GenerateRom { get { return new RelayCommand(_ => GenerateRomHandler()); } }
         private void GenerateRomHandler()
         {
@@ -152,6 +171,14 @@ namespace RandstalkerGui.ViewModels.UserControls
             randstalkerApp = new RandstalkerApp();
 
             Progress = 0;
+
+            CanGenerateRom = string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity());
+            UserConfig.SavedValidUserConfig += OnSavedValidUserConfig;
+        }
+
+        public void OnSavedValidUserConfig(object sender, EventArgs e)
+        {
+            CanGenerateRom = string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity());
         }
     }
 }
