@@ -33,6 +33,11 @@
                 <MenuItem Header="{DynamicResource MenuItem_About}" Command="{Binding About}"/>
             </MenuItem>
         </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusBarMessage}" Foreground="Red" />
+            </StatusBarItem>
+        </StatusBar>
         <TabControl>
             <TabItem Header="{DynamicResource Homepage}">
                 <uc:HomepageView Margin="5,5,5,5"/>

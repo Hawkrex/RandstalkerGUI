@@ -47,7 +47,14 @@ namespace RandstalkerGui.Models
             // Read the standard error of net.exe and write it on to console.                
             randstalkerProcess.WaitForExit();
 
-            return output;
+            if (string.IsNullOrEmpty(error))
+            {
+                return output;
+            }
+            else
+            {
+                return error;
+            }
         }
     }
 }
