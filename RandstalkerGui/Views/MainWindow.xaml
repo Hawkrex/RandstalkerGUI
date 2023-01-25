@@ -48,7 +48,7 @@
                         <TabItem.Header>
                             <Image Width="64" Source="/RandstalkerGui;component/Resources/Images/GearIcon.png"/>
                         </TabItem.Header>
-                        <uc:PresetView Margin="5,5,5,5"/>
+                        <uc:PresetView Margin="5,5,5,5" DataContext="{Binding PresetViewModel}"/>
                     </TabItem>
                     <TabItem ToolTip="{DynamicResource PersonalSettingsTooltip}">
                         <TabItem.Header>

@@ -4,14 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:local="clr-namespace:RandstalkerGui.ViewModels.UserControls"
              xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
              xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"
              xmlns:converters="clr-namespace:RandstalkerGui.Converters"
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <local:PresetViewModel/>
-    </UserControl.DataContext>
     <UserControl.Resources>
         <converters:InvertBooleanConverter x:Key="InvertBoolean"/>
         <Style TargetType="xctk:IntegerUpDown">
@@ -174,30 +170,30 @@
                             <Label Content="{DynamicResource AllowSpoilerLog}" ToolTip="{DynamicResource AllowSpoilerLogTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding RegionRequirement}"/>
+                            <xctk:IntegerUpDown Value="{Binding RegionRequirement, ValidatesOnDataErrors=True}" Maximum="147"/>
                             <Label Content="{DynamicResource RegionRequirement}" ToolTip="{DynamicResource RegionRequirementTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding ItemRequirement}"/>
+                            <xctk:IntegerUpDown Value="{Binding ItemRequirement, ValidatesOnDataErrors=True}" Maximum="147"/>
                             <Label Content="{DynamicResource ItemRequirement}" ToolTip="{DynamicResource ItemRequirementTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding ItemLocation}"/>
+                            <xctk:IntegerUpDown Value="{Binding ItemLocation, ValidatesOnDataErrors=True}" Maximum="147"/>
                             <Label Content="{DynamicResource ItemLocation}" ToolTip="{DynamicResource ItemLocationTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding DarkRegion}"/>
+                            <xctk:IntegerUpDown Value="{Binding DarkRegion, ValidatesOnDataErrors=True}" Maximum="147"/>
                             <Label Content="{DynamicResource DarkRegion}" ToolTip="{DynamicResource DarkRegionTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding Joke}"/>
+                            <xctk:IntegerUpDown Value="{Binding Joke, ValidatesOnDataErrors=True}" Maximum="147"/>
                             <Label Content="{DynamicResource Joke}" ToolTip="{DynamicResource JokeTooltip}"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
         </Grid>
-        <Button Content="{DynamicResource SavePreset}" Command="{Binding SavePreset}"
+        <Button Content="{DynamicResource SavePreset}" Command="{Binding SavePreset}" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolean}}"
                 DockPanel.Dock="Bottom" Margin="5,5,5,5" Height="50" />
     </DockPanel>
 </UserControl>

@@ -2,7 +2,7 @@
 {
     public class ItemCount
     {
-        public string Name { get; set; }
+        public string Name { get; }
 
         public int Count { get; set; }
 

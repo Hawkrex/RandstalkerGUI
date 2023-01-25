@@ -2,9 +2,13 @@
 using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
+using RandstalkerGui.ValidationRules;
+using RandstalkerGui.ViewModels.UserControls;
 using RandstalkerGui.Views.Popups;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 
@@ -13,6 +17,8 @@ namespace RandstalkerGui.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private Dictionary<object, List<string>> statusBarMessages = new Dictionary<object, List<string>>();
 
         public RelayCommand OnClose { get { return new RelayCommand(_ => OnCloseHandler()); } }
 
@@ -79,6 +85,8 @@ namespace RandstalkerGui.ViewModels
             Log.Debug($"{nameof(AboutHandler)}() => Command executed");
         }
 
+        public PresetViewModel PresetViewModel { get; set; }
+
         private string statusBarMessage;
         public string StatusBarMessage
         {
@@ -102,50 +110,77 @@ namespace RandstalkerGui.ViewModels
             Log.Info($"--------------------------------------------------");
             Log.Info($"{nameof(MainViewModel)}() => Initialization");
 
-            UserConfig.SavedValidUserConfig += OnSavedValidUserConfig;
+            UserConfig.OnSavedValidUserConfig += SetStatusBarMessage;
 
-            if (!string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity()))
+            PresetViewModel = new PresetViewModel(SetStatusBarMessage);
+            PresetViewModel.OnError += SetStatusBarMessage;
+
+            if (string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity()))
             {
-                MessageBox.Show((string)App.Instance.TryFindResource("UserConfigNotValid"), (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
-                var dialog = new CommonOpenFileDialog();
-                dialog.IsFolderPicker = true;
+            string rootFolderErrorMessage = (string)App.Instance.TryFindResource("UserConfigNotValid") + Environment.NewLine + (string)App.Instance.TryFindResource("SelectRootFolder");
+            MessageBox.Show(rootFolderErrorMessage, (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Error);
 
-                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            var dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+
+            if (dialog.ShowDialog() != CommonFileDialogResult.Ok)
+            {
+                return;
+            }
+
+            UserConfig.Instance.RandstlakerExeFilePath = Path.Combine(dialog.FileName, "randstalker.exe");
+            UserConfig.Instance.PresetsDirectoryPath = Path.Combine(dialog.FileName, "presets");
+            UserConfig.Instance.PersonalSettingsDirectoryPath = dialog.FileName;
+            UserConfig.Instance.InputRomFilePath = Path.Combine(dialog.FileName, "input.md");
+            UserConfig.Instance.OutputRomDirectoryPath = Path.Combine(dialog.FileName, "seeds");
+
+            string parametersInvalid = UserConfig.Instance.CheckParametersValidity();
+            if (!string.IsNullOrEmpty(parametersInvalid))
+            {
+                MessageBox.Show(parametersInvalid, (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                SetStatusBarMessage(this, new StatusBarMessageEventArgs() { Message = parametersInvalid, Sender = "UserConfig" });
+            }
+            else
+            {
+                try
                 {
-                    UserConfig.Instance.RandstlakerExeFilePath = Path.Combine(dialog.FileName, "randstalker.exe");
-                    UserConfig.Instance.PresetsDirectoryPath = Path.Combine(dialog.FileName, "presets");
-                    UserConfig.Instance.PersonalSettingsDirectoryPath = dialog.FileName;
-                    UserConfig.Instance.InputRomFilePath = Path.Combine(dialog.FileName, "input.md");
-                    UserConfig.Instance.OutputRomDirectoryPath = Path.Combine(dialog.FileName, "seeds");
-
-                    string parametersInvalid = UserConfig.Instance.CheckParametersValidity();
-                    if (!string.IsNullOrEmpty(parametersInvalid))
-                    {
-                        MessageBox.Show(parametersInvalid, (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                        StatusBarMessage = parametersInvalid;
-                    }
-                    else
-                    {
-                        try
-                        {
-                            File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
-                        }
-                        catch (Exception ex)
-                        {
-                            string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
-                            MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                            Log.Error(errorMessage + " : " + ex);
-                        }
-                    }
+                    File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+                }
+                catch (Exception ex)
+                {
+                    string fileErrorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                    MessageBox.Show(fileErrorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
+                    Log.Error(fileErrorMessage + " : " + ex);
                 }
             }
         }
 
-        public void OnSavedValidUserConfig(object sender, EventArgs e)
+        public void SetStatusBarMessage(object sender, StatusBarMessageEventArgs args)
         {
-            StatusBarMessage = UserConfig.Instance.CheckParametersValidity();
+            if (statusBarMessages.ContainsKey(args.Sender))
+            {
+                if (string.IsNullOrEmpty(args.Message))
+                {
+                    statusBarMessages.Remove(args.Sender);
+                }
+                else
+                {
+                    statusBarMessages[args.Sender].Add(args.Message);
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(args.Message))
+                {
+                    statusBarMessages.Add(args.Sender, new List<string>() { args.Message });
+                }
+            }
+
+            StatusBarMessage = statusBarMessages?.FirstOrDefault().Value?.FirstOrDefault();
         }
     }
 }

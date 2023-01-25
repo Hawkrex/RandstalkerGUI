@@ -1,5 +1,4 @@
-﻿using RandstalkerGui.ViewModels.UserControls;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace RandstalkerGui.Views.UserControls
 {
@@ -11,8 +10,6 @@ namespace RandstalkerGui.Views.UserControls
         public PresetView()
         {
             InitializeComponent();
-
-            ((PresetViewModel)DataContext).StartingLife = 0;
         }
     }
 }
