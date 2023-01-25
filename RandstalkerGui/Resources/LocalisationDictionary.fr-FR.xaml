@@ -14,8 +14,14 @@
     <system:String x:Key="Delete">Supprimer</system:String>
 
     <!-- Error messages -->
+    <system:String x:Key="Warn">Attention</system:String>
+    <system:String x:Key="ClipboardCopyFailed">Copie dans le presse-papier raté, merci de réessayer ou de copier manuellement</system:String>
+    <system:String x:Key="UserConfigNotValid">Config utilisateur non valide</system:String>
+    <system:String x:Key="SelectRootFolder">Merci de sélectionner le dossier racine de Randstalker</system:String>
     <system:String x:Key="RandstlakerExeNotFound">Exe de Randstalker non trouvé</system:String>
     <system:String x:Key="InputRomNotFound">Rom en entrée non trouvée</system:String>
+    <system:String x:Key="HintsNumberError">Le nombre d'indices doit être de 147 maximum</system:String>
+    <system:String x:Key="ItemsDistibutionError">Le nombre d'objets doit être de 291 maximum</system:String>
 
     <!-- MessageBox -->
     <system:String x:Key="DeleteDirectoryAskTitle">Suppression dossier</system:String>
@@ -54,7 +60,6 @@
     <system:String x:Key="PersonalSettingsTooltip">Réglages personnels</system:String>
 
     <!-- UserConfig -->
-    <system:String x:Key="UserConfigNotValid">Config utilisateur non valide</system:String>
     <system:String x:Key="UserConfig">Config utilisateur</system:String>
     <system:String x:Key="RandstlakerExeFilePath">Chemin du fichier de l'exe de Randstalker</system:String>
     <system:String x:Key="RandstlakerExeFilePathTooltip">Chemin du fichier de l'exe de Randstalker</system:String>

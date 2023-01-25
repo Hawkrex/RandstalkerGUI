@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="xctk:IntegerUpDown">
@@ -24,12 +25,11 @@
                 <RowDefinition Height="44"/>
             </Grid.RowDefinitions>
             <ScrollViewer HorizontalAlignment="Left" VerticalScrollBarVisibility="Visible" Width="250">
-                <ItemsControl ItemsSource="{Binding ItemCounters}">
+                <ItemsControl ItemsSource="{Binding ItemCounters, ValidatesOnDataErrors=True}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Margin="5,5,5,5" LastChildFill="False">
-                                <xctk:IntegerUpDown Value="{Binding Count}" Minimum="1"/>
-                                <Label Content="{Binding Name}"/>
+                                <uc:ItemCountView DataContext="{Binding}" />
                                 <Button Content="{DynamicResource Delete}" Command="{Binding Path=DataContext.DeleteItem, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Name}"
                                         DockPanel.Dock="Right"/>
                             </DockPanel>

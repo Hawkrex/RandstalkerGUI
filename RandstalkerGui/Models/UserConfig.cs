@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RandstalkerGui.ValidationRules;
 using System;
 using System.IO;
 
@@ -27,7 +28,7 @@ namespace RandstalkerGui.Models
         [JsonProperty("outputRomDirectoryPath")]
         public string OutputRomDirectoryPath { get; set; }
 
-        public static event EventHandler SavedValidUserConfig;
+        public static event EventHandler<StatusBarMessageEventArgs> OnSavedValidUserConfig;
 
         private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
 
@@ -54,7 +55,7 @@ namespace RandstalkerGui.Models
 
         public static void NotifySavedValidUserConfig()
         {
-            SavedValidUserConfig?.Invoke(null, null);
+            OnSavedValidUserConfig?.Invoke(Instance, new StatusBarMessageEventArgs() { Message = Instance.CheckParametersValidity(), Sender = "UserConfig" });
         }
     }
 }

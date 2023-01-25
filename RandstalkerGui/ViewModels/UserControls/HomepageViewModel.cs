@@ -2,6 +2,7 @@
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
+using RandstalkerGui.ValidationRules;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -153,12 +154,21 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(GenerateRomHandler)}() => Command executed");
         }
 
-        public RelayCommand CopyPermalink { get { return new RelayCommand(_ => CopyPermalinkHandler()); } }
+        public RelayCommand CopyPermalink { get { return new RelayCommand(_ => CopyPermalinkHandler(), _ => !string.IsNullOrEmpty(PermalinkToCopy)); } }
         private void CopyPermalinkHandler()
         {
             Log.Debug($"{nameof(CopyPermalinkHandler)}() => Command requested ...");
 
-            Clipboard.SetText(PermalinkToCopy);
+            try
+            {
+                Clipboard.SetText(PermalinkToCopy);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = (string)App.Instance.TryFindResource("ClipboardCopyFailed");
+                Log.Warn(errorMessage + " : " + ex);
+                MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("Warning"), MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
 
             Log.Debug($"{nameof(CopyPermalinkHandler)}() => Command executed");
         }
@@ -173,10 +183,10 @@ namespace RandstalkerGui.ViewModels.UserControls
             Progress = 0;
 
             CanGenerateRom = string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity());
-            UserConfig.SavedValidUserConfig += OnSavedValidUserConfig;
+            UserConfig.OnSavedValidUserConfig += OnSavedValidUserConfig;
         }
 
-        public void OnSavedValidUserConfig(object sender, EventArgs e)
+        public void OnSavedValidUserConfig(object sender, StatusBarMessageEventArgs args)
         {
             CanGenerateRom = string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity());
         }

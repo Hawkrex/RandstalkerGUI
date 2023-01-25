@@ -114,8 +114,8 @@ namespace RandstalkerGui.ViewModels.UserControls
             catch (Exception ex)
             {
                 string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
-                MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Error(errorMessage + " : " + ex);
+                MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");

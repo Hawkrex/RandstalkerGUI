@@ -1,8 +1,10 @@
 ﻿using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
+using RandstalkerGui.ValidationRules;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace RandstalkerGui.ViewModels.UserControls.SubPresets
@@ -13,7 +15,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public ObservableCollection<string> Items { get; set; }
 
-        public ObservableCollection<ItemCount> ItemCounters { get; set; }
+        public ObservableCollection<ItemCountViewModel> ItemCounters { get; set; }
 
         private string itemToAdd;
 
@@ -45,7 +47,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
                 throw new InvalidOperationException("Cannot add empty item !");
             }
 
-            ItemCounters.Add(new ItemCount(ItemToAdd, 1));
+            ItemCounters.Add(new ItemCountViewModel(ItemToAdd, 1, this));
             Log.Info($"{nameof(AddItemHandler)}() => Added item <{ItemToAdd}> to the list of items");
 
             if (!Items.Remove(ItemToAdd))
@@ -60,6 +62,38 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             }
 
             Log.Debug($"{nameof(AddItemHandler)}() => Command executed");
+        }
+
+        private void ItemCounters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if(e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach(var itemCount in e.NewItems.OfType<ItemCountViewModel>())
+                {
+                    itemCount.OnError += setStatusBarMessage;
+                    itemCount.OnError += ItemCount_OnError;
+
+                    itemCount.Validate(true);
+                }
+            }
+            else if(e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (var itemCount in e.OldItems.OfType<ItemCountViewModel>())
+                {
+                    itemCount.OnError -= setStatusBarMessage;
+                    itemCount.OnError -= ItemCount_OnError;
+
+                    itemCount.Validate(true);
+                }
+            }
+        }
+
+        private void ItemCount_OnError(object sender, StatusBarMessageEventArgs e)
+        {
+            foreach(var itemCounter in ItemCounters)
+            {
+                itemCounter.Validate();
+            }
         }
 
         public RelayCommand<string> DeleteItem { get { return new RelayCommand<string>(param => DeleteItemHandler(param)); } }
@@ -81,6 +115,9 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
                 throw new InvalidOperationException($"The item <{name}> has not been removed from the list of items");
             }
 
+            // Refresh validation state of all items
+            ItemCounters.FirstOrDefault()?.Validate(true);
+
             Items.Add(name);
 
             ItemToAdd = Items?.FirstOrDefault();
@@ -92,8 +129,12 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             Log.Debug($"{nameof(DeleteItemHandler)}() => Command executed");
         }
 
-        public ItemsCounterViewModel(Dictionary<string, int> items, ItemDefinitions itemDefinitions)
+        private EventHandler<StatusBarMessageEventArgs> setStatusBarMessage;
+
+        public ItemsCounterViewModel(Dictionary<string, int> items, ItemDefinitions itemDefinitions, EventHandler<StatusBarMessageEventArgs> setStatusBarMessage = null)
         {
+            this.setStatusBarMessage = setStatusBarMessage;
+
             Items = new ObservableCollection<string>();
 
             foreach (var itemDefinition in itemDefinitions.Items)
@@ -101,14 +142,20 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
                 Items.Add(itemDefinition.Name);
             }
 
-            ItemCounters = new ObservableCollection<ItemCount>();
+            ItemCounters = new ObservableCollection<ItemCountViewModel>();
             foreach (var item in items)
             {
-                ItemCounters.Add(new ItemCount(item.Key, item.Value));
+                var itemCount = new ItemCountViewModel(item.Key, item.Value, this);
+                itemCount.OnError += setStatusBarMessage;
+                itemCount.OnError += ItemCount_OnError;
+
+                ItemCounters.Add(itemCount);
                 Items.Remove(item.Key);
             }
 
-            ItemToAdd = Items.First();
+            ItemToAdd = Items.FirstOrDefault();
+
+            ItemCounters.CollectionChanged += ItemCounters_CollectionChanged;
         }
 
         public Dictionary<string, int> FormatSettings()

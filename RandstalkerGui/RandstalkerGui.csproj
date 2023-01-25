@@ -132,9 +132,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tools\ValidationViewModel.cs" />
     <Compile Include="Tools\BaseViewModel.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="ValidationRules\FileExistenceValidationRule.cs" />
+    <Compile Include="ValidationRules\StatusBarMessageEventArgs.cs" />
     <Compile Include="ValidationRules\TextFilledValidationRule.cs" />
     <Compile Include="ViewModels\Popups\InputDialogViewModel.cs" />
     <Compile Include="ViewModels\Popups\UserConfigPopupViewModel.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="ViewModels\UserControls\HomepageViewModel.cs" />
     <Compile Include="ViewModels\UserControls\PersonalSettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\PresetViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\SubPresets\ItemCountViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\SpawnLocationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\ItemsCounterViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Tools\ColorPickerViewModel.cs" />
@@ -163,6 +166,9 @@
     <Compile Include="Views\UserControls\PresetView.xaml.cs">
       <DependentUpon>PresetView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubPresets\ItemCountView.xaml.cs">
+      <DependentUpon>ItemCountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubPresets\SpawnLocationsView.xaml.cs">
       <DependentUpon>SpawnLocationsView.xaml</DependentUpon>
     </Compile>
@@ -172,6 +178,10 @@
     <Compile Include="Views\UserControls\Tools\ColorPickerView.xaml.cs">
       <DependentUpon>ColorPickerView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\UserControls\SubPresets\ItemCountView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\UserControls\Tools\ColorPickerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -2,16 +2,18 @@
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
+using RandstalkerGui.ValidationRules;
 using RandstalkerGui.ViewModels.UserControls.SubPresets;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class PresetViewModel : BaseViewModel
+    public class PresetViewModel : ValidationViewModel
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -511,7 +513,14 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.RegionRequirement)} => <{preset.RandomizerSettings.HintsDistribution.RegionRequirement}> will change to <{value}>");
                     preset.RandomizerSettings.HintsDistribution.RegionRequirement = value;
+
+                    ValidateRequirements(nameof(RegionRequirement));
+
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(ItemRequirement));
+                    OnPropertyChanged(nameof(ItemLocation));
+                    OnPropertyChanged(nameof(DarkRegion));
+                    OnPropertyChanged(nameof(Joke));
                 }
             }
         }
@@ -528,7 +537,14 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.ItemRequirement)} => <{preset.RandomizerSettings.HintsDistribution.ItemRequirement}> will change to <{value}>");
                     preset.RandomizerSettings.HintsDistribution.ItemRequirement = value;
+
+                    ValidateRequirements(nameof(ItemRequirement));
+
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(RegionRequirement));
+                    OnPropertyChanged(nameof(ItemLocation));
+                    OnPropertyChanged(nameof(DarkRegion));
+                    OnPropertyChanged(nameof(Joke));
                 }
             }
         }
@@ -545,7 +561,14 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.ItemLocation)} => <{preset.RandomizerSettings.HintsDistribution.ItemLocation}> will change to <{value}>");
                     preset.RandomizerSettings.HintsDistribution.ItemLocation = value;
+
+                    ValidateRequirements(nameof(ItemLocation));
+
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(RegionRequirement));
+                    OnPropertyChanged(nameof(ItemRequirement));
+                    OnPropertyChanged(nameof(DarkRegion));
+                    OnPropertyChanged(nameof(Joke));
                 }
             }
         }
@@ -562,7 +585,14 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.DarkRegion)} => <{preset.RandomizerSettings.HintsDistribution.DarkRegion}> will change to <{value}>");
                     preset.RandomizerSettings.HintsDistribution.DarkRegion = value;
+
+                    ValidateRequirements(nameof(DarkRegion));
+
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(RegionRequirement));
+                    OnPropertyChanged(nameof(ItemRequirement));
+                    OnPropertyChanged(nameof(ItemLocation));
+                    OnPropertyChanged(nameof(Joke));
                 }
             }
         }
@@ -579,10 +609,54 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.Joke)} => <{preset.RandomizerSettings.HintsDistribution.Joke}> will change to <{value}>");
                     preset.RandomizerSettings.HintsDistribution.Joke = value;
+
+                    ValidateRequirements(nameof(Joke));
+
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(RegionRequirement));
+                    OnPropertyChanged(nameof(ItemRequirement));
+                    OnPropertyChanged(nameof(ItemLocation));
+                    OnPropertyChanged(nameof(DarkRegion));
                 }
             }
         }
+
+        public event EventHandler<StatusBarMessageEventArgs> OnError;
+
+        public void ValidateRequirements(string propertyName)
+        {
+            string error = string.Empty;
+
+            ClearErrors(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(RegionRequirement):
+                case nameof(ItemRequirement):
+                case nameof(ItemLocation):
+                case nameof(DarkRegion):
+                case nameof(Joke):
+
+                    ClearErrors(nameof(RegionRequirement));
+                    ClearErrors(nameof(ItemRequirement));
+                    ClearErrors(nameof(ItemLocation));
+                    ClearErrors(nameof(DarkRegion));
+                    ClearErrors(nameof(Joke));
+
+                    if (RegionRequirement + ItemRequirement + ItemLocation + DarkRegion + Joke > 147)
+                    {
+                        error = (string)App.Instance.TryFindResource("HintsNumberError");
+                        AddError(nameof(RegionRequirement), error);
+                        AddError(nameof(ItemRequirement), error);
+                        AddError(nameof(ItemLocation), error);
+                        AddError(nameof(DarkRegion), error);
+                        AddError(nameof(Joke), error);
+                    }
+                    break;
+            }
+
+            OnError?.Invoke(this, new StatusBarMessageEventArgs() { Message = error, Sender = "Preset" });
+        } 
 
         public RelayCommand SavePreset { get { return new RelayCommand(_ => SavePresetHandler()); } }
 
@@ -610,7 +684,9 @@ namespace RandstalkerGui.ViewModels.UserControls
             Log.Debug($"{nameof(SavePresetHandler)}() => Command executed");
         }
 
-        public PresetViewModel()
+        private EventHandler<StatusBarMessageEventArgs> setStatusBarMessage;
+
+        public PresetViewModel(EventHandler<StatusBarMessageEventArgs> setStatusBarMessage)
         {
             if (File.Exists(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath)))
             {
@@ -621,6 +697,8 @@ namespace RandstalkerGui.ViewModels.UserControls
                 preset = JsonConvert.DeserializeObject<Preset>(Encoding.UTF8.GetString(Resources.DefaultPreset));
             }
 
+            this.setStatusBarMessage = setStatusBarMessage;
+
             itemDefinitions = new ItemDefinitions();
 
             PresetTreeViewModel = new FileTreeViewModel(UserConfig.Instance.PresetsDirectoryPath, new Dictionary<string, string>() { { ".json", "json files (*.json)|*.json" } }, Resources.DefaultPreset, UserConfig.Instance.LastUsedPresetFilePath);
@@ -628,10 +706,10 @@ namespace RandstalkerGui.ViewModels.UserControls
 
             StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
             SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
-            ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions);
+            ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions, setStatusBarMessage);
         }
 
-        private void PresetTreeViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void PresetTreeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(PresetTreeViewModel.SelectedFileRelativePath))
             {
@@ -639,7 +717,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
                 StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
                 SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
-                ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions);
+                ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions, setStatusBarMessage);
 
                 UpdateProperties();
             }

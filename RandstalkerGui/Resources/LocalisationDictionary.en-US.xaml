@@ -14,8 +14,14 @@
     <system:String x:Key="Delete">Delete</system:String>
 
     <!-- Error messages -->
+    <system:String x:Key="Warn">Warn</system:String>
+    <system:String x:Key="ClipboardCopyFailed">Clipboard copy failed, please retry or do it manually</system:String>
+    <system:String x:Key="UserConfigNotValid">User config not valid</system:String>
+    <system:String x:Key="SelectRootFolder">Please select the root folder of Randstalker</system:String>
     <system:String x:Key="RandstlakerExeNotFound">Randstalker exe not found</system:String>
     <system:String x:Key="InputRomNotFound">Input rom not found</system:String>
+    <system:String x:Key="HintsNumberError">Hints number must be maximum 147</system:String>
+    <system:String x:Key="ItemsDistibutionError">Items number must be maximum 291</system:String>
 
     <!-- MessageBox -->
     <system:String x:Key="DeleteDirectoryAskTitle">Delete directory</system:String>
@@ -54,7 +60,6 @@
     <system:String x:Key="PersonalSettingsTooltip">Personal Settings</system:String>
 
     <!-- UserConfig -->
-    <system:String x:Key="UserConfigNotValid">User config not valid</system:String>
     <system:String x:Key="UserConfig">UserConfig</system:String>
     <system:String x:Key="RandstlakerExeFilePath">Randstalker exe file path</system:String>
     <system:String x:Key="RandstlakerExeFilePathTooltip">Randstalker exe file path</system:String>
