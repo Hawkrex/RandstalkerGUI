@@ -71,6 +71,11 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -145,6 +150,7 @@
     <Compile Include="ViewModels\UserControls\PersonalSettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\PresetViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\ItemCountViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\SubPresets\ItemsListViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\SpawnLocationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\SubPresets\ItemsCounterViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Tools\ColorPickerViewModel.cs" />
@@ -169,6 +175,9 @@
     <Compile Include="Views\UserControls\SubPresets\ItemCountView.xaml.cs">
       <DependentUpon>ItemCountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\SubPresets\ItemsListView.xaml.cs">
+      <DependentUpon>ItemsListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\SubPresets\SpawnLocationsView.xaml.cs">
       <DependentUpon>SpawnLocationsView.xaml</DependentUpon>
     </Compile>
@@ -181,6 +190,10 @@
     <Page Include="Views\UserControls\SubPresets\ItemCountView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\SubPresets\ItemsListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\Tools\ColorPickerView.xaml">
       <Generator>MSBuild:Compile</Generator>

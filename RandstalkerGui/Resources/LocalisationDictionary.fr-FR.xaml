@@ -81,6 +81,8 @@
     <system:String x:Key="SelectedPresetTooltip">Préréglage qui sera utilisé pour génerer la seed</system:String>
     <system:String x:Key="SelectedPersonalSettings">Réglages personnels séléctionné :</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Réglages personnels qui seront utilisé pour génerer la seed</system:String>
+    <system:String x:Key="Bingo">Bingo</system:String>
+    <system:String x:Key="BingoTooltip">Bingo à utiliser sur https://bingosync.com</system:String>
     <system:String x:Key="PermalinkToGenerateFrom">Permalink à partir duquel générer :</system:String>
     <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink à partir duquel générer (Laissez vide pour une seed random)</system:String>
     <system:String x:Key="OutputRomFileName">Nom de la rom en sortie :</system:String>
@@ -99,8 +101,12 @@
 
     <system:String x:Key="ChristmasEvent">Evenement de Noel</system:String>
     <system:String x:Key="ChristmasEventTooltip">Evenement de Noel</system:String>
+    <system:String x:Key="FillerItem">Objet de remplissage</system:String>
+    <system:String x:Key="FillerItemTooltip">Objet de remplissage</system:String>
     <system:String x:Key="JewelCount">Nombre de joyaux</system:String>
     <system:String x:Key="JewelCountTooltip">Nombre de joyaux</system:String>
+    <system:String x:Key="Goal">Objectif</system:String>
+    <system:String x:Key="GoalTooltip">Objectif</system:String>
     <system:String x:Key="ArmorUpgrades">Améliorations d'armure</system:String>
     <system:String x:Key="ArmorUpgradesTooltip">Améliorations d'armure</system:String>
     <system:String x:Key="StartingGold">Or de départ</system:String>
@@ -139,6 +145,10 @@
     <system:String x:Key="EnemiesDropChanceFactorTooltip">Facteur de chance de drop</system:String>
     <system:String x:Key="HealthGainedPerLifestock">Vie gagnée par lifestock</system:String>
     <system:String x:Key="HealthGainedPerLifestockTooltip">Vie gagnée par lifestock</system:String>
+    <system:String x:Key="ShopPricesFactor">Facteur des prix des boutiques</system:String>
+    <system:String x:Key="ShopPricesFactorTooltip">Augmente ou diminue les prix des objets en boutique</system:String>
+    <system:String x:Key="EnsureEkeEkeInShops">Garantie EkeEke en boutique</system:String>
+    <system:String x:Key="EnsureEkeEkeInShopsTooltip">Garanti la présence d'un EkeEke dans les boutique de chaque région</system:String>
     <system:String x:Key="AllowSpoilerLog">Autoriser le spoiler log</system:String>
     <system:String x:Key="AllowSpoilerLogTooltip">Autoriser le spoiler log</system:String>
     <system:String x:Key="ShuffleTrees">Mélange des arbres</system:String>
@@ -183,6 +193,8 @@
     <system:String x:Key="DestelTooltip">Destel</system:String>
 
     <system:String x:Key="StartingItems">Objets de départ</system:String>
+    <system:String x:Key="FiniteGroundItems">Objets limités au sol</system:String>
+    <system:String x:Key="FiniteShopItems">Objets limités de shops</system:String>
     <system:String x:Key="ItemsDistribution">Répartition des objets</system:String>
 
     <system:String x:Key="SavePreset">Enregistrer les préréglages</system:String>

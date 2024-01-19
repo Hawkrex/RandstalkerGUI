@@ -22,7 +22,7 @@ namespace RandstalkerGui.Models
             startInfos.WorkingDirectory = Path.GetDirectoryName(UserConfig.Instance.RandstlakerExeFilePath);
         }
 
-        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetRelativeFilePath, string personalSettingsFilePath, string permalink, string outputFileName)
+        public string GenerateSeed(string inputRomFilePath, string outputRomDirectoryPath, string presetRelativeFilePath, string personalSettingsFilePath, string permalink, string outputFileName, bool bingo)
         {
             string outputRomPath = string.IsNullOrEmpty(outputFileName) ? outputRomDirectoryPath : Path.Combine(outputRomDirectoryPath, outputFileName + ".md");
 
@@ -34,6 +34,12 @@ namespace RandstalkerGui.Models
             {
                 startInfos.Arguments += $" --permalink={permalink}";
                 log += $", permalink={permalink}";
+            }
+
+            if (bingo)
+            {
+                startInfos.Arguments += " --bingo";
+                log += ", bingo";
             }
 
             var randstalkerProcess = new Process();

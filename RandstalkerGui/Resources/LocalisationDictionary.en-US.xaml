@@ -81,6 +81,8 @@
     <system:String x:Key="SelectedPresetTooltip">Preset that will be use to generate a seed</system:String>
     <system:String x:Key="SelectedPersonalSettings">Selected personal settings:</system:String>
     <system:String x:Key="SelectedPersonalSettingsTooltip">Personal settings that will be use to generate a seed</system:String>
+    <system:String x:Key="Bingo">Bingo</system:String>
+    <system:String x:Key="BingoTooltip">Bingo to be used on https://bingosync.com</system:String>
     <system:String x:Key="PermalinkToGenerateFrom">Permalink to generate from:</system:String>
     <system:String x:Key="PermalinkToGenerateFromTooltip">Permalink to generate from (Leave blank for a random one)</system:String>
     <system:String x:Key="OutputRomFileName">Name of the output rom:</system:String>
@@ -99,8 +101,12 @@
 
     <system:String x:Key="ChristmasEvent">Christmas event</system:String>
     <system:String x:Key="ChristmasEventTooltip">Christmas event</system:String>
+    <system:String x:Key="FillerItem">Filler item</system:String>
+    <system:String x:Key="FillerItemTooltip">Filler item</system:String>
     <system:String x:Key="JewelCount">Jewel count</system:String>
     <system:String x:Key="JewelCountTooltip">Jewel count</system:String>
+    <system:String x:Key="Goal">Goal</system:String>
+    <system:String x:Key="GoalTooltip">Goal</system:String>
     <system:String x:Key="ArmorUpgrades">Armor upgrades</system:String>
     <system:String x:Key="ArmorUpgradesTooltip">Armor upgrades</system:String>
     <system:String x:Key="StartingGold">Starting gold</system:String>
@@ -139,6 +145,10 @@
     <system:String x:Key="EnemiesDropChanceFactorTooltip">Enemies drop chance factor</system:String>
     <system:String x:Key="HealthGainedPerLifestock">Health gained per lifestock</system:String>
     <system:String x:Key="HealthGainedPerLifestockTooltip">Health gained per lifestock</system:String>
+    <system:String x:Key="ShopPricesFactor">Shop prices factor</system:String>
+    <system:String x:Key="ShopPricesFactorTooltip">Increase or reduce prices globally</system:String>
+    <system:String x:Key="EnsureEkeEkeInShops">Ensure EkeEke in shops</system:String>
+    <system:String x:Key="EnsureEkeEkeInShopsTooltip">Ensure presence of an EkeEke in shops of every region</system:String>
     <system:String x:Key="AllowSpoilerLog">Allow spoiler log</system:String>
     <system:String x:Key="AllowSpoilerLogTooltip">Allow spoiler log</system:String>
     <system:String x:Key="ShuffleTrees">Shuffle trees</system:String>
@@ -183,6 +193,8 @@
     <system:String x:Key="DestelTooltip">Destel</system:String>
 
     <system:String x:Key="StartingItems">Starting items</system:String>
+    <system:String x:Key="FiniteGroundItems">Finite ground items</system:String>
+    <system:String x:Key="FiniteShopItems">Finite shop items</system:String>
     <system:String x:Key="ItemsDistribution">Items distribution</system:String>
 
     <system:String x:Key="SavePreset">Save preset</system:String>

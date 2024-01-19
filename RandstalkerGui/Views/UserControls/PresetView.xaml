@@ -51,7 +51,9 @@
                             <Label Content="{DynamicResource StartingGold}" ToolTip="{DynamicResource StartingGoldTooltip}"/>
                         </StackPanel>
                         <uc:SpawnLocationsView DataContext="{Binding SpawnLocationsViewModel}"/>
-                        <uc:ItemsCounterView DataContext="{Binding StartingsItemsViewModel}" GroupBoxHeader="{DynamicResource StartingItems}" Height="336"/>
+                        <uc:ItemsCounterView DataContext="{Binding StartingsItemsViewModel}" GroupBoxHeader="{DynamicResource StartingItems}" Height="150"/>
+                        <uc:ItemsListView DataContext="{Binding FiniteGroundItemsViewModel}" GroupBoxHeader="{DynamicResource FiniteGroundItems}" Height="150"/>
+                        <uc:ItemsListView DataContext="{Binding FiniteShopItemsViewModel}" GroupBoxHeader="{DynamicResource FiniteShopItems}" Height="150"/>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
@@ -61,6 +63,10 @@
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <xctk:IntegerUpDown Value="{Binding JewelCount}" Maximum="9"/>
                             <Label Content="{DynamicResource JewelCount}" ToolTip="{DynamicResource JewelCountTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <ComboBox ItemsSource="{Binding GoalList}" SelectedValue="{Binding Goal}" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                            <Label Content="{DynamicResource Goal}" ToolTip="{DynamicResource GoalTooltip}"/>
                         </StackPanel>
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <CheckBox IsChecked="{Binding ArmorUpgrades}"/>
@@ -97,6 +103,10 @@
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <CheckBox IsChecked="{Binding ChristmasEvent}"/>
                             <Label Content="{DynamicResource ChristmasEvent}" ToolTip="{DynamicResource ChristmasEventTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding FillerItem}"/>
+                            <Label Content="{DynamicResource FillerItem}" ToolTip="{DynamicResource FillerItemTooltip}"/>
                         </StackPanel>
                         <uc:ItemsCounterView DataContext="{Binding ItemsDistributionViewModel}" GroupBoxHeader="{DynamicResource ItemsDistribution}" Height="369"/>
                     </StackPanel>
@@ -160,6 +170,14 @@
                         <StackPanel Style="{StaticResource ParameterPanel}">
                             <xctk:IntegerUpDown Value="{Binding HealthGainedPerLifestock}"/>
                             <Label Content="{DynamicResource HealthGainedPerLifestock}" ToolTip="{DynamicResource HealthGainedPerLifestockTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <xctk:IntegerUpDown Value="{Binding ShopPricesFactor}"/>
+                            <Label Content="{DynamicResource ShopPricesFactor}" ToolTip="{DynamicResource ShopPricesFactorTooltip}"/>
+                        </StackPanel>
+                        <StackPanel Style="{StaticResource ParameterPanel}">
+                            <CheckBox IsChecked="{Binding EnsureEkeEkeInShops}"/>
+                            <Label Content="{DynamicResource EnsureEkeEkeInShops}" ToolTip="{DynamicResource EnsureEkeEkeInShopsTooltip}"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

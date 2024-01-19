@@ -6,10 +6,12 @@ using RandstalkerGui.ValidationRules;
 using RandstalkerGui.ViewModels.UserControls.SubPresets;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Linq;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -23,6 +25,8 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public FileTreeViewModel PresetTreeViewModel { get; set; }
 
+        public ObservableCollection<string> Items { get; set; }
+
         public bool ChristmasEvent
         {
             get
@@ -35,6 +39,25 @@ namespace RandstalkerGui.ViewModels.UserControls
                 {
                     Log.Debug($"{nameof(preset.ChristmasEvent)} => <{preset.ChristmasEvent}> will change to <{value}>");
                     preset.ChristmasEvent = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Dictionary<string, string> GoalList { get; private set; }
+
+        public string Goal
+        {
+            get
+            {
+                return preset.GameSettings.Goal;
+            }
+            set
+            {
+                if (preset.GameSettings.Goal != value)
+                {
+                    Log.Debug($"{nameof(preset.GameSettings.Goal)} => <{preset.GameSettings.Goal}> will change to <{value}>");
+                    preset.GameSettings.Goal = value;
                     OnPropertyChanged();
                 }
             }
@@ -431,6 +454,24 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        public int ShopPricesFactor
+        {
+            get
+            {
+                return preset.RandomizerSettings.ShopPricesFactor;
+            }
+            set
+            {
+                if (preset.RandomizerSettings.ShopPricesFactor != value)
+
+                {
+                    Log.Debug($"{nameof(preset.RandomizerSettings.ShopPricesFactor)} => <{preset.RandomizerSettings.ShopPricesFactor}> will change to <{value}>");
+                    preset.RandomizerSettings.ShopPricesFactor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public bool EnemyJumpingInLogic
         {
             get
@@ -499,7 +540,45 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        public bool EnsureEkeEkeInShops
+        {
+            get
+            {
+                return preset.RandomizerSettings.EnsureEkeEkeInShops;
+            }
+            set
+            {
+                if (preset.RandomizerSettings.EnsureEkeEkeInShops != value)
+                {
+                    Log.Debug($"{nameof(preset.RandomizerSettings.EnsureEkeEkeInShops)} => <{preset.RandomizerSettings.EnsureEkeEkeInShops}> will change to <{value}>");
+                    preset.RandomizerSettings.EnsureEkeEkeInShops = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string FillerItem
+        {
+            get
+            {
+                return preset.RandomizerSettings.FillerItem;
+            }
+            set
+            {
+                if (preset.RandomizerSettings.FillerItem != value)
+                {
+                    Log.Debug($"{nameof(preset.RandomizerSettings.FillerItem)} => <{preset.RandomizerSettings.FillerItem}> will change to <{value}>");
+                    preset.RandomizerSettings.FillerItem = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ItemsCounterViewModel ItemsDistributionViewModel { get; set; }
+
+        public ItemsListViewModel FiniteGroundItemsViewModel { get; set; }
+
+        public ItemsListViewModel FiniteShopItemsViewModel { get; set; }
 
         public int RegionRequirement
         {
@@ -667,6 +746,8 @@ namespace RandstalkerGui.ViewModels.UserControls
             preset.GameSettings.StartingItems = StartingsItemsViewModel.FormatSettings();
             preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.FormatSettings();
             preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.FormatSettings();
+            preset.GameSettings.FiniteGroundItems = FiniteGroundItemsViewModel.FormatSettings();
+            preset.GameSettings.FiniteShopItems = FiniteShopItemsViewModel.FormatSettings();
 
             try
             {
@@ -707,6 +788,17 @@ namespace RandstalkerGui.ViewModels.UserControls
             StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
             SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
             ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions, setStatusBarMessage);
+            FiniteGroundItemsViewModel = new ItemsListViewModel(preset.GameSettings.FiniteGroundItems, itemDefinitions);
+            FiniteShopItemsViewModel = new ItemsListViewModel(preset.GameSettings.FiniteShopItems, itemDefinitions);
+
+            GoalList = new Dictionary<string, string>
+            {
+                { "beat_gola", "Beat Gola" },
+                { "reach_kazalt", "Reach Kazat" },
+                { "beat_dark_nole", "Beat Dark Nole" }
+            };
+
+            Items = new ObservableCollection<string>(itemDefinitions.Items.Select(i => i.Name));
         }
 
         private void PresetTreeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -726,6 +818,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         private void UpdateProperties()
         {
             OnPropertyChanged(nameof(ChristmasEvent));
+            OnPropertyChanged(nameof(Goal));
             OnPropertyChanged(nameof(JewelCount));
             OnPropertyChanged(nameof(ArmorUpgrades));
             OnPropertyChanged(nameof(StartingGold));
@@ -740,6 +833,8 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(RemoveTiborRequirement));
             OnPropertyChanged(nameof(AllTreesVisitedAtStart));
             OnPropertyChanged(nameof(FastMenuTransitions));
+            OnPropertyChanged(nameof(FiniteGroundItemsViewModel));
+            OnPropertyChanged(nameof(FiniteShopItemsViewModel));
             OnPropertyChanged(nameof(EkeekeAutoRevive));
             OnPropertyChanged(nameof(EnemiesDamageFactor));
             OnPropertyChanged(nameof(EnemiesHealthFactor));
@@ -750,10 +845,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             OnPropertyChanged(nameof(AllowSpoilerLog));
             OnPropertyChanged(nameof(SpawnLocationsViewModel));
             OnPropertyChanged(nameof(ShuffleTrees));
+            OnPropertyChanged(nameof(ShopPricesFactor));
             OnPropertyChanged(nameof(EnemyJumpingInLogic));
             OnPropertyChanged(nameof(DamageBoostingInLogic));
             OnPropertyChanged(nameof(TreeCuttingGlitchInLogic));
             OnPropertyChanged(nameof(AllowWhistleUsageBehindTrees));
+            OnPropertyChanged(nameof(EnsureEkeEkeInShops));
+            OnPropertyChanged(nameof(FillerItem));
             OnPropertyChanged(nameof(ItemsDistributionViewModel));
             OnPropertyChanged(nameof(RegionRequirement));
             OnPropertyChanged(nameof(ItemRequirement));

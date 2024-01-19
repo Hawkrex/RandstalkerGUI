@@ -17,6 +17,9 @@ namespace RandstalkerGui.Models
 
     public class GameSettings
     {
+        [JsonProperty("goal")]
+        public string Goal { get; set; }
+
         [JsonProperty("jewelCount")]
         public int JewelCount { get; set; }
 
@@ -76,6 +79,12 @@ namespace RandstalkerGui.Models
 
         [JsonProperty("fastMenuTransitions")]
         public bool FastMenuTransitions { get; set; }
+
+        [JsonProperty("finiteGroundItems")]
+        public List<string> FiniteGroundItems { get; set; }
+
+        [JsonProperty("finiteShopItems")]
+        public List<string> FiniteShopItems { get; set; }
     }
 
     public class RandomizerSettings
@@ -89,6 +98,9 @@ namespace RandstalkerGui.Models
         [JsonProperty("shuffleTrees")]
         public bool ShuffleTrees { get; set; }
 
+        [JsonProperty("shopPricesFactor")]
+        public int ShopPricesFactor { get; set; }
+
         [JsonProperty("enemyJumpingInLogic")]
         public bool EnemyJumpingInLogic { get; set; }
 
@@ -100,6 +112,12 @@ namespace RandstalkerGui.Models
 
         [JsonProperty("allowWhistleUsageBehindTrees")]
         public bool AllowWhistleUsageBehindTrees { get; set; }
+
+        [JsonProperty("ensureEkeEkeInShops")]
+        public bool EnsureEkeEkeInShops { get; set; }
+
+        [JsonProperty("fillerItem")]
+        public string FillerItem { get; set; }
 
         [JsonProperty("itemsDistribution")]
         public Dictionary<string, int> ItemsDistribution { get; set; }

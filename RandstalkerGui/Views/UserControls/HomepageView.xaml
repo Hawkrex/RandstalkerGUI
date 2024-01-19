@@ -10,20 +10,26 @@
         <local:HomepageViewModel/>
     </UserControl.DataContext>
     <UserControl.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
         <Style TargetType="StackPanel" x:Key="ParameterPanel">
             <Setter Property="Margin" Value="5,5,5,5"/>
             <Setter Property="Orientation" Value="Horizontal"/>
         </Style>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical">
-        <Expander Margin="10" Header="{DynamicResource PresetChoice}">
-            <views:FileTreeView DataContext="{Binding PresetTreeViewModel}"/>
-        </Expander>
-        <Expander Margin="10" Header="{DynamicResource PersonalSettingsChoice}">
-            <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"/>
-        </Expander>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Expander Margin="10" Header="{DynamicResource PresetChoice}">
+                <views:FileTreeView DataContext="{Binding PresetTreeViewModel}"/>
+            </Expander>
+            <Expander Margin="10" Header="{DynamicResource PersonalSettingsChoice}">
+                <views:FileTreeView DataContext="{Binding PersonalSettingsTreeViewModel}"/>
+            </Expander>
+        </StackPanel>
         <GroupBox Header="{DynamicResource ParametersRecap}">
-            <StackPanel Orientation="Vertical">
+            <StackPanel>
                 <StackPanel Style="{StaticResource ParameterPanel}">
                     <Label Content="{DynamicResource SelectedPreset}" ToolTip="{DynamicResource SelectedPresetTooltip}"/>
                     <Label Content="{Binding PresetTreeViewModel.SelectedFileRelativePath}"/>
@@ -31,6 +37,10 @@
                 <StackPanel Style="{StaticResource ParameterPanel}">
                     <Label Content="{DynamicResource SelectedPersonalSettings}" ToolTip="{DynamicResource SelectedPersonalSettingsTooltip}"/>
                     <Label Content="{Binding PersonalSettingsTreeViewModel.SelectedFileRelativePath}"/>
+                </StackPanel>
+                <StackPanel Style="{StaticResource ParameterPanel}">
+                    <Label Content="{DynamicResource Bingo}" ToolTip="{DynamicResource BingoTooltip}" />
+                    <CheckBox IsChecked="{Binding Bingo}"/>
                 </StackPanel>
                 <StackPanel Style="{StaticResource ParameterPanel}">
                     <Label Content="{DynamicResource PermalinkToGenerateFrom}" ToolTip="{DynamicResource PermalinkToGenerateFromTooltip}" />

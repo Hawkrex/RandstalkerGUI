@@ -58,6 +58,24 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
         }
 
+        private bool bingo;
+        public bool Bingo
+        {
+            get
+            {
+                return bingo;
+            }
+            set
+            {
+                if (bingo != value)
+                {
+                    Log.Debug($"{nameof(Bingo)} => <{Bingo}> will change to <{value}>");
+                    bingo = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string permalinkToGenerateFrom;
         public string PermalinkToGenerateFrom
         {
@@ -141,7 +159,8 @@ namespace RandstalkerGui.ViewModels.UserControls
                 PresetTreeViewModel.SelectedFileRelativePath,
                 Path.Combine(UserConfig.Instance.PersonalSettingsDirectoryPath, PersonalSettingsTreeViewModel.SelectedFileRelativePath),
                 PermalinkToGenerateFrom,
-                OutputRomFileName);
+                OutputRomFileName,
+                Bingo);
 
             PermalinkToCopy = Regex.Match(OutputLog, @"Permalink: (.*)").Groups[1].Value;
             Progress = 100;
