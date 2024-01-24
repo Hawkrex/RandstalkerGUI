@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace RandstalkerGui.Converters
+namespace RandstalkerGui.Views.Converters
 {
     class ColorPickerToColorConverter : IMultiValueConverter
     {

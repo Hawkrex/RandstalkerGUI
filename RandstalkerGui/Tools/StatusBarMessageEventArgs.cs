@@ -1,4 +1,4 @@
-﻿namespace RandstalkerGui.ValidationRules
+﻿namespace RandstalkerGui.Tools
 {
     public class StatusBarMessageEventArgs
     {

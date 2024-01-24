@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RandstalkerGui.ValidationRules;
+using RandstalkerGui.Tools;
 using System;
 using System.IO;
 

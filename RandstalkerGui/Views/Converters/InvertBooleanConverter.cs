@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace RandstalkerGui.Converters
+namespace RandstalkerGui.Views.Converters
 {
     class InvertBooleanConverter : IValueConverter
     {

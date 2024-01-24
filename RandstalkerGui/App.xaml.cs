@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 
@@ -12,17 +14,20 @@ namespace RandstalkerGui
     public partial class App : Application
     {
         public static App Instance;
-        public static string Directory;
+        public static string AssemblyDirectory;
         public event EventHandler LanguageChangedEvent;
 
         public App()
         {
             // Initialize static variables
             Instance = this;
-            Directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            AssemblyDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             // Load the Localization Resource Dictionary based on OS language
-            SetLanguageResourceDictionary(GetLocXAMLFilePath(CultureInfo.CurrentCulture.Name));
+            foreach (string filePath in GetLocXAMLFilePath(CultureInfo.CurrentCulture.Name))
+            {
+                SetLanguageResourceDictionary(filePath);
+            }
         }
 
         /// <summary>
@@ -31,13 +36,18 @@ namespace RandstalkerGui
         public void SwitchLanguage(string inFiveCharLang)
         {
             if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang))
+            {
                 return;
+            }
 
             var ci = new CultureInfo(inFiveCharLang);
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
 
-            SetLanguageResourceDictionary(GetLocXAMLFilePath(inFiveCharLang));
+            foreach (string filePath in GetLocXAMLFilePath(inFiveCharLang))
+            {
+                SetLanguageResourceDictionary(filePath);
+            }
             LanguageChangedEvent?.Invoke(this, new EventArgs());
         }
 
@@ -46,10 +56,10 @@ namespace RandstalkerGui
         /// </summary>
         /// <param name="inFiveCharLang"></param>
         /// <returns></returns>
-        private string GetLocXAMLFilePath(string inFiveCharLang)
+        private IEnumerable<string> GetLocXAMLFilePath(string inFiveCharLang)
         {
-            string locXamlFile = "LocalisationDictionary." + inFiveCharLang + ".xaml";
-            return Path.Combine(Directory, "Resources", locXamlFile);
+            var files = Directory.GetFiles(Path.Combine(AssemblyDirectory, "Resources/Localisations"));
+            return files.Where(file => file.Contains(inFiveCharLang));
         }
 
         /// <summary>
@@ -71,10 +81,10 @@ namespace RandstalkerGui
                 {
                     var md = Resources.MergedDictionaries[i];
                     // Make sure your Localization ResourceDictionarys have the ResourceDictionaryName
-                    // key and that it is set to a value starting with "Loc-".
+                    // key and that it is set to a value starting with "[something]-".
                     if (md.Contains("ResourceDictionaryName"))
                     {
-                        if (md["ResourceDictionaryName"].ToString().StartsWith("Localisation-"))
+                        if (md["ResourceDictionaryName"].ToString().StartsWith(languageDictionary["ResourceDictionaryName"].ToString().Split('-')[0]))
                         {
                             langDictId = i;
                             break;

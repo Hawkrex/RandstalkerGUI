@@ -6,7 +6,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
              xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"
-             xmlns:converters="clr-namespace:RandstalkerGui.Converters"
+             xmlns:converters="clr-namespace:RandstalkerGui.Views.Converters"
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:InvertBooleanConverter x:Key="InvertBoolean"/>

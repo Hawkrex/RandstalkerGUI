@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace RandstalkerGui.Converters
+namespace RandstalkerGui.Views.Converters
 {
     class ToBitmapImageConverter : IValueConverter
     {

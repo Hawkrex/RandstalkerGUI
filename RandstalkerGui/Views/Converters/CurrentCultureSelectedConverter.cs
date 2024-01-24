@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace RandstalkerGui.Converters
+namespace RandstalkerGui.Views.Converters
 {
-    class CurrentCultureSelectedConverter : IValueConverter
+    internal class CurrentCultureSelectedConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

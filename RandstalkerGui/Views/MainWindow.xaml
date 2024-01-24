@@ -6,7 +6,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:RandstalkerGui.ViewModels"
         xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls"
-        xmlns:converters="clr-namespace:RandstalkerGui.Converters"
+        xmlns:converters="clr-namespace:RandstalkerGui.Views.Converters"
         mc:Ignorable="d"
         Closed="OnClose"
         Title="{DynamicResource Title}" MinWidth="1110" MinHeight="935">
@@ -46,13 +46,13 @@
                 <TabControl TabStripPlacement="Left">
                     <TabItem ToolTip="{DynamicResource PresetTooltip}">
                         <TabItem.Header>
-                            <Image Width="64" Source="/RandstalkerGui;component/Resources/Images/GearIcon.png"/>
+                            <Image Width="64" Source="/RandstalkerGui;component/Resources/Icons/GearIcon.png"/>
                         </TabItem.Header>
                         <uc:PresetView Margin="5,5,5,5" DataContext="{Binding PresetViewModel}"/>
                     </TabItem>
                     <TabItem ToolTip="{DynamicResource PersonalSettingsTooltip}">
                         <TabItem.Header>
-                            <Image Width="64" Source="/RandstalkerGui;component/Resources/Images/UserIcon.png"/>
+                            <Image Width="64" Source="/RandstalkerGui;component/Resources/Icons/UserIcon.png"/>
                         </TabItem.Header>
                         <uc:PersonalSettingsView Margin="5,5,5,5"/>
                     </TabItem>
