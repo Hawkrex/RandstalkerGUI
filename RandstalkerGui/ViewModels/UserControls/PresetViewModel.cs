@@ -1,17 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
-using RandstalkerGui.ValidationRules;
 using RandstalkerGui.ViewModels.UserControls.SubPresets;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
-using System.Linq;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
@@ -21,7 +21,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private Preset preset;
 
-        private ItemDefinitions itemDefinitions;
+        private readonly ItemDefinitions itemDefinitions;
 
         public FileTreeViewModel PresetTreeViewModel { get; set; }
 
@@ -29,549 +29,212 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public bool ChristmasEvent
         {
-            get
-            {
-                return preset.ChristmasEvent;
-            }
-            set
-            {
-                if (preset.ChristmasEvent != value)
-                {
-                    Log.Debug($"{nameof(preset.ChristmasEvent)} => <{preset.ChristmasEvent}> will change to <{value}>");
-                    preset.ChristmasEvent = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.ChristmasEvent;
+            set => SetProperty(preset.ChristmasEvent, value, preset, (p, ce) => p.ChristmasEvent = ce);
         }
 
         public Dictionary<string, string> GoalList { get; private set; }
 
         public string Goal
         {
-            get
-            {
-                return preset.GameSettings.Goal;
-            }
-            set
-            {
-                if (preset.GameSettings.Goal != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.Goal)} => <{preset.GameSettings.Goal}> will change to <{value}>");
-                    preset.GameSettings.Goal = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.Goal;
+            set => SetProperty(preset.GameSettings.Goal, value, preset.GameSettings, (gs, g) => gs.Goal = g);
         }
 
         public int JewelCount
         {
-            get
-            {
-                return preset.GameSettings.JewelCount;
-            }
-            set
-            {
-                if (preset.GameSettings.JewelCount != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.JewelCount)} => <{preset.GameSettings.JewelCount}> will change to <{value}>");
-                    preset.GameSettings.JewelCount = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.JewelCount;
+            set => SetProperty(preset.GameSettings.JewelCount, value, preset.GameSettings, (gs, jc) => gs.JewelCount = jc);
         }
 
         public bool ArmorUpgrades
         {
-            get
-            {
-                return preset.GameSettings.ArmorUpgrades;
-            }
-            set
-            {
-                if (preset.GameSettings.ArmorUpgrades != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.ArmorUpgrades)} => <{preset.GameSettings.ArmorUpgrades}> will change to <{value}>");
-                    preset.GameSettings.ArmorUpgrades = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.ArmorUpgrades;
+            set => SetProperty(preset.GameSettings.ArmorUpgrades, value, preset.GameSettings, (gs, au) => gs.ArmorUpgrades = au);
         }
 
         public int StartingGold
         {
-            get
-            {
-                return preset.GameSettings.StartingGold;
-            }
-            set
-            {
-                if (preset.GameSettings.StartingGold != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.StartingGold)} => <{preset.GameSettings.StartingGold}> will change to <{value}>");
-                    preset.GameSettings.StartingGold = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.StartingGold;
+            set => SetProperty(preset.GameSettings.StartingGold, value, preset.GameSettings, (gs, sg) => gs.StartingGold = sg);
         }
 
         public bool AutomaticStartingLife
         {
-            get
-            {
-                return preset.GameSettings.StartingLife == 0;
-            }
+            get => preset.GameSettings.StartingLife == 0;
             set
             {
                 if (value && preset.GameSettings.StartingLife != 0)
                 {
-                    Log.Debug($"{nameof(preset.GameSettings.StartingLife)} => <{preset.GameSettings.StartingLife}> will change to 0");
-
-                    preset.GameSettings.StartingLife = 0;
-
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(StartingLife));
+                    if (SetProperty(preset.GameSettings.StartingLife, 0, preset.GameSettings, (gs, sl) => gs.StartingLife = sl))
+                    {
+                        OnPropertyChanged();
+                        OnPropertyChanged(nameof(StartingLife));
+                    }
                 }
                 else if (!value && preset.GameSettings.StartingLife == 0)
                 {
-                    Log.Debug($"{nameof(preset.GameSettings.StartingLife)} => <{preset.GameSettings.StartingLife}> will change to 0");
-
-                    preset.GameSettings.StartingLife = 4;
-
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(StartingLife));
+                    if (SetProperty(preset.GameSettings.StartingLife, 4, preset.GameSettings, (gs, sl) => gs.StartingLife = sl))
+                    {
+                        OnPropertyChanged();
+                        OnPropertyChanged(nameof(StartingLife));
+                    }
                 }
             }
         }
 
         public int StartingLife
         {
-            get
-            {
-                return preset.GameSettings.StartingLife;
-            }
-            set
-            {
-                if (preset.GameSettings.StartingLife != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.StartingLife)} => <{preset.GameSettings.StartingLife}> will change to <{value}>");
-                    preset.GameSettings.StartingLife = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.StartingLife;
+            set => SetProperty(preset.GameSettings.StartingLife, value, preset.GameSettings, (gs, sl) => gs.StartingLife = sl);
         }
 
         public ItemsCounterViewModel StartingsItemsViewModel { get; set; }
 
         public bool FixArmletSkip
         {
-            get
-            {
-                return preset.GameSettings.FixArmletSkip;
-            }
-            set
-            {
-                if (preset.GameSettings.FixArmletSkip != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.FixArmletSkip)} => <{preset.GameSettings.FixArmletSkip}> will change to <{value}>");
-                    preset.GameSettings.FixArmletSkip = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.FixArmletSkip;
+            set => SetProperty(preset.GameSettings.FixArmletSkip, value, preset.GameSettings, (gs, fas) => gs.FixArmletSkip = fas);
         }
 
         public bool RemoveTreeCuttingGlitchDrops
         {
-            get
-            {
-                return preset.GameSettings.RemoveTreeCuttingGlitchDrops;
-            }
-            set
-            {
-                if (preset.GameSettings.RemoveTreeCuttingGlitchDrops != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.RemoveTreeCuttingGlitchDrops)} => <{preset.GameSettings.RemoveTreeCuttingGlitchDrops}> will change to <{value}>");
-                    preset.GameSettings.RemoveTreeCuttingGlitchDrops = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.RemoveTreeCuttingGlitchDrops;
+            set => SetProperty(preset.GameSettings.RemoveTreeCuttingGlitchDrops, value, preset.GameSettings, (gs, rtcgd) => gs.RemoveTreeCuttingGlitchDrops = rtcgd);
         }
 
         public bool ConsumableRecordBook
         {
-            get
-            {
-                return preset.GameSettings.ConsumableRecordBook;
-            }
-            set
-            {
-                if (preset.GameSettings.ConsumableRecordBook != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.ConsumableRecordBook)} => <{preset.GameSettings.ConsumableRecordBook}> will change to <{value}>");
-                    preset.GameSettings.ConsumableRecordBook = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.ConsumableRecordBook;
+            set => SetProperty(preset.GameSettings.ConsumableRecordBook, value, preset.GameSettings, (gs, crb) => gs.ConsumableRecordBook = crb);
         }
 
         public bool ConsumableSpellBook
         {
-            get
-            {
-                return preset.GameSettings.ConsumableSpellBook;
-            }
-            set
-            {
-                if (preset.GameSettings.ConsumableSpellBook != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.ConsumableSpellBook)} => <{preset.GameSettings.ConsumableSpellBook}> will change to <{value}>");
-                    preset.GameSettings.ConsumableSpellBook = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.ConsumableSpellBook;
+            set => SetProperty(preset.GameSettings.ConsumableSpellBook, value, preset.GameSettings, (gs, csb) => gs.ConsumableSpellBook = csb);
         }
 
         public bool RemoveGumiBoulder
         {
-            get
-            {
-                return preset.GameSettings.RemoveGumiBoulder;
-            }
-            set
-            {
-                if (preset.GameSettings.RemoveGumiBoulder != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.RemoveGumiBoulder)} => <{preset.GameSettings.RemoveGumiBoulder}> will change to <{value}>");
-                    preset.GameSettings.RemoveGumiBoulder = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.RemoveGumiBoulder;
+            set => SetProperty(preset.GameSettings.RemoveGumiBoulder, value, preset.GameSettings, (gs, rgb) => gs.RemoveGumiBoulder = rgb);
         }
 
         public bool RemoveTiborRequirement
         {
-            get
-            {
-                return preset.GameSettings.RemoveTiborRequirement;
-            }
-            set
-            {
-                if (preset.GameSettings.RemoveTiborRequirement != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.RemoveTiborRequirement)} => <{preset.GameSettings.RemoveTiborRequirement}> will change to <{value}>");
-                    preset.GameSettings.RemoveTiborRequirement = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.RemoveTiborRequirement;
+            set => SetProperty(preset.GameSettings.RemoveTiborRequirement, value, preset.GameSettings, (gs, rtr) => gs.RemoveTiborRequirement = rtr);
         }
 
         public bool AllTreesVisitedAtStart
         {
-            get
-            {
-                return preset.GameSettings.AllTreesVisitedAtStart;
-            }
-            set
-            {
-                if (preset.GameSettings.AllTreesVisitedAtStart != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.AllTreesVisitedAtStart)} => <{preset.GameSettings.AllTreesVisitedAtStart}> will change to <{value}>");
-                    preset.GameSettings.AllTreesVisitedAtStart = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.AllTreesVisitedAtStart;
+            set => SetProperty(preset.GameSettings.AllTreesVisitedAtStart, value, preset.GameSettings, (gs, atvas) => gs.AllTreesVisitedAtStart = atvas);
         }
 
         public bool FastMenuTransitions
         {
-            get
-            {
-                return preset.GameSettings.FastMenuTransitions;
-            }
-            set
-            {
-                if (preset.GameSettings.FastMenuTransitions != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.FastMenuTransitions)} => <{preset.GameSettings.FastMenuTransitions}> will change to <{value}>");
-                    preset.GameSettings.FastMenuTransitions = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.FastMenuTransitions;
+            set => SetProperty(preset.GameSettings.FastMenuTransitions, value, preset.GameSettings, (gs, fmt) => gs.FastMenuTransitions = fmt);
         }
 
         public bool EkeekeAutoRevive
         {
-            get
-            {
-                return preset.GameSettings.EkeekeAutoRevive;
-            }
-            set
-            {
-                if (preset.GameSettings.EkeekeAutoRevive != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.EkeekeAutoRevive)} => <{preset.GameSettings.EkeekeAutoRevive}> will change to <{value}>");
-                    preset.GameSettings.EkeekeAutoRevive = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.EkeekeAutoRevive;
+            set => SetProperty(preset.GameSettings.EkeekeAutoRevive, value, preset.GameSettings, (gs, ear) => gs.EkeekeAutoRevive = ear);
         }
 
         public int EnemiesDamageFactor
         {
-            get
-            {
-                return preset.GameSettings.EnemiesDamageFactor;
-            }
-            set
-            {
-                if (preset.GameSettings.EnemiesDamageFactor != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.EnemiesDamageFactor)} => <{preset.GameSettings.EnemiesDamageFactor}> will change to <{value}>");
-                    preset.GameSettings.EnemiesDamageFactor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.EnemiesDamageFactor;
+            set => SetProperty(preset.GameSettings.EnemiesDamageFactor, value, preset.GameSettings, (gs, edf) => gs.EnemiesDamageFactor = edf);
         }
 
         public int EnemiesHealthFactor
         {
-            get
-            {
-                return preset.GameSettings.EnemiesHealthFactor;
-            }
-            set
-            {
-                if (preset.GameSettings.EnemiesHealthFactor != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.EnemiesHealthFactor)} => <{preset.GameSettings.EnemiesHealthFactor}> will change to <{value}>");
-                    preset.GameSettings.EnemiesHealthFactor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.EnemiesHealthFactor;
+            set => SetProperty(preset.GameSettings.EnemiesHealthFactor, value, preset.GameSettings, (gs, ehf) => gs.EnemiesHealthFactor = ehf);
         }
 
         public int EnemiesArmorFactor
         {
-            get
-            {
-                return preset.GameSettings.EnemiesArmorFactor;
-            }
-            set
-            {
-                if (preset.GameSettings.EnemiesArmorFactor != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.EnemiesArmorFactor)} => <{preset.GameSettings.EnemiesArmorFactor}> will change to <{value}>");
-                    preset.GameSettings.EnemiesArmorFactor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.EnemiesArmorFactor;
+            set => SetProperty(preset.GameSettings.EnemiesArmorFactor, value, preset.GameSettings, (gs, eaf) => gs.EnemiesArmorFactor = eaf);
         }
 
         public int EnemiesGoldsFactor
         {
-            get
-            {
-                return preset.GameSettings.EnemiesGoldsFactor;
-            }
-            set
-            {
-                if (preset.GameSettings.EnemiesGoldsFactor != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.EnemiesGoldsFactor)} => <{preset.GameSettings.EnemiesGoldsFactor}> will change to <{value}>");
-                    preset.GameSettings.EnemiesGoldsFactor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.EnemiesGoldsFactor;
+            set => SetProperty(preset.GameSettings.EnemiesGoldsFactor, value, preset.GameSettings, (gs, egf) => gs.EnemiesGoldsFactor = egf);
         }
 
         public int EnemiesDropChanceFactor
         {
-            get
-            {
-                return preset.GameSettings.EnemiesDropChanceFactor;
-            }
-            set
-            {
-                if (preset.GameSettings.EnemiesDropChanceFactor != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.EnemiesDropChanceFactor)} => <{preset.GameSettings.EnemiesDropChanceFactor}> will change to <{value}>");
-                    preset.GameSettings.EnemiesDropChanceFactor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.EnemiesDropChanceFactor;
+            set => SetProperty(preset.GameSettings.EnemiesDropChanceFactor, value, preset.GameSettings, (gs, edcf) => gs.EnemiesDropChanceFactor = edcf);
         }
 
         public int HealthGainedPerLifestock
         {
-            get
-            {
-                return preset.GameSettings.HealthGainedPerLifestock;
-            }
-            set
-            {
-                if (preset.GameSettings.HealthGainedPerLifestock != value)
-                {
-                    Log.Debug($"{nameof(preset.GameSettings.HealthGainedPerLifestock)} => <{preset.GameSettings.HealthGainedPerLifestock}> will change to <{value}>");
-                    preset.GameSettings.HealthGainedPerLifestock = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.GameSettings.HealthGainedPerLifestock;
+            set => SetProperty(preset.GameSettings.HealthGainedPerLifestock, value, preset.GameSettings, (gs, hgpl) => gs.HealthGainedPerLifestock = hgpl);
         }
 
         public bool AllowSpoilerLog
         {
-            get
-            {
-                return preset.RandomizerSettings.AllowSpoilerLog;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.AllowSpoilerLog != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.AllowSpoilerLog)} => <{preset.RandomizerSettings.AllowSpoilerLog}> will change to <{value}>");
-                    preset.RandomizerSettings.AllowSpoilerLog = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.AllowSpoilerLog;
+            set => SetProperty(preset.RandomizerSettings.AllowSpoilerLog, value, preset.RandomizerSettings, (rs, asl) => rs.AllowSpoilerLog = asl);
         }
 
         public SpawnLocationsViewModel SpawnLocationsViewModel { get; set; }
 
         public bool ShuffleTrees
         {
-            get
-            {
-                return preset.RandomizerSettings.ShuffleTrees;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.ShuffleTrees != value)
-
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.ShuffleTrees)} => <{preset.RandomizerSettings.ShuffleTrees}> will change to <{value}>");
-                    preset.RandomizerSettings.ShuffleTrees = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.ShuffleTrees;
+            set => SetProperty(preset.RandomizerSettings.ShuffleTrees, value, preset.RandomizerSettings, (rs, st) => rs.ShuffleTrees = st);
         }
 
         public int ShopPricesFactor
         {
-            get
-            {
-                return preset.RandomizerSettings.ShopPricesFactor;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.ShopPricesFactor != value)
-
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.ShopPricesFactor)} => <{preset.RandomizerSettings.ShopPricesFactor}> will change to <{value}>");
-                    preset.RandomizerSettings.ShopPricesFactor = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.ShopPricesFactor;
+            set => SetProperty(preset.RandomizerSettings.ShopPricesFactor, value, preset.RandomizerSettings, (rs, spf) => rs.ShopPricesFactor = spf);
         }
 
         public bool EnemyJumpingInLogic
         {
-            get
-            {
-                return preset.RandomizerSettings.EnemyJumpingInLogic;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.EnemyJumpingInLogic != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.EnemyJumpingInLogic)} => <{preset.RandomizerSettings.EnemyJumpingInLogic}> will change to <{value}>");
-                    preset.RandomizerSettings.EnemyJumpingInLogic = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.EnemyJumpingInLogic;
+            set => SetProperty(preset.RandomizerSettings.EnemyJumpingInLogic, value, preset.RandomizerSettings, (rs, ejil) => rs.EnemyJumpingInLogic = ejil);
         }
 
         public bool DamageBoostingInLogic
         {
-            get
-            {
-                return preset.RandomizerSettings.DamageBoostingInLogic;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.DamageBoostingInLogic != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.DamageBoostingInLogic)} => <{preset.RandomizerSettings.DamageBoostingInLogic}> will change to <{value}>");
-                    preset.RandomizerSettings.DamageBoostingInLogic = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.DamageBoostingInLogic;
+            set => SetProperty(preset.RandomizerSettings.DamageBoostingInLogic, value, preset.RandomizerSettings, (rs, dbil) => rs.DamageBoostingInLogic = dbil);
         }
 
         public bool TreeCuttingGlitchInLogic
         {
-            get
-            {
-                return preset.RandomizerSettings.TreeCuttingGlitchInLogic;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.TreeCuttingGlitchInLogic != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.TreeCuttingGlitchInLogic)} => <{preset.RandomizerSettings.TreeCuttingGlitchInLogic}> will change to <{value}>");
-                    preset.RandomizerSettings.TreeCuttingGlitchInLogic = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.TreeCuttingGlitchInLogic;
+            set => SetProperty(preset.RandomizerSettings.TreeCuttingGlitchInLogic, value, preset.RandomizerSettings, (rs, tcgil) => rs.TreeCuttingGlitchInLogic = tcgil);
         }
 
         public bool AllowWhistleUsageBehindTrees
         {
-            get
-            {
-                return preset.RandomizerSettings.AllowWhistleUsageBehindTrees;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.AllowWhistleUsageBehindTrees != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.AllowWhistleUsageBehindTrees)} => <{preset.RandomizerSettings.AllowWhistleUsageBehindTrees}> will change to <{value}>");
-                    preset.RandomizerSettings.AllowWhistleUsageBehindTrees = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.AllowWhistleUsageBehindTrees;
+            set => SetProperty(preset.RandomizerSettings.AllowWhistleUsageBehindTrees, value, preset.RandomizerSettings, (rs, awubt) => rs.AllowWhistleUsageBehindTrees = awubt);
         }
 
         public bool EnsureEkeEkeInShops
         {
-            get
-            {
-                return preset.RandomizerSettings.EnsureEkeEkeInShops;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.EnsureEkeEkeInShops != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.EnsureEkeEkeInShops)} => <{preset.RandomizerSettings.EnsureEkeEkeInShops}> will change to <{value}>");
-                    preset.RandomizerSettings.EnsureEkeEkeInShops = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.EnsureEkeEkeInShops;
+            set => SetProperty(preset.RandomizerSettings.EnsureEkeEkeInShops, value, preset.RandomizerSettings, (rs, eeis) => rs.EnsureEkeEkeInShops = eeis);
         }
 
         public string FillerItem
         {
-            get
-            {
-                return preset.RandomizerSettings.FillerItem;
-            }
-            set
-            {
-                if (preset.RandomizerSettings.FillerItem != value)
-                {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.FillerItem)} => <{preset.RandomizerSettings.FillerItem}> will change to <{value}>");
-                    preset.RandomizerSettings.FillerItem = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => preset.RandomizerSettings.FillerItem;
+            set => SetProperty(preset.RandomizerSettings.FillerItem, value, preset.RandomizerSettings, (rs, fi) => rs.FillerItem = fi);
         }
 
         public ItemsCounterViewModel ItemsDistributionViewModel { get; set; }
@@ -582,20 +245,13 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public int RegionRequirement
         {
-            get
-            {
-                return preset.RandomizerSettings.HintsDistribution.RegionRequirement;
-            }
+            get => preset.RandomizerSettings.HintsDistribution.RegionRequirement;
             set
             {
-                if (preset.RandomizerSettings.HintsDistribution.RegionRequirement != value)
+                if (SetProperty(preset.RandomizerSettings.HintsDistribution.RegionRequirement, value, preset.RandomizerSettings.HintsDistribution, (hd, rr) => hd.RegionRequirement = rr))
                 {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.RegionRequirement)} => <{preset.RandomizerSettings.HintsDistribution.RegionRequirement}> will change to <{value}>");
-                    preset.RandomizerSettings.HintsDistribution.RegionRequirement = value;
-
                     ValidateRequirements(nameof(RegionRequirement));
 
-                    OnPropertyChanged();
                     OnPropertyChanged(nameof(ItemRequirement));
                     OnPropertyChanged(nameof(ItemLocation));
                     OnPropertyChanged(nameof(DarkRegion));
@@ -606,20 +262,13 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public int ItemRequirement
         {
-            get
-            {
-                return preset.RandomizerSettings.HintsDistribution.ItemRequirement;
-            }
+            get => preset.RandomizerSettings.HintsDistribution.ItemRequirement;
             set
             {
-                if (preset.RandomizerSettings.HintsDistribution.ItemRequirement != value)
+                if (SetProperty(preset.RandomizerSettings.HintsDistribution.ItemRequirement, value, preset.RandomizerSettings.HintsDistribution, (hd, ir) => hd.ItemRequirement = ir))
                 {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.ItemRequirement)} => <{preset.RandomizerSettings.HintsDistribution.ItemRequirement}> will change to <{value}>");
-                    preset.RandomizerSettings.HintsDistribution.ItemRequirement = value;
-
                     ValidateRequirements(nameof(ItemRequirement));
 
-                    OnPropertyChanged();
                     OnPropertyChanged(nameof(RegionRequirement));
                     OnPropertyChanged(nameof(ItemLocation));
                     OnPropertyChanged(nameof(DarkRegion));
@@ -630,20 +279,13 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public int ItemLocation
         {
-            get
-            {
-                return preset.RandomizerSettings.HintsDistribution.ItemLocation;
-            }
+            get => preset.RandomizerSettings.HintsDistribution.ItemLocation;
             set
             {
-                if (preset.RandomizerSettings.HintsDistribution.ItemLocation != value)
+                if (SetProperty(preset.RandomizerSettings.HintsDistribution.ItemLocation, value, preset.RandomizerSettings.HintsDistribution, (hd, il) => hd.ItemLocation = il))
                 {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.ItemLocation)} => <{preset.RandomizerSettings.HintsDistribution.ItemLocation}> will change to <{value}>");
-                    preset.RandomizerSettings.HintsDistribution.ItemLocation = value;
-
                     ValidateRequirements(nameof(ItemLocation));
 
-                    OnPropertyChanged();
                     OnPropertyChanged(nameof(RegionRequirement));
                     OnPropertyChanged(nameof(ItemRequirement));
                     OnPropertyChanged(nameof(DarkRegion));
@@ -654,20 +296,13 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public int DarkRegion
         {
-            get
-            {
-                return preset.RandomizerSettings.HintsDistribution.DarkRegion;
-            }
+            get => preset.RandomizerSettings.HintsDistribution.DarkRegion;
             set
             {
-                if (preset.RandomizerSettings.HintsDistribution.DarkRegion != value)
+                if (SetProperty(preset.RandomizerSettings.HintsDistribution.DarkRegion, value, preset.RandomizerSettings.HintsDistribution, (hd, dr) => hd.DarkRegion = dr))
                 {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.DarkRegion)} => <{preset.RandomizerSettings.HintsDistribution.DarkRegion}> will change to <{value}>");
-                    preset.RandomizerSettings.HintsDistribution.DarkRegion = value;
-
                     ValidateRequirements(nameof(DarkRegion));
 
-                    OnPropertyChanged();
                     OnPropertyChanged(nameof(RegionRequirement));
                     OnPropertyChanged(nameof(ItemRequirement));
                     OnPropertyChanged(nameof(ItemLocation));
@@ -678,20 +313,13 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public int Joke
         {
-            get
-            {
-                return preset.RandomizerSettings.HintsDistribution.Joke;
-            }
+            get => preset.RandomizerSettings.HintsDistribution.Joke;
             set
             {
-                if (preset.RandomizerSettings.HintsDistribution.Joke != value)
+                if (SetProperty(preset.RandomizerSettings.HintsDistribution.Joke, value, preset.RandomizerSettings.HintsDistribution, (hd, j) => hd.Joke = j))
                 {
-                    Log.Debug($"{nameof(preset.RandomizerSettings.HintsDistribution.Joke)} => <{preset.RandomizerSettings.HintsDistribution.Joke}> will change to <{value}>");
-                    preset.RandomizerSettings.HintsDistribution.Joke = value;
-
                     ValidateRequirements(nameof(Joke));
 
-                    OnPropertyChanged();
                     OnPropertyChanged(nameof(RegionRequirement));
                     OnPropertyChanged(nameof(ItemRequirement));
                     OnPropertyChanged(nameof(ItemLocation));
@@ -735,14 +363,12 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
 
             OnError?.Invoke(this, new StatusBarMessageEventArgs() { Message = error, Sender = "Preset" });
-        } 
+        }
 
-        public RelayCommand SavePreset { get { return new RelayCommand(_ => SavePresetHandler()); } }
+        public RelayCommand SavePreset => new(SavePresetHandler);
 
         private void SavePresetHandler()
         {
-            Log.Debug($"{nameof(SavePresetHandler)}() => Command requested ...");
-
             preset.GameSettings.StartingItems = StartingsItemsViewModel.FormatSettings();
             preset.RandomizerSettings.SpawnLocations = SpawnLocationsViewModel.FormatSettings();
             preset.RandomizerSettings.ItemsDistribution = ItemsDistributionViewModel.FormatSettings();
@@ -758,25 +384,18 @@ namespace RandstalkerGui.ViewModels.UserControls
             catch (Exception ex)
             {
                 string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                Log.Error(errorMessage, ex);
                 MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                Log.Error(errorMessage + " : " + ex);
             }
-
-            Log.Debug($"{nameof(SavePresetHandler)}() => Command executed");
         }
 
         private EventHandler<StatusBarMessageEventArgs> setStatusBarMessage;
 
         public PresetViewModel(EventHandler<StatusBarMessageEventArgs> setStatusBarMessage)
         {
-            if (File.Exists(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath)))
-            {
-                preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath)));
-            }
-            else
-            {
-                preset = JsonConvert.DeserializeObject<Preset>(Encoding.UTF8.GetString(Resources.DefaultPreset));
-            }
+            preset = File.Exists(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath))
+                ? JsonConvert.DeserializeObject<Preset>(File.ReadAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, UserConfig.Instance.LastUsedPresetFilePath)))
+                : JsonConvert.DeserializeObject<Preset>(Encoding.UTF8.GetString(Resources.DefaultPreset));
 
             this.setStatusBarMessage = setStatusBarMessage;
 
@@ -803,16 +422,18 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private void PresetTreeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(PresetTreeViewModel.SelectedFileRelativePath))
+            if (e.PropertyName != nameof(PresetTreeViewModel.SelectedFileRelativePath))
             {
-                preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath)));
-
-                StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
-                SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
-                ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions, setStatusBarMessage);
-
-                UpdateProperties();
+                return;
             }
+
+            preset = JsonConvert.DeserializeObject<Preset>(File.ReadAllText(Path.Combine(UserConfig.Instance.PresetsDirectoryPath, PresetTreeViewModel.SelectedFileRelativePath)));
+
+            StartingsItemsViewModel = new ItemsCounterViewModel(preset.GameSettings.StartingItems, itemDefinitions);
+            SpawnLocationsViewModel = new SpawnLocationsViewModel(preset.RandomizerSettings.SpawnLocations);
+            ItemsDistributionViewModel = new ItemsCounterViewModel(preset.RandomizerSettings.ItemsDistribution, itemDefinitions, setStatusBarMessage);
+
+            UpdateProperties();
         }
 
         private void UpdateProperties()

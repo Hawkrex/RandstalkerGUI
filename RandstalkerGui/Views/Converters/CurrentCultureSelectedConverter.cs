@@ -7,18 +7,15 @@ namespace RandstalkerGui.Views.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (!(value is string))
+            if (value is not string currentCultureName)
             {
                 throw new ArgumentException("Value passed is not a string");
             }
 
-            if (!(parameter is string))
+            if (parameter is not string cultureToCheckName)
             {
                 throw new ArgumentException("Parameter passed is not a string");
             }
-
-            string currentCultureName = value.ToString();
-            string cultureToCheckName = parameter.ToString();
 
             return currentCultureName == cultureToCheckName;
         }

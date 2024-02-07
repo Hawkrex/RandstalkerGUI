@@ -1,6 +1,7 @@
-﻿using RandstalkerGui.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
-using RandstalkerGui.ValidationRules;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 {
-    public class ItemsCounterViewModel : BaseViewModel
+    public class ItemsCounterViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -21,27 +22,14 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public string ItemToAdd
         {
-            get
-            {
-                return itemToAdd;
-            }
-            set
-            {
-                if (itemToAdd != value)
-                {
-                    Log.Debug($"{nameof(itemToAdd)} => <{itemToAdd}> will change to <{value}>");
-                    itemToAdd = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => itemToAdd;
+            set => SetProperty(ref itemToAdd, value);
         }
 
-        public RelayCommand AddItem { get { return new RelayCommand(_ => AddItemHandler()); } }
+        public RelayCommand AddItem => new(AddItemHandler);
 
         private void AddItemHandler()
         {
-            Log.Debug($"{nameof(AddItemHandler)}() => Command requested ...");
-
             if (string.IsNullOrEmpty(ItemToAdd))
             {
                 throw new InvalidOperationException("Cannot add empty item !");
@@ -60,15 +48,13 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             {
                 ItemToAdd = string.Empty;
             }
-
-            Log.Debug($"{nameof(AddItemHandler)}() => Command executed");
         }
 
         private void ItemCounters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if(e.Action == NotifyCollectionChangedAction.Add)
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                foreach(var itemCount in e.NewItems.OfType<ItemCountViewModel>())
+                foreach (var itemCount in e.NewItems.OfType<ItemCountViewModel>())
                 {
                     itemCount.OnError += setStatusBarMessage;
                     itemCount.OnError += ItemCount_OnError;
@@ -76,7 +62,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
                     itemCount.Validate(true);
                 }
             }
-            else if(e.Action == NotifyCollectionChangedAction.Remove)
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (var itemCount in e.OldItems.OfType<ItemCountViewModel>())
                 {
@@ -90,17 +76,15 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         private void ItemCount_OnError(object sender, StatusBarMessageEventArgs e)
         {
-            foreach(var itemCounter in ItemCounters)
+            foreach (var itemCounter in ItemCounters)
             {
                 itemCounter.Validate();
             }
         }
 
-        public RelayCommand<string> DeleteItem { get { return new RelayCommand<string>(param => DeleteItemHandler(param)); } }
+        public RelayCommand<string> DeleteItem => new(DeleteItemHandler);
         private void DeleteItemHandler(string name)
         {
-            Log.Debug($"{nameof(DeleteItemHandler)}() => Command requested ...");
-
             if (string.IsNullOrEmpty(name))
             {
                 throw new InvalidOperationException("Cannot remove empty item !");
@@ -125,8 +109,6 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             {
                 ItemToAdd = string.Empty;
             }
-
-            Log.Debug($"{nameof(DeleteItemHandler)}() => Command executed");
         }
 
         private EventHandler<StatusBarMessageEventArgs> setStatusBarMessage;

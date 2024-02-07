@@ -1,15 +1,16 @@
-﻿using Microsoft.Win32;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using RandstalkerGui.Models;
-using RandstalkerGui.Tools;
 using System;
 using System.IO;
 using System.Windows;
 
 namespace RandstalkerGui.ViewModels.Popups
 {
-    public class UserConfigPopupViewModel : BaseViewModel
+    public class UserConfigPopupViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -17,15 +18,12 @@ namespace RandstalkerGui.ViewModels.Popups
 
         public string RandstlakerExeFilePath
         {
-            get
-            {
-                return UserConfig.Instance.RandstlakerExeFilePath;
-            }
+            get => UserConfig.Instance.RandstlakerExeFilePath;
             set
             {
                 if (UserConfig.Instance.RandstlakerExeFilePath != value || isModificationFromOpenDialog)
                 {
-                    Log.Debug($"{nameof(RandstlakerExeFilePath)} => <{UserConfig.Instance.RandstlakerExeFilePath}> will change to <{value}>");
+                    OnPropertyChanging();
                     UserConfig.Instance.RandstlakerExeFilePath = value;
                     OnPropertyChanged();
                 }
@@ -34,15 +32,12 @@ namespace RandstalkerGui.ViewModels.Popups
 
         public string PresetsDirectoryPath
         {
-            get
-            {
-                return UserConfig.Instance.PresetsDirectoryPath;
-            }
+            get => UserConfig.Instance.PresetsDirectoryPath;
             set
             {
                 if (UserConfig.Instance.PresetsDirectoryPath != value || isModificationFromOpenDialog)
                 {
-                    Log.Debug($"{nameof(PresetsDirectoryPath)} => <{UserConfig.Instance.PresetsDirectoryPath}> will change to <{value}>");
+                    OnPropertyChanging();
                     UserConfig.Instance.PresetsDirectoryPath = value;
                     OnPropertyChanged();
                 }
@@ -51,15 +46,12 @@ namespace RandstalkerGui.ViewModels.Popups
 
         public string PersonalSettingsDirectoryPath
         {
-            get
-            {
-                return UserConfig.Instance.PersonalSettingsDirectoryPath;
-            }
+            get => UserConfig.Instance.PersonalSettingsDirectoryPath;
             set
             {
                 if (UserConfig.Instance.PersonalSettingsDirectoryPath != value || isModificationFromOpenDialog)
                 {
-                    Log.Debug($"{nameof(PersonalSettingsDirectoryPath)} => <{UserConfig.Instance.PersonalSettingsDirectoryPath}> will change to <{value}>");
+                    OnPropertyChanging();
                     UserConfig.Instance.PersonalSettingsDirectoryPath = value;
                     OnPropertyChanged();
                 }
@@ -68,15 +60,12 @@ namespace RandstalkerGui.ViewModels.Popups
 
         public string InputRomFilePath
         {
-            get
-            {
-                return UserConfig.Instance.InputRomFilePath;
-            }
+            get => UserConfig.Instance.InputRomFilePath;
             set
             {
                 if (UserConfig.Instance.InputRomFilePath != value || isModificationFromOpenDialog)
                 {
-                    Log.Debug($"{nameof(InputRomFilePath)} => <{UserConfig.Instance.InputRomFilePath}> will change to <{value}>");
+                    OnPropertyChanging();
                     UserConfig.Instance.InputRomFilePath = value;
                     OnPropertyChanged();
                 }
@@ -85,30 +74,27 @@ namespace RandstalkerGui.ViewModels.Popups
 
         public string OutputRomDirectoryPath
         {
-            get
-            {
-                return UserConfig.Instance.OutputRomDirectoryPath;
-            }
+            get => UserConfig.Instance.OutputRomDirectoryPath;
             set
             {
                 if (UserConfig.Instance.OutputRomDirectoryPath != value || isModificationFromOpenDialog)
                 {
-                    Log.Debug($"{nameof(OutputRomDirectoryPath)} => <{UserConfig.Instance.OutputRomDirectoryPath}> will change to <{value}>");
+                    OnPropertyChanging();
                     UserConfig.Instance.OutputRomDirectoryPath = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        public RelayCommand SelectRandstlakerExeFilePath { get { return new RelayCommand(_ => SelectRandstlakerExeFilePathHandler()); } }
+        public RelayCommand SelectRandstlakerExeFilePath => new(SelectRandstlakerExeFilePathHandler);
 
         private void SelectRandstlakerExeFilePathHandler()
         {
-            Log.Debug($"{nameof(SelectRandstlakerExeFilePathHandler)}() => Command requested ...");
-
-            var dialog = new OpenFileDialog();
-            dialog.InitialDirectory = RandstlakerExeFilePath;
-            dialog.Filter = "Exe file (*.exe)|*.exe";
+            var dialog = new OpenFileDialog
+            {
+                InitialDirectory = RandstlakerExeFilePath,
+                Filter = "Exe file (*.exe)|*.exe"
+            };
 
             if (dialog.ShowDialog() == true)
             {
@@ -116,19 +102,17 @@ namespace RandstalkerGui.ViewModels.Popups
                 RandstlakerExeFilePath = dialog.FileName;
                 isModificationFromOpenDialog = false;
             }
-
-            Log.Debug($"{nameof(SelectRandstlakerExeFilePathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectPresetsDirectoryPath { get { return new RelayCommand(_ => SelectPresetsDirectoryPathHandler()); } }
+        public RelayCommand SelectPresetsDirectoryPath => new(SelectPresetsDirectoryPathHandler);
 
         private void SelectPresetsDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command requested ...");
-
-            var dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = PresetsDirectoryPath;
-            dialog.IsFolderPicker = true;
+            var dialog = new CommonOpenFileDialog
+            {
+                InitialDirectory = PresetsDirectoryPath,
+                IsFolderPicker = true
+            };
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -136,19 +120,17 @@ namespace RandstalkerGui.ViewModels.Popups
                 PresetsDirectoryPath = dialog.FileName;
                 isModificationFromOpenDialog = false;
             }
-
-            Log.Debug($"{nameof(SelectPresetsDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectPersonalSettingsDirectoryPath { get { return new RelayCommand(_ => SelectPersonalSettingsDirectoryPathHandler()); } }
+        public RelayCommand SelectPersonalSettingsDirectoryPath => new(SelectPersonalSettingsDirectoryPathHandler);
 
         private void SelectPersonalSettingsDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command requested ...");
-
-            var dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = PersonalSettingsDirectoryPath;
-            dialog.IsFolderPicker = true;
+            var dialog = new CommonOpenFileDialog
+            {
+                InitialDirectory = PersonalSettingsDirectoryPath,
+                IsFolderPicker = true
+            };
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -156,18 +138,17 @@ namespace RandstalkerGui.ViewModels.Popups
                 PersonalSettingsDirectoryPath = dialog.FileName;
                 isModificationFromOpenDialog = false;
             }
-
-            Log.Debug($"{nameof(SelectPersonalSettingsDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectInputRomFilePath { get { return new RelayCommand(_ => SelectInputRomFilePathHandler()); } }
+        public RelayCommand SelectInputRomFilePath => new(SelectInputRomFilePathHandler);
 
         private void SelectInputRomFilePathHandler()
         {
-            Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command requested ...");
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Megadrive file (*.md)|*.md"
+            };
 
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "Megadrive file (*.md)|*.md";
             if (File.Exists(InputRomFilePath))
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(InputRomFilePath);
@@ -179,19 +160,17 @@ namespace RandstalkerGui.ViewModels.Popups
                 InputRomFilePath = dialog.FileName;
                 isModificationFromOpenDialog = false;
             }
-
-            Log.Debug($"{nameof(SelectInputRomFilePathHandler)}() => Command executed");
         }
 
-        public RelayCommand SelectOutputRomDirectoryPath { get { return new RelayCommand(_ => SelectOutputRomDirectoryPathHandler()); } }
+        public RelayCommand SelectOutputRomDirectoryPath => new(SelectOutputRomDirectoryPathHandler);
 
         private void SelectOutputRomDirectoryPathHandler()
         {
-            Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command requested ...");
-
-            var dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = OutputRomDirectoryPath;
-            dialog.IsFolderPicker = true;
+            var dialog = new CommonOpenFileDialog
+            {
+                InitialDirectory = OutputRomDirectoryPath,
+                IsFolderPicker = true
+            };
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -199,19 +178,15 @@ namespace RandstalkerGui.ViewModels.Popups
                 OutputRomDirectoryPath = dialog.FileName;
                 isModificationFromOpenDialog = false;
             }
-
-            Log.Debug($"{nameof(SelectOutputRomDirectoryPathHandler)}() => Command executed");
         }
 
-        public RelayCommand<Window> SaveUserConfig { get { return new RelayCommand<Window>(dialog => SaveUserConfigHandler(dialog)); } }
+        public RelayCommand<Window> SaveUserConfig => new(SaveUserConfigHandler);
 
         private void SaveUserConfigHandler(Window dialog)
         {
-            Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command requested ...");
-
             try
             {
-                File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+                File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
 
                 MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
                 dialog.Close();
@@ -221,11 +196,9 @@ namespace RandstalkerGui.ViewModels.Popups
             catch (Exception ex)
             {
                 string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                Log.Error(errorMessage, ex);
                 MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                Log.Error(errorMessage + " : " + ex);
             }
-
-            Log.Debug($"{nameof(SaveUserConfigHandler)}() => Command executed");
         }
     }
 }

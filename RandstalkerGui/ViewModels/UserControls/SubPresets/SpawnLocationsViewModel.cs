@@ -1,9 +1,9 @@
-﻿using RandstalkerGui.Tools;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.Generic;
 
 namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 {
-    public class SpawnLocationsViewModel : BaseViewModel
+    public class SpawnLocationsViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -21,171 +21,73 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public bool Massan
         {
-            get
-            {
-                return massan;
-            }
-            set
-            {
-                if (massan != value)
-                {
-                    Log.Debug($"{nameof(massan)} => <{massan}> will change to <{value}>");
-                    massan = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => massan;
+            set => SetProperty(ref massan, value);
         }
 
         private bool gumi;
 
         public bool Gumi
         {
-            get
-            {
-                return gumi;
-            }
-            set
-            {
-                if (gumi != value)
-                {
-                    Log.Debug($"{nameof(gumi)} => <{gumi}> will change to <{value}>");
-                    gumi = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => gumi;
+            set => SetProperty(ref gumi, value);
         }
 
         private bool kado;
 
         public bool Kado
         {
-            get
-            {
-                return kado;
-            }
-            set
-            {
-                if (kado != value)
-                {
-                    Log.Debug($"{nameof(kado)} => <{kado}> will change to <{value}>");
-                    kado = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => kado;
+            set => SetProperty(ref kado, value);
         }
 
         private bool waterfall;
 
         public bool Waterfall
         {
-            get
-            {
-                return waterfall;
-            }
-            set
-            {
-                if (waterfall != value)
-                {
-                    Log.Debug($"{nameof(waterfall)} => <{waterfall}> will change to <{value}>");
-                    waterfall = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => waterfall;
+            set => SetProperty(ref waterfall, value);
+
         }
 
         private bool ryuma;
 
         public bool Ryuma
         {
-            get
-            {
-                return ryuma;
-            }
-            set
-            {
-                if (ryuma != value)
-                {
-                    Log.Debug($"{nameof(ryuma)} => <{ryuma}> will change to <{value}>");
-                    ryuma = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => ryuma;
+            set => SetProperty(ref ryuma, value);
         }
 
         private bool mercator;
 
         public bool Mercator
         {
-            get
-            {
-                return mercator;
-            }
-            set
-            {
-                if (mercator != value)
-                {
-                    Log.Debug($"{nameof(mercator)} => <{mercator}> will change to <{value}>");
-                    mercator = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => mercator;
+            set => SetProperty(ref mercator, value);
         }
 
         private bool verla;
 
         public bool Verla
         {
-            get
-            {
-                return verla;
-            }
-            set
-            {
-                if (verla != value)
-                {
-                    Log.Debug($"{nameof(verla)} => <{verla}> will change to <{value}>");
-                    verla = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => verla;
+            set => SetProperty(ref verla, value);
         }
 
         private bool greenmaze;
 
         public bool Greenmaze
         {
-            get
-            {
-                return greenmaze;
-            }
-            set
-            {
-                if (greenmaze != value)
-                {
-                    Log.Debug($"{nameof(greenmaze)} => <{greenmaze}> will change to <{value}>");
-                    greenmaze = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => greenmaze;
+            set => SetProperty(ref greenmaze, value);
         }
 
         private bool destel;
 
         public bool Destel
         {
-            get
-            {
-                return destel;
-            }
-            set
-            {
-                if (destel != value)
-                {
-                    Log.Debug($"{nameof(destel)} => <{destel}> will change to <{value}>");
-                    destel = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => destel;
+            set => SetProperty(ref destel, value);
         }
 
         public SpawnLocationsViewModel(List<string> spawnLocations)
@@ -227,7 +129,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public List<string> FormatSettings()
         {
-            List<string> spawnLocations = new List<string>();
+            var spawnLocations = new List<string>();
 
             if (Massan) spawnLocations.Add(MassanName);
             if (Gumi) spawnLocations.Add(GumiName);

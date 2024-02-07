@@ -1,5 +1,6 @@
-﻿using RandstalkerGui.Models;
-using RandstalkerGui.Tools;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RandstalkerGui.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 {
-    public class ItemsListViewModel : BaseViewModel
+    public class ItemsListViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -19,27 +20,14 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public string ItemToAdd
         {
-            get
-            {
-                return itemToAdd;
-            }
-            set
-            {
-                if (itemToAdd != value)
-                {
-                    Log.Debug($"{nameof(itemToAdd)} => <{itemToAdd}> will change to <{value}>");
-                    itemToAdd = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => itemToAdd;
+            set => SetProperty(ref itemToAdd, value);
         }
 
-        public RelayCommand AddItem { get { return new RelayCommand(_ => AddItemHandler()); } }
+        public RelayCommand AddItem => new(AddItemHandler);
 
         private void AddItemHandler()
         {
-            Log.Debug($"{nameof(AddItemHandler)}() => Command requested ...");
-
             if (string.IsNullOrEmpty(ItemToAdd))
             {
                 throw new InvalidOperationException("Cannot add empty item !");
@@ -58,15 +46,11 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             {
                 ItemToAdd = string.Empty;
             }
-
-            Log.Debug($"{nameof(AddItemHandler)}() => Command executed");
         }
 
-        public RelayCommand<string> DeleteItem { get { return new RelayCommand<string>(param => DeleteItemHandler(param)); } }
+        public RelayCommand<string> DeleteItem => new(DeleteItemHandler);
         private void DeleteItemHandler(string name)
         {
-            Log.Debug($"{nameof(DeleteItemHandler)}() => Command requested ...");
-
             if (string.IsNullOrEmpty(name))
             {
                 throw new InvalidOperationException("Cannot remove empty item !");
@@ -88,8 +72,6 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             {
                 ItemToAdd = string.Empty;
             }
-
-            Log.Debug($"{nameof(DeleteItemHandler)}() => Command executed");
         }
 
         public ItemsListViewModel(IList<string> items, ItemDefinitions itemDefinitions)

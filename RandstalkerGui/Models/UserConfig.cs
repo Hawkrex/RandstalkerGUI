@@ -30,7 +30,7 @@ namespace RandstalkerGui.Models
 
         public static event EventHandler<StatusBarMessageEventArgs> OnSavedValidUserConfig;
 
-        private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/userConfig.json")));
+        private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/Datas/userConfig.json")));
 
         public static UserConfig Instance => instance.Value;
 

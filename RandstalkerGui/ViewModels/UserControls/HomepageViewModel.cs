@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
-using RandstalkerGui.ValidationRules;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,13 +12,13 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class HomepageViewModel : BaseViewModel
+    public class HomepageViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         const string permalinkMark = "Permalink: ";
 
-        private RandstalkerApp randstalkerApp;
+        private readonly RandstalkerApp randstalkerApp;
 
         public FileTreeViewModel PresetTreeViewModel { get; set; }
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
@@ -25,134 +26,56 @@ namespace RandstalkerGui.ViewModels.UserControls
         private string outputLog;
         public string OutputLog
         {
-            get
-            {
-                return outputLog;
-            }
-            set
-            {
-                if (outputLog != value)
-                {
-                    Log.Debug($"{nameof(OutputLog)} => <{outputLog}> will change to <{value}>");
-                    outputLog = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => outputLog;
+            set => SetProperty(ref outputLog, value);
         }
 
         private int progress;
         public int Progress
         {
-            get
-            {
-                return progress;
-            }
-            set
-            {
-                if (progress != value)
-                {
-                    Log.Debug($"{nameof(Progress)} => <{progress}> will change to <{value}>");
-                    progress = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => progress;
+            set => SetProperty(ref progress, value);
         }
 
         private bool bingo;
         public bool Bingo
         {
-            get
-            {
-                return bingo;
-            }
-            set
-            {
-                if (bingo != value)
-                {
-                    Log.Debug($"{nameof(Bingo)} => <{Bingo}> will change to <{value}>");
-                    bingo = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => bingo;
+            set => SetProperty(ref bingo, value);
         }
 
         private string permalinkToGenerateFrom;
         public string PermalinkToGenerateFrom
         {
-            get
-            {
-                return permalinkToGenerateFrom;
-            }
-            set
-            {
-                if (permalinkToGenerateFrom != value)
-                {
-                    Log.Debug($"{nameof(PermalinkToGenerateFrom)} => <{permalinkToGenerateFrom}> will change to <{value}>");
-                    permalinkToGenerateFrom = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => permalinkToGenerateFrom;
+            set => SetProperty(ref permalinkToGenerateFrom, value);
         }
 
         private string outputRomFileName;
         public string OutputRomFileName
         {
-            get
-            {
-                return outputRomFileName;
-            }
-            set
-            {
-                if (outputRomFileName != value)
-                {
-                    Log.Debug($"{nameof(OutputRomFileName)} => <{outputRomFileName}> will change to <{value}>");
-                    outputRomFileName = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => outputRomFileName;
+            set => SetProperty(ref outputRomFileName, value);
         }
 
         private string permalinkToCopy;
         public string PermalinkToCopy
         {
-            get
-            {
-                return permalinkToCopy;
-            }
-            set
-            {
-                if (permalinkToCopy != value)
-                {
-                    Log.Debug($"{nameof(PermalinkToCopy)} => <{permalinkToCopy}> will change to <{value}>");
-                    permalinkToCopy = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => permalinkToCopy;
+            set => SetProperty(ref outputRomFileName, value);
         }
 
         private bool canGenerateRom;
         public bool CanGenerateRom
         {
-            get
-            {
-                return canGenerateRom;
-            }
-            set
-            {
-                if (canGenerateRom != value)
-                {
-                    Log.Debug($"{nameof(CanGenerateRom)} => <{canGenerateRom}> will change to <{value}>");
-                    canGenerateRom = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => canGenerateRom;
+            set => SetProperty(ref canGenerateRom, value);
         }
 
-        public RelayCommand GenerateRom { get { return new RelayCommand(_ => GenerateRomHandler()); } }
+        public RelayCommand GenerateRom => new(GenerateRomHandler);
+
         private void GenerateRomHandler()
         {
-            Log.Debug($"{nameof(GenerateRomHandler)}() => Command requested ...");
-
             Progress = 0;
             OutputLog = randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath,
                 UserConfig.Instance.OutputRomDirectoryPath,
@@ -168,16 +91,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             UserConfig.Instance.LastUsedPresetFilePath = PresetTreeViewModel.SelectedFileRelativePath;
             UserConfig.Instance.LastUsedPersonalSettingsFilePath = PersonalSettingsTreeViewModel.SelectedFileRelativePath;
 
-            File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
-
-            Log.Debug($"{nameof(GenerateRomHandler)}() => Command executed");
+            File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
         }
 
-        public RelayCommand CopyPermalink { get { return new RelayCommand(_ => CopyPermalinkHandler(), _ => !string.IsNullOrEmpty(PermalinkToCopy)); } }
+        public RelayCommand CopyPermalink => new(CopyPermalinkHandler, () => !string.IsNullOrEmpty(PermalinkToCopy));
+
         private void CopyPermalinkHandler()
         {
-            Log.Debug($"{nameof(CopyPermalinkHandler)}() => Command requested ...");
-
             try
             {
                 Clipboard.SetText(PermalinkToCopy);
@@ -185,11 +105,9 @@ namespace RandstalkerGui.ViewModels.UserControls
             catch (Exception ex)
             {
                 string errorMessage = (string)App.Instance.TryFindResource("ClipboardCopyFailed");
-                Log.Warn(errorMessage + " : " + ex);
+                Log.Warn(errorMessage, ex);
                 MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("Warning"), MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
-            Log.Debug($"{nameof(CopyPermalinkHandler)}() => Command executed");
         }
 
         public HomepageViewModel()

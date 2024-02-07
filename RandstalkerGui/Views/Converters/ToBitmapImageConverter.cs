@@ -11,28 +11,23 @@ namespace RandstalkerGui.Views.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var bitmap = value as Bitmap;
-            if (bitmap != null)
-            {
-                using (var memory = new MemoryStream())
-                {
-                    bitmap.Save(memory, ImageFormat.Png);
-                    memory.Position = 0;
-
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = memory;
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze();
-
-                    return bitmapImage;
-                }
-            }
-            else
+            if (value is not Bitmap bitmap)
             {
                 return null;
             }
+
+            using var memory = new MemoryStream();
+            bitmap.Save(memory, ImageFormat.Png);
+            memory.Position = 0;
+
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.StreamSource = memory;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+            bitmapImage.Freeze();
+
+            return bitmapImage;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

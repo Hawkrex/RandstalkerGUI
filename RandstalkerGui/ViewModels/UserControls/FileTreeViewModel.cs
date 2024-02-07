@@ -1,5 +1,6 @@
-﻿using RandstalkerGui.Models.TreeViewElements;
-using RandstalkerGui.Tools;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RandstalkerGui.Models.TreeViewElements;
 using RandstalkerGui.ViewModels.Popups;
 using RandstalkerGui.Views.Popups;
 using System;
@@ -13,62 +14,38 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class FileTreeViewModel : BaseViewModel
+    public class FileTreeViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string basePath = string.Empty;
-        private IDictionary<string, string> acceptedExtensions;
-        private byte[] defaultFile;
+        private readonly string basePath = string.Empty;
+        private readonly IDictionary<string, string> acceptedExtensions;
+        private readonly byte[] defaultFile;
 
         public ObservableCollection<TreeViewElement> Tree { get; set; }
 
         private bool contextMenuEnabled;
         public bool ContextMenuEnabled
         {
-            get
-            {
-                return contextMenuEnabled;
-            }
-            set
-            {
-                if (contextMenuEnabled != value)
-                {
-                    Log.Debug($"{nameof(ContextMenuEnabled)} => <{contextMenuEnabled}> will change to <{value}>");
-                    contextMenuEnabled = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => contextMenuEnabled;
+            set => SetProperty(ref contextMenuEnabled, value);
         }
 
         private string selectedFileRelativePath;
         public string SelectedFileRelativePath
         {
-            get
-            {
-                return selectedFileRelativePath;
-            }
-            set
-            {
-                if (selectedFileRelativePath != value)
-                {
-                    Log.Debug($"{nameof(SelectedFileRelativePath)} => <{selectedFileRelativePath}> will change to <{value}>");
-                    selectedFileRelativePath = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => selectedFileRelativePath;
+            set => SetProperty(ref selectedFileRelativePath, value);
         }
 
-        public RelayCommand<string> NewDirectory { get { return new RelayCommand<string>(param => NewDirectoryHandler(param)); } }
+        public RelayCommand<string> NewDirectory => new(NewDirectoryHandler);
         private void NewDirectoryHandler(string directoryPath)
         {
-            Log.Debug($"{nameof(NewDirectoryHandler)}() => Command requested ...");
-
             string newDirectoryPath = string.Empty;
 
             try
             {
-                InputDialog win = new InputDialog();
+                var win = new InputDialog();
                 if (win.ShowDialog().Value)
                 {
                     newDirectoryPath = Path.Combine(directoryPath, ((InputDialogViewModel)win.DataContext).Input);
@@ -79,26 +56,19 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(NewDirectoryHandler)}() => Impossible to create the directory <{newDirectoryPath}> : {ex}");
+                Log.Error($"{nameof(NewDirectoryHandler)}() => Impossible to create the directory <{newDirectoryPath}>", ex);
             }
-
-            Log.Debug($"{nameof(NewDirectoryHandler)}() => Command executed");
         }
 
-        public RelayCommand<string> NewFile { get { return new RelayCommand<string>(param => NewFileHandler(param)); } }
+        public RelayCommand<string> NewFile => new(NewFileHandler);
         private void NewFileHandler(string directoryPath)
         {
-            Log.Debug($"{nameof(NewFileHandler)}() => Command requested ...");
-
-            string newFilePath = string.Empty;
+            var saveFileDialog = new SaveFileDialog();
 
             try
             {
-                Stream savingStream;
-                var saveFileDialog = new SaveFileDialog();
-
                 string filter = string.Empty;
-                foreach(var extension in acceptedExtensions)
+                foreach (var extension in acceptedExtensions)
                 {
                     filter += extension.Value + "|";
                 }
@@ -109,9 +79,9 @@ namespace RandstalkerGui.ViewModels.UserControls
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    Stream savingStream;
                     if ((savingStream = saveFileDialog.OpenFile()) != null)
                     {
-                        newFilePath = saveFileDialog.FileName;
                         savingStream.Write(defaultFile, 0, defaultFile.Length);
                         savingStream.Close();
                     }
@@ -121,17 +91,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(NewFileHandler)}() => Impossible to create the file <{newFilePath}> : {ex}");
+                Log.Error($"{nameof(NewFileHandler)}() => Impossible to create the file <{saveFileDialog.FileName}>", ex);
             }
-
-            Log.Debug($"{nameof(NewFileHandler)}() => Command executed");
         }
 
-        public RelayCommand<string> DuplicateFile { get { return new RelayCommand<string>(param => DuplicateFileHandler(param)); } }
+        public RelayCommand<string> DuplicateFile => new(DuplicateFileHandler);
         private void DuplicateFileHandler(string filePath)
         {
-            Log.Debug($"{nameof(DuplicateFileHandler)}() => Command requested ...");
-
             try
             {
                 if (MessageBox.Show((string)App.Instance.TryFindResource("DuplicateFileAskTitle"), (string)App.Instance.TryFindResource("DuplicateFileAskMessage"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -143,17 +109,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(DuplicateFileHandler)}() => Impossible to duplicate the file <{filePath}> : {ex}");
+                Log.Error($"{nameof(DuplicateFileHandler)}() => Impossible to duplicate the file <{filePath}>", ex);
             }
-
-            Log.Debug($"{nameof(DuplicateFileHandler)}() => Command executed");
         }
 
-        public RelayCommand<string> DeleteDirectory { get { return new RelayCommand<string>(param => DeleteDirectoryHandler(param)); } }
+        public RelayCommand<string> DeleteDirectory => new(DeleteDirectoryHandler);
         private void DeleteDirectoryHandler(string directoryPath)
         {
-            Log.Debug($"{nameof(DeleteDirectoryHandler)}() => Command requested ...");
-
             try
             {
                 if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteDirectoryAskMessage"), (string)App.Instance.TryFindResource("DeleteDirectoryAskTitle"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -165,17 +127,13 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(DeleteDirectoryHandler)}() => Impossible to delete the directory <{directoryPath}> : {ex}");
+                Log.Error($"{nameof(DeleteDirectoryHandler)}() => Impossible to delete the directory <{directoryPath}>", ex);
             }
-
-            Log.Debug($"{nameof(DeleteDirectoryHandler)}() => Command executed");
         }
 
-        public RelayCommand<string> DeleteFile { get { return new RelayCommand<string>(param => DeleteFileHandler(param)); } }
+        public RelayCommand<string> DeleteFile => new(DeleteFileHandler);
         private void DeleteFileHandler(string filePath)
         {
-            Log.Debug($"{nameof(DeleteFileHandler)}() => Command requested ...");
-
             try
             {
                 if (MessageBox.Show((string)App.Instance.TryFindResource("DeleteFileAskMessage"), (string)App.Instance.TryFindResource("DeleteFileAskTitle"), MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -187,10 +145,8 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(DeleteFileHandler)}() => Impossible to delete the file <{SelectedFileRelativePath}> : {ex}");
+                Log.Error($"{nameof(DeleteFileHandler)}() => Impossible to delete the file <{SelectedFileRelativePath}>", ex);
             }
-
-            Log.Debug($"{nameof(DeleteFileHandler)}() => Command executed");
         }
 
         public FileTreeViewModel(string basePath, IDictionary<string, string> acceptedExtensions, byte[] defaultFile, string defaultSelectedFilePath, bool canExecuteCommands = true)
@@ -199,7 +155,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             this.acceptedExtensions = acceptedExtensions;
             this.defaultFile = defaultFile;
             SelectedFileRelativePath = defaultSelectedFilePath;
-            
+
             ContextMenuEnabled = canExecuteCommands;
 
             Tree = new ObservableCollection<TreeViewElement>();
@@ -208,11 +164,7 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public void SelectedItemChangedHandler(string selectedItem)
         {
-            Log.Debug($"{nameof(SelectedItemChangedHandler)}() => Command requested ...");
-
             SelectedFileRelativePath = selectedItem.Substring(basePath.Length + 1);
-
-            Log.Debug($"{nameof(SelectedItemChangedHandler)}() => Command executed");
         }
 
         /// <summary>
@@ -227,7 +179,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
 
             var baseDirInfo = new DirectoryInfo(basePath);
-            foreach(var item in GetItems(baseDirInfo.FullName))
+            foreach (var item in GetItems(baseDirInfo.FullName))
             {
                 Tree.Add(item);
             }

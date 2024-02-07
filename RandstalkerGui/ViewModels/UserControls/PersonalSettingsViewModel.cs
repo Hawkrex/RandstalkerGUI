@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
-using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.UserControls.Tools;
 using System;
 using System.Collections.Generic;
@@ -12,64 +13,31 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class PersonalSettingsViewModel : BaseViewModel
+    public class PersonalSettingsViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private PersonalSettings personalSettings;
-        private NigelEditablePixels nigelEditablePixels;
+        private readonly NigelEditablePixels nigelEditablePixels;
 
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
 
         public bool RemoveMusic
         {
-            get
-            {
-                return personalSettings.RemoveMusic;
-            }
-            set
-            {
-                if (personalSettings.RemoveMusic != value)
-                {
-                    Log.Debug($"{nameof(personalSettings.RemoveMusic)} => <{personalSettings.RemoveMusic}> will change to <{value}>");
-                    personalSettings.RemoveMusic = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => personalSettings.RemoveMusic;
+            set => SetProperty(personalSettings.RemoveMusic, value, personalSettings, (ps, rm) => ps.RemoveMusic = rm);
         }
 
         public bool SwapOverworldMusic
         {
-            get
-            {
-                return personalSettings.SwapOverworldMusic;
-            }
-            set
-            {
-                if (personalSettings.SwapOverworldMusic != value)
-                {
-                    Log.Debug($"{nameof(personalSettings.SwapOverworldMusic)} => <{personalSettings.SwapOverworldMusic}> will change to <{value}>");
-                    personalSettings.SwapOverworldMusic = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => personalSettings.SwapOverworldMusic;
+            set => SetProperty(personalSettings.SwapOverworldMusic, value, personalSettings, (ps, som) => ps.SwapOverworldMusic = som);
         }
 
         public bool InGameTracker
         {
-            get
-            {
-                return personalSettings.InGameTracker;
-            }
-            set
-            {
-                if (personalSettings.InGameTracker != value)
-                {
-                    Log.Debug($"{nameof(personalSettings.InGameTracker)} => <{personalSettings.InGameTracker}> will change to <{value}>");
-                    personalSettings.InGameTracker = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => personalSettings.InGameTracker;
+            set => SetProperty(personalSettings.InGameTracker, value, personalSettings, (ps, igt) => ps.InGameTracker = igt);
         }
 
         public ColorPickerViewModel HudColorPickerViewModel { get; set; }
@@ -81,27 +49,14 @@ namespace RandstalkerGui.ViewModels.UserControls
         private Bitmap nigelSprite;
         public Bitmap NigelSprite
         {
-            get
-            {
-                return nigelSprite;
-            }
-            set
-            {
-                if (nigelSprite != value)
-                {
-                    Log.Debug($"{nameof(NigelSprite)} => <{NigelSprite}> will change to <{value}>");
-                    nigelSprite = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => nigelSprite;
+            set => SetProperty(ref nigelSprite, value);
         }
 
-        public RelayCommand SavePersonalSettings { get { return new RelayCommand(_ => SavePersonalSettingsHandler()); } }
+        public RelayCommand SavePersonalSettings => new(SavePersonalSettingsHandler);
 
         private void SavePersonalSettingsHandler()
         {
-            Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command requested ...");
-
             personalSettings.HudColor = HudColorPickerViewModel.FormatSettings();
             personalSettings.NigelColor[0] = MainNigelColorPickerViewModel.FormatSettings();
             personalSettings.NigelColor[1] = SecondaryNigelColorPickerViewModel.FormatSettings();
@@ -114,11 +69,9 @@ namespace RandstalkerGui.ViewModels.UserControls
             catch (Exception ex)
             {
                 string errorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
-                Log.Error(errorMessage + " : " + ex);
+                Log.Error(errorMessage, ex);
                 MessageBox.Show(errorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            Log.Debug($"{nameof(SavePersonalSettingsHandler)}() => Command executed");
         }
 
         public PersonalSettingsViewModel()
@@ -183,13 +136,13 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         private void EditNigelColors()
         {
-            Color mainColor = CodeToColor(MainNigelColorPickerViewModel.RedValue, MainNigelColorPickerViewModel.GreenValue, MainNigelColorPickerViewModel.BlueValue);
+            var mainColor = CodeToColor(MainNigelColorPickerViewModel.RedValue, MainNigelColorPickerViewModel.GreenValue, MainNigelColorPickerViewModel.BlueValue);
             foreach (var pixel in nigelEditablePixels.MainColorPixels)
             {
                 NigelSprite.SetPixel(pixel[0], pixel[1], mainColor);
             }
 
-            Color secondaryColor = CodeToColor(SecondaryNigelColorPickerViewModel.RedValue, SecondaryNigelColorPickerViewModel.GreenValue, SecondaryNigelColorPickerViewModel.BlueValue);
+            var secondaryColor = CodeToColor(SecondaryNigelColorPickerViewModel.RedValue, SecondaryNigelColorPickerViewModel.GreenValue, SecondaryNigelColorPickerViewModel.BlueValue);
             foreach (var pixel in nigelEditablePixels.SecondaryColorPixels)
             {
                 NigelSprite.SetPixel(pixel[0], pixel[1], secondaryColor);

@@ -1,63 +1,28 @@
-﻿using RandstalkerGui.Tools;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RandstalkerGui.ViewModels.UserControls.Tools
 {
-    public class ColorPickerViewModel : BaseViewModel
+    public class ColorPickerViewModel : ObservableObject
     {
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private char redValue;
         public char RedValue
         {
-            get
-            {
-                return redValue;
-            }
-            set
-            {
-                if (redValue != value)
-                {
-                    Log.Debug($"{nameof(RedValue)} => <{RedValue}> will change to <{value}>");
-                    redValue = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => redValue;
+            set => SetProperty(ref redValue, value);
         }
 
         private char greenValue;
         public char GreenValue
         {
-            get
-            {
-                return greenValue;
-            }
-            set
-            {
-                if (greenValue != value)
-                {
-                    Log.Debug($"{nameof(GreenValue)} => <{GreenValue}> will change to <{value}>");
-                    greenValue = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => greenValue;
+            set => SetProperty(ref greenValue, value);
         }
 
         private char blueValue;
         public char BlueValue
         {
-            get
-            {
-                return blueValue;
-            }
-            set
-            {
-                if (blueValue != value)
-                {
-                    Log.Debug($"{nameof(BlueValue)} => <{BlueValue}> will change to <{value}>");
-                    blueValue = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => blueValue;
+            set => SetProperty(ref blueValue, value);
         }
 
         public ColorPickerViewModel(string color)
@@ -67,9 +32,6 @@ namespace RandstalkerGui.ViewModels.UserControls.Tools
             BlueValue = color.ToCharArray()[3];
         }
 
-        public string FormatSettings()
-        {
-            return $"#{RedValue}{GreenValue}{BlueValue}";
-        }
+        public string FormatSettings() => $"#{RedValue}{GreenValue}{BlueValue}";
     }
 }

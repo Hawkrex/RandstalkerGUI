@@ -1,8 +1,9 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
-using RandstalkerGui.ValidationRules;
 using RandstalkerGui.ViewModels.UserControls;
 using RandstalkerGui.Views.Popups;
 using System;
@@ -14,13 +15,15 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private Dictionary<object, List<string>> statusBarMessages = new Dictionary<object, List<string>>();
+        public static string CurrentCulture => Thread.CurrentThread.CurrentCulture.Name;
 
-        public RelayCommand OnClose { get { return new RelayCommand(_ => OnCloseHandler()); } }
+        private readonly Dictionary<object, List<string>> statusBarMessages = new Dictionary<object, List<string>>();
+
+        public RelayCommand OnClose => new(OnCloseHandler);
 
         public void OnCloseHandler()
         {
@@ -29,37 +32,18 @@ namespace RandstalkerGui.ViewModels
             Application.Current.Shutdown();
         }
 
-        public RelayCommand Config { get { return new RelayCommand(_ => ConfigHandler()); } }
+        public RelayCommand Config => new(ConfigHandler);
 
         private void ConfigHandler()
         {
-            Log.Debug($"{nameof(ConfigHandler)}() => Command requested ...");
-
             var userConfigPopup = new UserConfigPopup();
             userConfigPopup.ShowDialog();
-
-            Log.Debug($"{nameof(ConfigHandler)}() => Command executed");
         }
 
-        public string CurrentCulture
+        public RelayCommand<string> SwitchLanguage => new(SwitchLanguageHandler);
+
+        private void SwitchLanguageHandler(string languageRegion)
         {
-            get
-            {
-                return Thread.CurrentThread.CurrentCulture.Name;
-            }
-        }
-
-        public RelayCommand SwitchLanguage { get { return new RelayCommand(param => SwitchLanguageHandler(param)); } }
-        private void SwitchLanguageHandler(object param)
-        {
-            Log.Debug($"{nameof(SwitchLanguageHandler)}() => Command requested ...");
-
-            string languageRegion = param.ToString();
-            if (languageRegion == null)
-            {
-                throw new ArgumentException("Parameter is not a string");
-            }
-
             if (Thread.CurrentThread.CurrentCulture.Name.Equals(languageRegion))
             {
                 Log.Info($"{nameof(SwitchLanguageHandler)}() => Language is already {languageRegion}");
@@ -70,19 +54,13 @@ namespace RandstalkerGui.ViewModels
                 OnPropertyChanged(nameof(CurrentCulture));
                 Log.Info($"{nameof(SwitchLanguageHandler)}() => Language switched to {languageRegion}");
             }
-
-            Log.Debug($"{nameof(SwitchLanguageHandler)}() => Command executed");
         }
 
-        public RelayCommand About { get { return new RelayCommand(_ => AboutHandler()); } }
+        public RelayCommand About => new(AboutHandler);
 
         private void AboutHandler()
         {
-            Log.Debug($"{nameof(AboutHandler)}() => Command requested ...");
-
             MessageBox.Show((string)App.Instance.TryFindResource("AboutText"), (string)App.Instance.TryFindResource("AboutTitle"), MessageBoxButton.OK);
-
-            Log.Debug($"{nameof(AboutHandler)}() => Command executed");
         }
 
         public PresetViewModel PresetViewModel { get; set; }
@@ -90,19 +68,8 @@ namespace RandstalkerGui.ViewModels
         private string statusBarMessage;
         public string StatusBarMessage
         {
-            get
-            {
-                return statusBarMessage;
-            }
-            set
-            {
-                if (statusBarMessage != value)
-                {
-                    Log.Debug($"{nameof(StatusBarMessage)} => <{statusBarMessage}> will change to <{value}>");
-                    statusBarMessage = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => statusBarMessage;
+            set => SetProperty(ref statusBarMessage, value);
         }
 
         public MainViewModel()
@@ -123,8 +90,10 @@ namespace RandstalkerGui.ViewModels
             string rootFolderErrorMessage = (string)App.Instance.TryFindResource("UserConfigNotValid") + Environment.NewLine + (string)App.Instance.TryFindResource("SelectRootFolder");
             MessageBox.Show(rootFolderErrorMessage, (string)App.Instance.TryFindResource("UserConfigNotValid"), MessageBoxButton.OK, MessageBoxImage.Error);
 
-            var dialog = new CommonOpenFileDialog();
-            dialog.IsFolderPicker = true;
+            var dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true
+            };
 
             if (dialog.ShowDialog() != CommonFileDialogResult.Ok)
             {
@@ -148,13 +117,13 @@ namespace RandstalkerGui.ViewModels
             {
                 try
                 {
-                    File.WriteAllText("Resources/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+                    File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
                 }
                 catch (Exception ex)
                 {
                     string fileErrorMessage = (string)App.Instance.TryFindResource("FileWriteErrorMessage");
+                    Log.Error(fileErrorMessage, ex);
                     MessageBox.Show(fileErrorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
-                    Log.Error(fileErrorMessage + " : " + ex);
                 }
             }
         }

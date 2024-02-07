@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace RandstalkerGui.Tools
 {
-    public class ValidationViewModel : BaseViewModel, INotifyDataErrorInfo
+    public class ValidationViewModel : ObservableObject, INotifyDataErrorInfo
     {
         private readonly Dictionary<string, List<string>> propertyErrors = new Dictionary<string, List<string>>();
 
