@@ -57,5 +57,10 @@ namespace RandstalkerGui.Models
         {
             OnSavedValidUserConfig?.Invoke(Instance, new StatusBarMessageEventArgs() { Message = Instance.CheckParametersValidity(), Sender = "UserConfig" });
         }
+
+        public static void SaveFile()
+        {
+            File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(Instance));
+        }
     }
 }

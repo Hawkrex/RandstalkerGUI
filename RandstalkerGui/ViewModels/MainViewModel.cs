@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Tools;
 using RandstalkerGui.ViewModels.UserControls;
@@ -19,7 +18,7 @@ namespace RandstalkerGui.ViewModels
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static string CurrentCulture => Thread.CurrentThread.CurrentCulture.Name;
+        public string CurrentCulture => Thread.CurrentThread.CurrentCulture.Name;
 
         private readonly Dictionary<object, List<string>> statusBarMessages = new Dictionary<object, List<string>>();
 
@@ -79,11 +78,11 @@ namespace RandstalkerGui.ViewModels
 
             UserConfig.OnSavedValidUserConfig += SetStatusBarMessage;
 
-            PresetViewModel = new PresetViewModel(SetStatusBarMessage);
-            PresetViewModel.OnError += SetStatusBarMessage;
-
             if (string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity()))
             {
+                PresetViewModel = new PresetViewModel(SetStatusBarMessage);
+                PresetViewModel.OnError += SetStatusBarMessage;
+
                 return;
             }
 
@@ -117,7 +116,7 @@ namespace RandstalkerGui.ViewModels
             {
                 try
                 {
-                    File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+                    UserConfig.SaveFile();
                 }
                 catch (Exception ex)
                 {
@@ -126,6 +125,9 @@ namespace RandstalkerGui.ViewModels
                     MessageBox.Show(fileErrorMessage, (string)App.Instance.TryFindResource("ErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+
+            PresetViewModel = new PresetViewModel(SetStatusBarMessage);
+            PresetViewModel.OnError += SetStatusBarMessage;
         }
 
         public void SetStatusBarMessage(object sender, StatusBarMessageEventArgs args)

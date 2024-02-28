@@ -186,7 +186,7 @@ namespace RandstalkerGui.ViewModels.Popups
         {
             try
             {
-                File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+                UserConfig.SaveFile();
 
                 MessageBox.Show((string)App.Instance.TryFindResource("FileWriteSuccessMessage"), (string)App.Instance.TryFindResource("SuccessTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
                 dialog.Close();

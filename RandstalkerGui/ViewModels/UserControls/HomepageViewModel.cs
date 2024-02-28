@@ -91,7 +91,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             UserConfig.Instance.LastUsedPresetFilePath = PresetTreeViewModel.SelectedFileRelativePath;
             UserConfig.Instance.LastUsedPersonalSettingsFilePath = PersonalSettingsTreeViewModel.SelectedFileRelativePath;
 
-            File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(UserConfig.Instance));
+            UserConfig.SaveFile();
         }
 
         public RelayCommand CopyPermalink => new(CopyPermalinkHandler, () => !string.IsNullOrEmpty(PermalinkToCopy));
