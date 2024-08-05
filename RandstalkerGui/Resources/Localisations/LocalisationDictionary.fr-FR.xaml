@@ -93,8 +93,13 @@
     <system:String x:Key="CopyPermalink">Copier le permalink</system:String>
 
     <!-- Preset -->
-    <system:String x:Key="StartingGroupBox">Départ</system:String>
-    <system:String x:Key="LogicGroupBox">Logique</system:String>
+    <system:String x:Key="StartingSettings">Paramètres de départ</system:String>
+    <system:String x:Key="StartingSettingsTooltip">Paramètres de départ</system:String>
+    <system:String x:Key="LogicSettings">Paramètres de logique</system:String>
+    <system:String x:Key="LogicSettingsTooltip">Paramètres de logique</system:String>
+    <system:String x:Key="QolSettings">Paramètres de QOL</system:String>
+    <system:String x:Key="QolSettingsTooltip">Paramètres de QOL</system:String>
+
     <system:String x:Key="FixesGroupBox">Fixes</system:String>
     <system:String x:Key="AdjustmentsGroupBox">Ajustements</system:String>
     <system:String x:Key="HintsGroupBox">Indices</system:String>

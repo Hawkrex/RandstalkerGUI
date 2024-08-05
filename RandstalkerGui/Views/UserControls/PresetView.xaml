@@ -3,214 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:views="clr-namespace:RandstalkerGui.Views.UserControls"
-             xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"
+             xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.PresetViews"
              xmlns:converters="clr-namespace:RandstalkerGui.Views.Converters"
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:InvertBooleanConverter x:Key="InvertBoolean"/>
-        <Style TargetType="xctk:IntegerUpDown">
-            <Setter Property="Width" Value="60"/>
-            <Setter Property="ClipValueToMinMax" Value="True"/>
-            <Setter Property="Minimum" Value="0"/>
-            <Setter Property="Maximum" Value="255"/>
-        </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="StackPanel" x:Key="ParameterPanel">
-            <Setter Property="Margin" Value="5,5,5,5"/>
-            <Setter Property="Orientation" Value="Horizontal"/>
-        </Style>
     </UserControl.Resources>
     <DockPanel LastChildFill="False">
         <views:FileTreeView DataContext="{Binding PresetTreeViewModel}"
-                DockPanel.Dock="Left" Width="200" />
-        <Grid DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel>
-                <GroupBox Header="{DynamicResource StartingGroupBox}">
-                    <StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding AutomaticStartingLife}"/>
-                            <Label Content="{DynamicResource AutomaticStartingLife}" ToolTip="{DynamicResource AutomaticStartingLifeTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding StartingLife}" Minimum="1" IsEnabled="{Binding AutomaticStartingLife, Converter={StaticResource InvertBoolean}}"/>
-                            <Label Content="{DynamicResource StartingLife}" ToolTip="{DynamicResource StartingLifeTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding StartingGold}" Maximum="9999"/>
-                            <Label Content="{DynamicResource StartingGold}" ToolTip="{DynamicResource StartingGoldTooltip}"/>
-                        </StackPanel>
-                        <uc:SpawnLocationsView DataContext="{Binding SpawnLocationsViewModel}"/>
-                        <uc:ItemsCounterView DataContext="{Binding StartingsItemsViewModel}" GroupBoxHeader="{DynamicResource StartingItems}" Height="150"/>
-                        <uc:ItemsListView DataContext="{Binding FiniteGroundItemsViewModel}" GroupBoxHeader="{DynamicResource FiniteGroundItems}" Height="150"/>
-                        <uc:ItemsListView DataContext="{Binding FiniteShopItemsViewModel}" GroupBoxHeader="{DynamicResource FiniteShopItems}" Height="150"/>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <GroupBox Header="{DynamicResource LogicGroupBox}">
-                    <StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding JewelCount}" Maximum="9"/>
-                            <Label Content="{DynamicResource JewelCount}" ToolTip="{DynamicResource JewelCountTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <ComboBox ItemsSource="{Binding GoalList}" SelectedValue="{Binding Goal}" DisplayMemberPath="Value" SelectedValuePath="Key"/>
-                            <Label Content="{DynamicResource Goal}" ToolTip="{DynamicResource GoalTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding ArmorUpgrades}"/>
-                            <Label Content="{DynamicResource ArmorUpgrades}" ToolTip="{DynamicResource ArmorUpgradesTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding ConsumableRecordBook}"/>
-                            <Label Content="{DynamicResource ConsumableRecordBook}" ToolTip="{DynamicResource ConsumableRecordBookTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding ConsumableSpellBook}"/>
-                            <Label Content="{DynamicResource ConsumableSpellBook}" ToolTip="{DynamicResource ConsumableSpellBookTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding ShuffleTrees}"/>
-                            <Label Content="{DynamicResource ShuffleTrees}" ToolTip="{DynamicResource ShuffleTreesTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding EnemyJumpingInLogic}"/>
-                            <Label Content="{DynamicResource EnemyJumpingInLogic}" ToolTip="{DynamicResource EnemyJumpingInLogicTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding DamageBoostingInLogic}"/>
-                            <Label Content="{DynamicResource DamageBoostingInLogic}" ToolTip="{DynamicResource DamageBoostingInLogicTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding TreeCuttingGlitchInLogic}"/>
-                            <Label Content="{DynamicResource TreeCuttingGlitchInLogic}" ToolTip="{DynamicResource TreeCuttingGlitchInLogicTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding AllowWhistleUsageBehindTrees}"/>
-                            <Label Content="{DynamicResource AllowWhistleUsageBehindTrees}" ToolTip="{DynamicResource AllowWhistleUsageBehindTreesTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding ChristmasEvent}"/>
-                            <Label Content="{DynamicResource ChristmasEvent}" ToolTip="{DynamicResource ChristmasEventTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding FillerItem}"/>
-                            <Label Content="{DynamicResource FillerItem}" ToolTip="{DynamicResource FillerItemTooltip}"/>
-                        </StackPanel>
-                        <uc:ItemsCounterView DataContext="{Binding ItemsDistributionViewModel}" GroupBoxHeader="{DynamicResource ItemsDistribution}" Height="369"/>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-            <StackPanel Grid.Column="2">
-                <GroupBox Header="{DynamicResource FixesGroupBox}">
-                    <StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding FixArmletSkip}"/>
-                            <Label Content="{DynamicResource FixArmletSkip}" ToolTip="{DynamicResource FixArmletSkipTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding RemoveTreeCuttingGlitchDrops}"/>
-                            <Label Content="{DynamicResource RemoveTreeCuttingGlitchDrops}" ToolTip="{DynamicResource RemoveTreeCuttingGlitchDropsTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding RemoveGumiBoulder}"/>
-                            <Label Content="{DynamicResource RemoveGumiBoulder}" ToolTip="{DynamicResource RemoveGumiBoulderTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding RemoveTiborRequirement}"/>
-                            <Label Content="{DynamicResource RemoveTiborRequirement}" ToolTip="{DynamicResource RemoveTiborRequirementTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding AllTreesVisitedAtStart}"/>
-                            <Label Content="{DynamicResource AllTreesVisitedAtStart}" ToolTip="{DynamicResource AllTreesVisitedAtStartTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding FastMenuTransitions}"/>
-                            <Label Content="{DynamicResource FastMenuTransitions}" ToolTip="{DynamicResource FastMenuTransitionsTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding EkeekeAutoRevive}"/>
-                            <Label Content="{DynamicResource EkeekeAutoRevive}" ToolTip="{DynamicResource EkeekeAutoReviveTooltip}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-                <GroupBox Header="{DynamicResource AdjustmentsGroupBox}">
-                    <StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding EnemiesDamageFactor}"/>
-                            <Label Content="{DynamicResource EnemiesDamageFactor}" ToolTip="{DynamicResource EnemiesDamageFactorTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding EnemiesHealthFactor}"/>
-                            <Label Content="{DynamicResource EnemiesHealthFactor}" ToolTip="{DynamicResource EnemiesHealthFactorTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding EnemiesArmorFactor}"/>
-                            <Label Content="{DynamicResource EnemiesArmorFactor}" ToolTip="{DynamicResource EnemiesArmorFactorTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding EnemiesGoldsFactor}"/>
-                            <Label Content="{DynamicResource EnemiesGoldsFactor}" ToolTip="{DynamicResource EnemiesGoldsFactorTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding EnemiesDropChanceFactor}"/>
-                            <Label Content="{DynamicResource EnemiesDropChanceFactor}" ToolTip="{DynamicResource EnemiesDropChanceFactorTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding HealthGainedPerLifestock}"/>
-                            <Label Content="{DynamicResource HealthGainedPerLifestock}" ToolTip="{DynamicResource HealthGainedPerLifestockTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding ShopPricesFactor}"/>
-                            <Label Content="{DynamicResource ShopPricesFactor}" ToolTip="{DynamicResource ShopPricesFactorTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding EnsureEkeEkeInShops}"/>
-                            <Label Content="{DynamicResource EnsureEkeEkeInShops}" ToolTip="{DynamicResource EnsureEkeEkeInShopsTooltip}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-                <GroupBox Header="{DynamicResource HintsGroupBox}">
-                    <StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <CheckBox IsChecked="{Binding AllowSpoilerLog}"/>
-                            <Label Content="{DynamicResource AllowSpoilerLog}" ToolTip="{DynamicResource AllowSpoilerLogTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding RegionRequirement, ValidatesOnDataErrors=True}" Maximum="147"/>
-                            <Label Content="{DynamicResource RegionRequirement}" ToolTip="{DynamicResource RegionRequirementTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding ItemRequirement, ValidatesOnDataErrors=True}" Maximum="147"/>
-                            <Label Content="{DynamicResource ItemRequirement}" ToolTip="{DynamicResource ItemRequirementTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding ItemLocation, ValidatesOnDataErrors=True}" Maximum="147"/>
-                            <Label Content="{DynamicResource ItemLocation}" ToolTip="{DynamicResource ItemLocationTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding DarkRegion, ValidatesOnDataErrors=True}" Maximum="147"/>
-                            <Label Content="{DynamicResource DarkRegion}" ToolTip="{DynamicResource DarkRegionTooltip}"/>
-                        </StackPanel>
-                        <StackPanel Style="{StaticResource ParameterPanel}">
-                            <xctk:IntegerUpDown Value="{Binding Joke, ValidatesOnDataErrors=True}" Maximum="147"/>
-                            <Label Content="{DynamicResource Joke}" ToolTip="{DynamicResource JokeTooltip}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-        </Grid>
+                            DockPanel.Dock="Left" Width="200" />
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="{DynamicResource StartingSettings}" ToolTip="{DynamicResource StartingSettingsTooltip}">
+                <uc:PresetStartingSettingsView Margin="5,5,5,5" DataContext="{Binding PresetStartingSettingsViewModel}"/>
+            </TabItem>
+            <TabItem Header="{DynamicResource LogicSettings}" ToolTip="{DynamicResource LogicSettingsTooltip}">
+                <uc:PresetLogicSettingsView Margin="5,5,5,5" DataContext="{Binding PresetLogicSettingsViewModel}"/>
+            </TabItem>
+            <TabItem Header="{DynamicResource QolSettings}" ToolTip="{DynamicResource QolSettingsTooltips}">
+                <uc:PresetQolSettingsView Margin="5,5,5,5" DataContext="{Binding PresetQolSettingsViewModel}"/>
+            </TabItem>
+        </TabControl>
         <Button Content="{DynamicResource SavePreset}" Command="{Binding SavePreset}" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolean}}"
                 DockPanel.Dock="Bottom" Margin="5,5,5,5" Height="50" />
     </DockPanel>

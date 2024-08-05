@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="RandstalkerGui.Views.UserControls.PresetViews.PresetLogicSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:uc="clr-namespace:RandstalkerGui.Views.UserControls.SubPresets"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="xctk:IntegerUpDown">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="ClipValueToMinMax" Value="True"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="255"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="ParameterPanel">
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Orientation="Horizontal">
+        <StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <xctk:IntegerUpDown Value="{Binding JewelCount}" Maximum="9"/>
+                <Label Content="{DynamicResource JewelCount}" ToolTip="{DynamicResource JewelCountTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <ComboBox ItemsSource="{Binding GoalList}" SelectedValue="{Binding Goal}" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                <Label Content="{DynamicResource Goal}" ToolTip="{DynamicResource GoalTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding ArmorUpgrades}"/>
+                <Label Content="{DynamicResource ArmorUpgrades}" ToolTip="{DynamicResource ArmorUpgradesTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding ConsumableRecordBook}"/>
+                <Label Content="{DynamicResource ConsumableRecordBook}" ToolTip="{DynamicResource ConsumableRecordBookTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding ConsumableSpellBook}"/>
+                <Label Content="{DynamicResource ConsumableSpellBook}" ToolTip="{DynamicResource ConsumableSpellBookTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding ShuffleTrees}"/>
+                <Label Content="{DynamicResource ShuffleTrees}" ToolTip="{DynamicResource ShuffleTreesTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding EnemyJumpingInLogic}"/>
+                <Label Content="{DynamicResource EnemyJumpingInLogic}" ToolTip="{DynamicResource EnemyJumpingInLogicTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding DamageBoostingInLogic}"/>
+                <Label Content="{DynamicResource DamageBoostingInLogic}" ToolTip="{DynamicResource DamageBoostingInLogicTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding TreeCuttingGlitchInLogic}"/>
+                <Label Content="{DynamicResource TreeCuttingGlitchInLogic}" ToolTip="{DynamicResource TreeCuttingGlitchInLogicTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding AllowWhistleUsageBehindTrees}"/>
+                <Label Content="{DynamicResource AllowWhistleUsageBehindTrees}" ToolTip="{DynamicResource AllowWhistleUsageBehindTreesTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <CheckBox IsChecked="{Binding ChristmasEvent}"/>
+                <Label Content="{DynamicResource ChristmasEvent}" ToolTip="{DynamicResource ChristmasEventTooltip}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ParameterPanel}">
+                <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding FillerItem}"/>
+                <Label Content="{DynamicResource FillerItem}" ToolTip="{DynamicResource FillerItemTooltip}"/>
+            </StackPanel>
+        </StackPanel>
+        <uc:ItemsCounterView DataContext="{Binding ItemsDistributionViewModel}" GroupBoxHeader="{DynamicResource ItemsDistribution}"/>
+        <uc:ItemsListView DataContext="{Binding FiniteGroundItemsViewModel}" GroupBoxHeader="{DynamicResource FiniteGroundItems}"/>
+        <uc:ItemsListView DataContext="{Binding FiniteShopItemsViewModel}" GroupBoxHeader="{DynamicResource FiniteShopItems}"/>
+    </StackPanel>
+</UserControl>

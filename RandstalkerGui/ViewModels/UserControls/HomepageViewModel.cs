@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using RandstalkerGui.Properties;
 using RandstalkerGui.Tools;
@@ -15,8 +14,6 @@ namespace RandstalkerGui.ViewModels.UserControls
     public class HomepageViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        const string permalinkMark = "Permalink: ";
 
         private readonly RandstalkerApp randstalkerApp;
 
@@ -62,7 +59,7 @@ namespace RandstalkerGui.ViewModels.UserControls
         public string PermalinkToCopy
         {
             get => permalinkToCopy;
-            set => SetProperty(ref outputRomFileName, value);
+            set => SetProperty(ref permalinkToCopy, value);
         }
 
         private bool canGenerateRom;
@@ -85,7 +82,7 @@ namespace RandstalkerGui.ViewModels.UserControls
                 OutputRomFileName,
                 Bingo);
 
-            PermalinkToCopy = Regex.Match(OutputLog, @"Permalink: (.*)").Groups[1].Value;
+            PermalinkToCopy = Regex.Match(OutputLog, @"Permalink: (.*)\r").Groups[1].Value;
             Progress = 100;
 
             UserConfig.Instance.LastUsedPresetFilePath = PresetTreeViewModel.SelectedFileRelativePath;

@@ -81,8 +81,6 @@ namespace RandstalkerGui.ViewModels
             if (string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity()))
             {
                 PresetViewModel = new PresetViewModel(SetStatusBarMessage);
-                PresetViewModel.OnError += SetStatusBarMessage;
-
                 return;
             }
 
@@ -127,7 +125,6 @@ namespace RandstalkerGui.ViewModels
             }
 
             PresetViewModel = new PresetViewModel(SetStatusBarMessage);
-            PresetViewModel.OnError += SetStatusBarMessage;
         }
 
         public void SetStatusBarMessage(object sender, StatusBarMessageEventArgs args)
