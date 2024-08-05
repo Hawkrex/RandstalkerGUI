@@ -7,11 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class HomepageViewModel : ObservableObject
+    public partial class HomepageViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -20,60 +21,37 @@ namespace RandstalkerGui.ViewModels.UserControls
         public FileTreeViewModel PresetTreeViewModel { get; set; }
         public FileTreeViewModel PersonalSettingsTreeViewModel { get; set; }
 
+        [ObservableProperty]
         private string outputLog;
-        public string OutputLog
-        {
-            get => outputLog;
-            set => SetProperty(ref outputLog, value);
-        }
 
+        [ObservableProperty]
         private int progress;
-        public int Progress
-        {
-            get => progress;
-            set => SetProperty(ref progress, value);
-        }
 
+        [ObservableProperty]
         private bool bingo;
-        public bool Bingo
-        {
-            get => bingo;
-            set => SetProperty(ref bingo, value);
-        }
 
+        [ObservableProperty]
+        private bool canCopyPermalink;
+
+        [ObservableProperty]
+        private string copyPermalinkText;
+
+        [ObservableProperty]
         private string permalinkToGenerateFrom;
-        public string PermalinkToGenerateFrom
-        {
-            get => permalinkToGenerateFrom;
-            set => SetProperty(ref permalinkToGenerateFrom, value);
-        }
 
+        [ObservableProperty]
         private string outputRomFileName;
-        public string OutputRomFileName
-        {
-            get => outputRomFileName;
-            set => SetProperty(ref outputRomFileName, value);
-        }
 
+        [ObservableProperty]
         private string permalinkToCopy;
-        public string PermalinkToCopy
-        {
-            get => permalinkToCopy;
-            set => SetProperty(ref permalinkToCopy, value);
-        }
 
+        [ObservableProperty]
         private bool canGenerateRom;
-        public bool CanGenerateRom
-        {
-            get => canGenerateRom;
-            set => SetProperty(ref canGenerateRom, value);
-        }
 
-        public RelayCommand GenerateRom => new(GenerateRomHandler);
-
-        private void GenerateRomHandler()
+        [RelayCommand]
+        private void GenerateRom()
         {
-            Progress = 0;
+            Progress = 0;        
             OutputLog = randstalkerApp.GenerateSeed(UserConfig.Instance.InputRomFilePath,
                 UserConfig.Instance.OutputRomDirectoryPath,
                 PresetTreeViewModel.SelectedFileRelativePath,
@@ -91,13 +69,18 @@ namespace RandstalkerGui.ViewModels.UserControls
             UserConfig.SaveFile();
         }
 
-        public RelayCommand CopyPermalink => new(CopyPermalinkHandler, () => !string.IsNullOrEmpty(PermalinkToCopy));
-
-        private void CopyPermalinkHandler()
+        [RelayCommand]
+        private async void CopyPermalink()
         {
             try
             {
                 Clipboard.SetText(PermalinkToCopy);
+
+                CopyPermalinkText = (string)App.Instance.TryFindResource("Copied");
+                CanCopyPermalink = false;
+                await Task.Delay(3000);
+                CanCopyPermalink = true;
+                CopyPermalinkText = (string)App.Instance.TryFindResource("CopyPermalink");
             }
             catch (Exception ex)
             {
@@ -115,6 +98,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             randstalkerApp = new RandstalkerApp();
 
             Progress = 0;
+            CopyPermalinkText = (string)App.Instance.TryFindResource("CopyPermalink");
 
             CanGenerateRom = string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity());
             UserConfig.OnSavedValidUserConfig += OnSavedValidUserConfig;
@@ -123,6 +107,11 @@ namespace RandstalkerGui.ViewModels.UserControls
         public void OnSavedValidUserConfig(object sender, StatusBarMessageEventArgs args)
         {
             CanGenerateRom = string.IsNullOrEmpty(UserConfig.Instance.CheckParametersValidity());
+        }
+
+        partial void OnPermalinkToCopyChanged(string? value)
+        {
+            CanCopyPermalink = !string.IsNullOrWhiteSpace(value);
         }
     }
 }

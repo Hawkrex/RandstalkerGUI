@@ -30,7 +30,7 @@
                         <DataTemplate>
                             <DockPanel Margin="5,5,5,5" LastChildFill="False">
                                 <uc:ItemCountView DataContext="{Binding}" />
-                                <Button Content="{DynamicResource Delete}" Command="{Binding Path=DataContext.DeleteItem, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Name}"
+                                <Button Content="{DynamicResource Delete}" Command="{Binding Path=DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Name}"
                                         DockPanel.Dock="Right"/>
                             </DockPanel>
                         </DataTemplate>
@@ -40,7 +40,7 @@
             <StackPanel Style="{StaticResource ParameterPanel}" Grid.Row="1">
                 <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding ItemToAdd}" IsEnabled="{Binding Items.Count}"
                           Margin="5,0,5,0" Width="120" HorizontalAlignment="Left"/>
-                <Button Content="{DynamicResource Add}" Command="{Binding AddItem}" IsEnabled="{Binding Items.Count}"/>
+                <Button Content="{DynamicResource Add}" Command="{Binding AddItemCommand}" IsEnabled="{Binding Items.Count}"/>
             </StackPanel>
         </Grid>
     </GroupBox>

@@ -89,7 +89,7 @@
                 </Image>
             </StackPanel>
         </StackPanel>
-        <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettings}"
+        <Button Content="{DynamicResource SavePersonalSettings}" Command="{Binding SavePersonalSettingsCommand}"
                     Margin="10,10,10,10" Height="50" DockPanel.Dock="Bottom"/>
     </DockPanel>
 </UserControl>

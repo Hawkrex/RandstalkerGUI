@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -22,54 +22,46 @@ namespace RandstalkerGui.ViewModels
 
         private readonly Dictionary<object, List<string>> statusBarMessages = new Dictionary<object, List<string>>();
 
-        public RelayCommand OnClose => new(OnCloseHandler);
-
-        public void OnCloseHandler()
+        [RelayCommand]
+        public void Close()
         {
-            Log.Info($"{nameof(OnCloseHandler)}() => Closing window");
+            Log.Info($"{nameof(Close)}() => Closing window");
 
             Application.Current.Shutdown();
         }
 
-        public RelayCommand Config => new(ConfigHandler);
-
-        private void ConfigHandler()
+        [RelayCommand]
+        private void Config()
         {
             var userConfigPopup = new UserConfigPopup();
             userConfigPopup.ShowDialog();
         }
 
-        public RelayCommand<string> SwitchLanguage => new(SwitchLanguageHandler);
-
-        private void SwitchLanguageHandler(string languageRegion)
+        [RelayCommand]
+        private void SwitchLanguage(string languageRegion)
         {
             if (Thread.CurrentThread.CurrentCulture.Name.Equals(languageRegion))
             {
-                Log.Info($"{nameof(SwitchLanguageHandler)}() => Language is already {languageRegion}");
+                Log.Info($"{nameof(SwitchLanguage)}() => Language is already {languageRegion}");
             }
             else
             {
                 App.Instance.SwitchLanguage(languageRegion);
                 OnPropertyChanged(nameof(CurrentCulture));
-                Log.Info($"{nameof(SwitchLanguageHandler)}() => Language switched to {languageRegion}");
+                Log.Info($"{nameof(SwitchLanguage)}() => Language switched to {languageRegion}");
             }
         }
 
-        public RelayCommand About => new(AboutHandler);
-
-        private void AboutHandler()
+        [RelayCommand]
+        private void About()
         {
             MessageBox.Show((string)App.Instance.TryFindResource("AboutText"), (string)App.Instance.TryFindResource("AboutTitle"), MessageBoxButton.OK);
         }
 
         public PresetViewModel PresetViewModel { get; set; }
 
+        [ObservableProperty]
         private string statusBarMessage;
-        public string StatusBarMessage
-        {
-            get => statusBarMessage;
-            set => SetProperty(ref statusBarMessage, value);
-        }
 
         public MainViewModel()
         {

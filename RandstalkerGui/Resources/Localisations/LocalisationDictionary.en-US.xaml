@@ -91,6 +91,7 @@
     <system:String x:Key="GenerateRom">Generate ROM</system:String>
 
     <system:String x:Key="CopyPermalink">Copy permalink</system:String>
+    <system:String x:Key="Copied">Copied!</system:String>
 
     <!-- Preset -->
     <system:String x:Key="StartingSettings">Starting settings</system:String>

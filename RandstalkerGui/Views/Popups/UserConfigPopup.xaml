@@ -36,7 +36,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Content="..." Command="{Binding SelectRandstlakerExeFilePath}"/>
+            <Button Content="..." Command="{Binding SelectRandstlakerExeFilePathCommand}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource PresetsDirectoryPath}" ToolTip="{DynamicResource PresetsDirectoryPathTooltip}"/>
@@ -49,7 +49,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Content="..." Command="{Binding SelectPresetsDirectoryPath}"/>
+            <Button Content="..." Command="{Binding SelectPresetsDirectoryPathCommand}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource PersonalSettingsDirectoryPath}" ToolTip="{DynamicResource PersonalSettingsDirectoryPathTooltip}"/>
@@ -62,7 +62,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Content="..." Command="{Binding SelectPersonalSettingsDirectoryPath}"/>
+            <Button Content="..." Command="{Binding SelectPersonalSettingsDirectoryPathCommand}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource InputRomFilePath}" ToolTip="{DynamicResource InputRomFilePathTooltip}"/>
@@ -75,7 +75,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Content="..." Command="{Binding SelectInputRomFilePath}"/>
+            <Button Content="..." Command="{Binding SelectInputRomFilePathCommand}"/>
         </StackPanel>
         <StackPanel Style="{StaticResource ParameterPanel}">
             <Label Content="{DynamicResource OutputRomDirectoryPath}" ToolTip="{DynamicResource OutputRomDirectoryPathTooltip}"/>
@@ -88,10 +88,10 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Button Content="..." Command="{Binding SelectOutputRomDirectoryPath}"/>
+            <Button Content="..." Command="{Binding SelectOutputRomDirectoryPathCommand}"/>
         </StackPanel>
         <Button Content="{DynamicResource SaveUserConfig}"
-                Command="{Binding SaveUserConfig}" CommandParameter="{Binding ElementName=TestWindow}" 
+                Command="{Binding SaveUserConfigCommand}" CommandParameter="{Binding ElementName=TestWindow}" 
                 Margin="5,5,5,5" Height="50">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">

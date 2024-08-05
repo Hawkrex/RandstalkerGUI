@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json;
 using RandstalkerGui.Models;
 using System;
 using System.IO;
@@ -10,7 +9,7 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels.Popups
 {
-    public class UserConfigPopupViewModel : ObservableObject
+    public partial class UserConfigPopupViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -86,9 +85,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand SelectRandstlakerExeFilePath => new(SelectRandstlakerExeFilePathHandler);
-
-        private void SelectRandstlakerExeFilePathHandler()
+        [RelayCommand]
+        private void SelectRandstlakerExeFilePath()
         {
             var dialog = new OpenFileDialog
             {
@@ -104,9 +102,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand SelectPresetsDirectoryPath => new(SelectPresetsDirectoryPathHandler);
-
-        private void SelectPresetsDirectoryPathHandler()
+        [RelayCommand]
+        private void SelectPresetsDirectoryPath()
         {
             var dialog = new CommonOpenFileDialog
             {
@@ -122,9 +119,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand SelectPersonalSettingsDirectoryPath => new(SelectPersonalSettingsDirectoryPathHandler);
-
-        private void SelectPersonalSettingsDirectoryPathHandler()
+        [RelayCommand]
+        private void SelectPersonalSettingsDirectoryPath()
         {
             var dialog = new CommonOpenFileDialog
             {
@@ -140,9 +136,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand SelectInputRomFilePath => new(SelectInputRomFilePathHandler);
-
-        private void SelectInputRomFilePathHandler()
+        [RelayCommand]
+        private void SelectInputRomFilePath()
         {
             var dialog = new OpenFileDialog
             {
@@ -162,9 +157,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand SelectOutputRomDirectoryPath => new(SelectOutputRomDirectoryPathHandler);
-
-        private void SelectOutputRomDirectoryPathHandler()
+        [RelayCommand]
+        private void SelectOutputRomDirectoryPath()
         {
             var dialog = new CommonOpenFileDialog
             {
@@ -180,9 +174,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand<Window> SaveUserConfig => new(SaveUserConfigHandler);
-
-        private void SaveUserConfigHandler(Window dialog)
+        [RelayCommand]
+        private void SaveUserConfig(Window dialog)
         {
             try
             {

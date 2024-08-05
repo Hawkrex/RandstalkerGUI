@@ -24,7 +24,7 @@
                 <uc:PresetQolSettingsView Margin="5,5,5,5" DataContext="{Binding PresetQolSettingsViewModel}"/>
             </TabItem>
         </TabControl>
-        <Button Content="{DynamicResource SavePreset}" Command="{Binding SavePreset}" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolean}}"
+        <Button Content="{DynamicResource SavePreset}" Command="{Binding SavePresetCommand}" IsEnabled="{Binding HasErrors, Converter={StaticResource InvertBoolean}}"
                 DockPanel.Dock="Bottom" Margin="5,5,5,5" Height="50" />
     </DockPanel>
 </UserControl>

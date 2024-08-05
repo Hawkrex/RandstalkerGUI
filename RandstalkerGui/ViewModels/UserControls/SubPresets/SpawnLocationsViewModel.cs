@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 {
-    public class SpawnLocationsViewModel : ObservableObject
+    public partial class SpawnLocationsViewModel : ObservableObject
     {
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private const string MassanName = "massan";
         private const string GumiName = "gumi";
         private const string KadoName = "kado";
@@ -17,78 +15,32 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
         private const string GreenmazeName = "greenmaze";
         private const string DestelName = "destel";
 
+        [ObservableProperty]
         private bool massan;
 
-        public bool Massan
-        {
-            get => massan;
-            set => SetProperty(ref massan, value);
-        }
-
+        [ObservableProperty]
         private bool gumi;
 
-        public bool Gumi
-        {
-            get => gumi;
-            set => SetProperty(ref gumi, value);
-        }
-
+        [ObservableProperty]
         private bool kado;
 
-        public bool Kado
-        {
-            get => kado;
-            set => SetProperty(ref kado, value);
-        }
-
+        [ObservableProperty]
         private bool waterfall;
 
-        public bool Waterfall
-        {
-            get => waterfall;
-            set => SetProperty(ref waterfall, value);
-
-        }
-
+        [ObservableProperty]
         private bool ryuma;
 
-        public bool Ryuma
-        {
-            get => ryuma;
-            set => SetProperty(ref ryuma, value);
-        }
-
+        [ObservableProperty]
         private bool mercator;
 
-        public bool Mercator
-        {
-            get => mercator;
-            set => SetProperty(ref mercator, value);
-        }
-
+        [ObservableProperty]
         private bool verla;
 
-        public bool Verla
-        {
-            get => verla;
-            set => SetProperty(ref verla, value);
-        }
-
+        [ObservableProperty]
         private bool greenmaze;
 
-        public bool Greenmaze
-        {
-            get => greenmaze;
-            set => SetProperty(ref greenmaze, value);
-        }
-
+        [ObservableProperty]
         private bool destel;
-
-        public bool Destel
-        {
-            get => destel;
-            set => SetProperty(ref destel, value);
-        }
 
         public SpawnLocationsViewModel(List<string> spawnLocations)
         {

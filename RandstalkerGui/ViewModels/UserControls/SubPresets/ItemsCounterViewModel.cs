@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 {
-    public class ItemsCounterViewModel : ObservableObject
+    public partial class ItemsCounterViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -18,17 +18,11 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
         public ObservableCollection<ItemCountViewModel> ItemCounters { get; set; }
 
+        [ObservableProperty]
         private string itemToAdd;
 
-        public string ItemToAdd
-        {
-            get => itemToAdd;
-            set => SetProperty(ref itemToAdd, value);
-        }
-
-        public RelayCommand AddItem => new(AddItemHandler);
-
-        private void AddItemHandler()
+        [RelayCommand]
+        private void AddItem()
         {
             if (string.IsNullOrEmpty(ItemToAdd))
             {
@@ -36,7 +30,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             }
 
             ItemCounters.Add(new ItemCountViewModel(ItemToAdd, 1, this));
-            Log.Info($"{nameof(AddItemHandler)}() => Added item <{ItemToAdd}> to the list of items");
+            Log.Info($"{nameof(AddItem)}() => Added item <{ItemToAdd}> to the list of items");
 
             if (!Items.Remove(ItemToAdd))
             {
@@ -82,8 +76,8 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
             }
         }
 
-        public RelayCommand<string> DeleteItem => new(DeleteItemHandler);
-        private void DeleteItemHandler(string name)
+        [RelayCommand]
+        private void DeleteItem(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -92,7 +86,7 @@ namespace RandstalkerGui.ViewModels.UserControls.SubPresets
 
             if (ItemCounters.Remove(ItemCounters.First(x => x.Name == name)))
             {
-                Log.Info($"{nameof(AddItemHandler)}() => Removed item <{name}> from the list of items");
+                Log.Info($"{nameof(DeleteItem)}() => Removed item <{name}> from the list of items");
             }
             else
             {

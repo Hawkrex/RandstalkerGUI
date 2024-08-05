@@ -14,7 +14,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class FileTreeViewModel : ObservableObject
+    public partial class FileTreeViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -24,22 +24,14 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public ObservableCollection<TreeViewElement> Tree { get; set; }
 
+        [ObservableProperty]
         private bool contextMenuEnabled;
-        public bool ContextMenuEnabled
-        {
-            get => contextMenuEnabled;
-            set => SetProperty(ref contextMenuEnabled, value);
-        }
 
+        [ObservableProperty]
         private string selectedFileRelativePath;
-        public string SelectedFileRelativePath
-        {
-            get => selectedFileRelativePath;
-            set => SetProperty(ref selectedFileRelativePath, value);
-        }
 
-        public RelayCommand<string> NewDirectory => new(NewDirectoryHandler);
-        private void NewDirectoryHandler(string directoryPath)
+        [RelayCommand]
+        private void NewDirectory(string directoryPath)
         {
             string newDirectoryPath = string.Empty;
 
@@ -56,12 +48,12 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(NewDirectoryHandler)}() => Impossible to create the directory <{newDirectoryPath}>", ex);
+                Log.Error($"{nameof(NewDirectory)}() => Impossible to create the directory <{newDirectoryPath}>", ex);
             }
         }
 
-        public RelayCommand<string> NewFile => new(NewFileHandler);
-        private void NewFileHandler(string directoryPath)
+        [RelayCommand]
+        private void NewFile(string directoryPath)
         {
             var saveFileDialog = new SaveFileDialog();
 
@@ -91,12 +83,12 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(NewFileHandler)}() => Impossible to create the file <{saveFileDialog.FileName}>", ex);
+                Log.Error($"{nameof(NewFile)}() => Impossible to create the file <{saveFileDialog.FileName}>", ex);
             }
         }
 
-        public RelayCommand<string> DuplicateFile => new(DuplicateFileHandler);
-        private void DuplicateFileHandler(string filePath)
+        [RelayCommand]
+        private void DuplicateFile(string filePath)
         {
             try
             {
@@ -109,12 +101,12 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(DuplicateFileHandler)}() => Impossible to duplicate the file <{filePath}>", ex);
+                Log.Error($"{nameof(DuplicateFile)}() => Impossible to duplicate the file <{filePath}>", ex);
             }
         }
 
-        public RelayCommand<string> DeleteDirectory => new(DeleteDirectoryHandler);
-        private void DeleteDirectoryHandler(string directoryPath)
+        [RelayCommand]
+        private void DeleteDirectory(string directoryPath)
         {
             try
             {
@@ -127,12 +119,12 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(DeleteDirectoryHandler)}() => Impossible to delete the directory <{directoryPath}>", ex);
+                Log.Error($"{nameof(DeleteDirectory)}() => Impossible to delete the directory <{directoryPath}>", ex);
             }
         }
 
-        public RelayCommand<string> DeleteFile => new(DeleteFileHandler);
-        private void DeleteFileHandler(string filePath)
+        [RelayCommand]
+        private void DeleteFile(string filePath)
         {
             try
             {
@@ -145,7 +137,7 @@ namespace RandstalkerGui.ViewModels.UserControls
             }
             catch (Exception ex)
             {
-                Log.Error($"{nameof(DeleteFileHandler)}() => Impossible to delete the file <{SelectedFileRelativePath}>", ex);
+                Log.Error($"{nameof(DeleteFile)}() => Impossible to delete the file <{SelectedFileRelativePath}>", ex);
             }
         }
 

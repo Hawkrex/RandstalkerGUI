@@ -21,16 +21,16 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="{DynamicResource MenuItem_File}">
-                <MenuItem Header="{DynamicResource MenuItem_Exit}" Command="{Binding OnClose}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                <MenuItem Header="{DynamicResource MenuItem_Exit}" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
             </MenuItem>
             <MenuItem Header="{DynamicResource MenuItem_Options}">
-                <MenuItem Header="{DynamicResource MenuItem_Config}" Command="{Binding Config}"/>
+                <MenuItem Header="{DynamicResource MenuItem_Config}" Command="{Binding ConfigCommand}"/>
                 <Separator/>
-                <MenuItem Header="{DynamicResource MenuItem_EnUs}" Command="{Binding SwitchLanguage}" CommandParameter="{StaticResource usaLanguage}" IsChecked="{Binding CurrentCulture, Mode=OneWay, Converter={StaticResource CurrentCultureSelectedConverter}, ConverterParameter={StaticResource usaLanguage}}"/>
-                <MenuItem Header="{DynamicResource MenuItem_FrFr}" Command="{Binding SwitchLanguage}" CommandParameter="{StaticResource frenchLanguage}" IsChecked="{Binding CurrentCulture, Mode=OneWay, Converter={StaticResource CurrentCultureSelectedConverter}, ConverterParameter={StaticResource frenchLanguage}}"/>
+                <MenuItem Header="{DynamicResource MenuItem_EnUs}" Command="{Binding SwitchLanguageCommand}" CommandParameter="{StaticResource usaLanguage}" IsChecked="{Binding CurrentCulture, Mode=OneWay, Converter={StaticResource CurrentCultureSelectedConverter}, ConverterParameter={StaticResource usaLanguage}}"/>
+                <MenuItem Header="{DynamicResource MenuItem_FrFr}" Command="{Binding SwitchLanguageCommand}" CommandParameter="{StaticResource frenchLanguage}" IsChecked="{Binding CurrentCulture, Mode=OneWay, Converter={StaticResource CurrentCultureSelectedConverter}, ConverterParameter={StaticResource frenchLanguage}}"/>
             </MenuItem>
             <MenuItem Header="{DynamicResource MenuItem_Help}">
-                <MenuItem Header="{DynamicResource MenuItem_About}" Command="{Binding About}"/>
+                <MenuItem Header="{DynamicResource MenuItem_About}" Command="{Binding AboutCommand}"/>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
@@ -65,7 +65,7 @@
             </TabItem>
             <TabItem Header="{DynamicResource Wiki}">
                 <Grid>
-                    <Image  Source="/RandstalkerGui;component/Resources/Images/LakeShrinePath.png"/>
+                    <Image Source="/RandstalkerGui;component/Resources/Images/LakeShrinePath.png"/>
                 </Grid>
             </TabItem>
         </TabControl>

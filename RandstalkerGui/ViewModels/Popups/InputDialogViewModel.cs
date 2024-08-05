@@ -4,12 +4,12 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels.Popups
 {
-    public class InputDialogViewModel : ObservableObject
+    public partial class InputDialogViewModel : ObservableObject
     {
         public string Input { get; set; }
 
-        public RelayCommand<Window> Validate => new(ValidateHandler);
-        private void ValidateHandler(Window dialog)
+        [RelayCommand]
+        private void Validate(Window dialog)
         {
             if (dialog != null)
             {
@@ -17,8 +17,8 @@ namespace RandstalkerGui.ViewModels.Popups
             }
         }
 
-        public RelayCommand<Window> Cancel => new(CancelHandler);
-        private void CancelHandler(Window dialog)
+        [RelayCommand]
+        private void Cancel(Window dialog)
         {
             if (dialog != null)
             {

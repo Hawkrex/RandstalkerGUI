@@ -15,9 +15,9 @@
                     <TextBlock Text="{Binding Name}" ToolTip="{Binding Path}" Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType=TreeView}}">
                         <TextBlock.ContextMenu>
                             <ContextMenu Visibility="{Binding Path=PlacementTarget.Tag.ContextMenuEnabled, RelativeSource={x:Static RelativeSource.Self}, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <MenuItem Header="{DynamicResource NewFile}" Command="{Binding Path=PlacementTarget.Tag.NewFile, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
-                                <MenuItem Header="{DynamicResource NewDirectory}" Command="{Binding Path=PlacementTarget.Tag.NewDirectory, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
-                                <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteDirectory, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
+                                <MenuItem Header="{DynamicResource NewFile}" Command="{Binding Path=PlacementTarget.Tag.NewFileCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
+                                <MenuItem Header="{DynamicResource NewDirectory}" Command="{Binding Path=PlacementTarget.Tag.NewDirectoryCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
+                                <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteDirectoryCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                     </TextBlock>
@@ -27,9 +27,9 @@
                     <TextBlock Text="{Binding Name}" ToolTip="{Binding Path}" Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType=TreeView}}">
                         <TextBlock.ContextMenu>
                             <ContextMenu Visibility="{Binding Path=PlacementTarget.Tag.ContextMenuEnabled, RelativeSource={x:Static RelativeSource.Self}, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <MenuItem Header="{DynamicResource NewFile}" Command="{Binding Path=PlacementTarget.Tag.NewFile, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
-                                <MenuItem Header="{DynamicResource Duplicate}" Command="{Binding Path=PlacementTarget.Tag.DuplicateFile, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
-                                <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteFile, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
+                                <MenuItem Header="{DynamicResource NewFile}" Command="{Binding Path=PlacementTarget.Tag.NewFileCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
+                                <MenuItem Header="{DynamicResource Duplicate}" Command="{Binding Path=PlacementTarget.Tag.DuplicateFileCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
+                                <MenuItem Header="{DynamicResource Delete}" Command="{Binding Path=PlacementTarget.Tag.DeleteFileCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding Path}"/>
                             </ContextMenu>
                         </TextBlock.ContextMenu>
                     </TextBlock>

@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class PersonalSettingsViewModel : ObservableObject
+    public partial class PersonalSettingsViewModel : ObservableObject
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -46,16 +46,11 @@ namespace RandstalkerGui.ViewModels.UserControls
 
         public ColorPickerViewModel SecondaryNigelColorPickerViewModel { get; set; }
 
+        [ObservableProperty]
         private Bitmap nigelSprite;
-        public Bitmap NigelSprite
-        {
-            get => nigelSprite;
-            set => SetProperty(ref nigelSprite, value);
-        }
 
-        public RelayCommand SavePersonalSettings => new(SavePersonalSettingsHandler);
-
-        private void SavePersonalSettingsHandler()
+        [RelayCommand]
+        private void SavePersonalSettings()
         {
             personalSettings.HudColor = HudColorPickerViewModel.FormatSettings();
             personalSettings.NigelColor[0] = MainNigelColorPickerViewModel.FormatSettings();

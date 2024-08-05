@@ -7,16 +7,14 @@ using RandstalkerGui.ViewModels.UserControls.PresetViewModels;
 using RandstalkerGui.ViewModels.UserControls.SubPresets;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows;
 
 namespace RandstalkerGui.ViewModels.UserControls
 {
-    public class PresetViewModel : ValidationViewModel
+    public partial class PresetViewModel : ValidationViewModel
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -29,9 +27,8 @@ namespace RandstalkerGui.ViewModels.UserControls
         public PresetLogicSettingsViewModel PresetLogicSettingsViewModel { get; set; }
         public PresetQolSettingsViewModel PresetQolSettingsViewModel { get; set; }
 
-        public RelayCommand SavePreset => new(SavePresetHandler);
-
-        private void SavePresetHandler()
+        [RelayCommand]
+        private void SavePreset()
         {
             preset.RandomizerSettings.SpawnLocations = PresetStartingSettingsViewModel.SpawnLocationsViewModel.FormatSettings();
             preset.GameSettings.StartingItems = PresetStartingSettingsViewModel.StartingsItemsViewModel.FormatSettings();

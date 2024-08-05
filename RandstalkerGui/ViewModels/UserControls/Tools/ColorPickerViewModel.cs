@@ -2,28 +2,16 @@
 
 namespace RandstalkerGui.ViewModels.UserControls.Tools
 {
-    public class ColorPickerViewModel : ObservableObject
+    public partial class ColorPickerViewModel : ObservableObject
     {
+        [ObservableProperty]
         private char redValue;
-        public char RedValue
-        {
-            get => redValue;
-            set => SetProperty(ref redValue, value);
-        }
 
+        [ObservableProperty]
         private char greenValue;
-        public char GreenValue
-        {
-            get => greenValue;
-            set => SetProperty(ref greenValue, value);
-        }
 
+        [ObservableProperty]
         private char blueValue;
-        public char BlueValue
-        {
-            get => blueValue;
-            set => SetProperty(ref blueValue, value);
-        }
 
         public ColorPickerViewModel(string color)
         {
