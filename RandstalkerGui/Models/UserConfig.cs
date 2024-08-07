@@ -7,6 +7,12 @@ namespace RandstalkerGui.Models
 {
     public class UserConfig
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private const string UserConfigFilepath = "Resources/Datas/userConfig.json";
+
+        public static event EventHandler<StatusBarMessageEventArgs> OnSavedValidUserConfig;
+
         [JsonProperty("randstlakerExeFilePath")]
         public string RandstlakerExeFilePath { get; set; }
 
@@ -28,11 +34,42 @@ namespace RandstalkerGui.Models
         [JsonProperty("outputRomDirectoryPath")]
         public string OutputRomDirectoryPath { get; set; }
 
-        public static event EventHandler<StatusBarMessageEventArgs> OnSavedValidUserConfig;
-
-        private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() => JsonConvert.DeserializeObject<UserConfig>(File.ReadAllText("Resources/Datas/userConfig.json")));
-
         public static UserConfig Instance => instance.Value;
+        private static readonly Lazy<UserConfig> instance = new Lazy<UserConfig>(() =>
+        {
+            if (!File.Exists(UserConfigFilepath))
+            {
+                Log.Info("UserConfig file does not exists, creating empty one");
+                return new UserConfig();
+            }
+
+            string userConfigRawText = string.Empty;
+            try
+            {
+                userConfigRawText = File.ReadAllText(UserConfigFilepath);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error occured while reading UserConfig file, creating empty one", ex);
+                return new UserConfig();
+            }
+
+            if (string.IsNullOrEmpty(userConfigRawText))
+            {
+                Log.Warn("UserConfig file read but is empty, creating empty one");
+                return new UserConfig();
+            }
+
+            var userConfig = JsonConvert.DeserializeObject<UserConfig>(userConfigRawText);
+            if (userConfig == null)
+            {
+                Log.Error("Error occured while deserializing UserConfig raw text, creating empty one");
+                return new UserConfig();
+            }
+
+            Log.Info("Successfully read UserConfig file");
+            return userConfig;
+        });
 
         public string CheckParametersValidity()
         {
@@ -60,7 +97,7 @@ namespace RandstalkerGui.Models
 
         public static void SaveFile()
         {
-            File.WriteAllText("Resources/Datas/userConfig.json", JsonConvert.SerializeObject(Instance));
+            File.WriteAllText(UserConfigFilepath, JsonConvert.SerializeObject(Instance));
         }
     }
 }
